@@ -11,26 +11,26 @@
     <ul class="nav nav-pills flex-column mb-auto">
         <li class="nav-item">
             <a  class="nav-link clr" [routerLink]="['/admin']">
-                <i class="bi bi-speedometer2" [ngClass]="{'active': boutonActif === 1}" (click)="boutonActif = 1"></i>
-                <font _mstmutation="1" _msttexthash="111306" _msthash="15" [ngClass]="{'active': boutonActif === 1}" (click)="boutonActif = 1"> Dashboard </font>
+                <i class="bi bi-speedometer2" routerLinkActive="active"></i>
+                <font _mstmutation="1" _msttexthash="111306" _msthash="15" routerLinkActive="active"> Dashboard </font>
             </a>
         </li>
         <li>
             <a  class="nav-link clr" [routerLink]="['/users']" >
-                <i class="bi bi-people" [ngClass]="{'active': boutonActif === 2}" (click)="boutonActif = 2"></i>
-                <font _mstmutation="1" _msttexthash="226772" _msthash="16" [ngClass]="{'active': boutonActif === 2}" (click)="boutonActif = 2"> Utilisateurs </font>
+                <i class="bi bi-people" routerLinkActive="active"></i>
+                <font _mstmutation="1" _msttexthash="226772" _msthash="16" routerLinkActive="active"> Utilisateurs </font>
             </a>
         </li>
         <li>
             <a  class="nav-link clr" [routerLink]="['/news']">
-                <i class="bi bi-newspaper" [ngClass]="{'active': boutonActif === 3}" (click)="boutonActif = 3"></i>
-                <font _mstmutation="1" _msttexthash="77948" _msthash="17" [ngClass]="{'active': boutonActif === 3}" (click)="boutonActif = 3"> Newsletters </font>
+                <i class="bi bi-newspaper" routerLinkActive="active"></i>
+                <font _mstmutation="1" _msttexthash="77948" _msthash="17" routerLinkActive="active"> Newsletters </font>
             </a>
         </li>
         <li>
             <a  class="nav-link clr" [routerLink]="['/zone']">
-                <i class="bi bi-geo"  [ngClass]="{'active': boutonActif === 4}" (click)="boutonActif = 4"></i>
-                <font _mstmutation="1" _msttexthash="118768" _msthash="18"  [ngClass]="{'active': boutonActif === 4}" (click)="boutonActif = 4"> Zone </font>
+                <i class="bi bi-geo"  routerLinkActive="active"></i>
+                <font _mstmutation="1" _msttexthash="118768" _msthash="18"  routerLinkActive="active"> Zone </font>
             </a>
         </li>
     </ul>

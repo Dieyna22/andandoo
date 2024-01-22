@@ -2,7 +2,7 @@
     <div class="footer-container">
         <div class="section-footer">
             <div class="Section_Footer_logo">
-                <img src="../../../assets/logo1.png" alt="logo" width="255px" height="68px" >
+                <img src="../../../assets/logo1.png" alt="logo" width="255px" height="68px">
                 <div class="contain-social-media d-flex">
                     <div class="icone-social" style="background-color:#FA7436;">
                         <i class="bi bi-instagram"></i>
@@ -20,16 +20,15 @@
             </div>
             <div>
                 <h3>Pages</h3>
-                <p><a href="">Publier un trajet</a></p>
-                <p><a href="">Reserver un trajet</a></p>
-                <p><a href="">Mes trajets</a></p>
-                <p><a href="">FAQ</a></p>
+                <p><a class="nav-link" routerLinkActive="active" [routerLink]="['/publierTrajet']">Publier un trajet</a></p>
+                <p><a class="nav-link" routerLinkActive="active" [routerLink]="['/reserverTrajet']">Reserver un trajet</a></p>
+                <p><a class="nav-link" routerLinkActive="active" [routerLink]="['/mesTrajets']">Mes trajets</a></p>
+                <p><a class="nav-link" routerLinkActive="active" [routerLink]="['/faqP']">FAQ</a></p>
             </div>
             <div class="section-contact">
                 <h3>Lien Utilesr</h3>
-                <p><a href="">Contact</a></p>
-                <p><a href="">Politique de confidentialité</a></p>
-                <p><a href="">Condition d’utilisation</a></p>
+                <p><a class="nav-link" routerLinkActive="active" [routerLink]="['/conf']">Politique de confidentialité</a></p>
+                <p><a class="nav-link" routerLinkActive="active" [routerLink]="['/utilisation']">Condition d’utilisation</a></p>
             </div>
             <div>
                 <h3>Newsletter</h3>

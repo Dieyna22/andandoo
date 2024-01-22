@@ -23,9 +23,6 @@
     text-underline-offset: 4px;
 }
 
-@media (max-width:990px) {
-    #navbarText {}
-}
 
 /*----------------- Debut Section Footer ---------------------------- */
 .footer-container {
