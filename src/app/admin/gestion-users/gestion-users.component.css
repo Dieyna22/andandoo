@@ -1,0 +1,19 @@
+.details{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+}
+.imageProfilUser{
+    border: thin solid #f6f6f6;
+    border-radius: 9px;
+    padding: 2px;
+    /* text-align: center; */
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+.btnClose{
+    background-color: #FFFFFF;
+    color: #FA7436;
+    border: thin solid #FA7436;
+}
+.fondText{
+    color: #FA7436;
+}

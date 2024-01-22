@@ -1,0 +1,122 @@
+<app-sidebar></app-sidebar>
+<div class="container zone shadow p-2">
+    <div class="statistique mt-3 mb-4">
+        <div class="carte">
+            <span style="background-color: #FA7436;"><i class="bi bi-person"></i></span>
+            <div class="text-wrapper-3">Utilisateurs globale</div>
+            <div class="text-wrapper-4">+1200</div>
+        </div>
+        <div class="carte">
+            <span style="background-color: #FFB60A;"><i class="bi bi-geo"></i></span>
+            <div class="text-wrapper-5">Nombre de zone couvert</div>
+            <div class="text-wrapper-4">4</div>
+        </div>
+        <div class="carte">
+            <span style="background-color: #999999;"><i class="bi bi-signpost-2"></i></span>
+            <div class="text-wrapper-6">Nombre de trajets effectués</div>
+            <div class="text-wrapper-4">+20</div>
+        </div>
+        <div class="carte">
+            <span style="background-color: #4086F4;"><i class="bi bi-car-front"></i></span>
+            <div class="text-wrapper-7">Nombre de conducteur</div>
+            <div class="text-wrapper-4">+42</div>
+        </div>
+    </div>
+    <h5 class="text-center">Listes des Utilisateurs</h5>
+    <div class="table-responsive tab overflow-y-scroll mt-2 border shadow p-2" style="height: 45vh;">
+        <table datatable [dtOptions]="dtOptions" class="table align-items-center  p-2">
+            <thead class="sticky-top fond">
+                <tr class="">
+                    <th scope="col" class="fond ">Profil </th>
+                    <th scope="col" class="fond ">Nom </th>
+                    <th scope="col" class="fond ">Prénom </th>
+                    <th scope="col" class="fond ">Adresse Email </th>
+                    <th scope="col" class="fond ">Téléphone </th>
+                    <th scope="col" class="fond ">Action </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <img src="https://img.freepik.com/premium-photo/advertising-concept-confident-smiling-young-african-woman-crossed-hands-looking-camera_613652-185.jpg?w=740"  class="rounded-circle mb-2" alt="profil" style="width: 40px; height: 40px;">
+                    </td>
+                    <td>Diagne</td>
+                    <td>Fatou</td>
+                    <td>Fatou@gmail.com</td>
+                    <td>773458719</td>
+                    <td>
+                        <button class="btn fond-btn" data-bs-toggle="modal"
+                            data-bs-target="#detailUser">Détails</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src="https://img.freepik.com/premium-photo/cheerful-african-teacher-patterned-blouse-white-background_941493-1226.jpg?size=626&ext=jpg&uid=R109978541&ga=GA1.2.1650161440.1694444933&semt=sph"
+                            class="rounded-circle mb-2" alt="profil" style="width: 40px; height: 40px;">
+                    </td>
+                    <td>Sow</td>
+                    <td>Fatou</td>
+                    <td>Fatousow@gmail.com</td>
+                    <td>773458719</td>
+                    <td>
+                        <button class="btn fond-btn" data-bs-toggle="modal" data-bs-target="#detailUser">Détails</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src="https://img.freepik.com/free-photo/young-handsome-man-posing_23-2148884333.jpg?size=626&ext=jpg&uid=R109978541&ga=GA1.2.1650161440.1694444933&semt=sph"
+                            class="rounded-circle mb-2" alt="profil" style="width: 40px; height: 40px;">
+                    </td>
+                    <td>Bah</td>
+                    <td>Habib</td>
+                    <td>habib@gmail.com</td>
+                    <td>773458719</td>
+                    <td>
+                        <button class="btn fond-btn" data-bs-toggle="modal" data-bs-target="#detailUser">Détails</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src="https://img.freepik.com/free-photo/kind-dark-skinned-girlfriend-keeps-hands-chest-expresses-friendly-manners_273609-18416.jpg?w=740&t=st=1705455466~exp=1705456066~hmac=70c26e7a518bae340c2ad49d892cd680ca923e9a859c9e405679688a10a2cdf8"
+                            class="rounded-circle mb-2" alt="profil" style="width: 40px; height: 40px;">
+                    </td>
+                    <td>Diouf</td>
+                    <td>Astou</td>
+                    <td>ayou@gmail.com</td>
+                    <td>773458719</td>
+                    <td>
+                        <button class="btn fond-btn" data-bs-toggle="modal" data-bs-target="#detailUser">Détails</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="detailUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fondText fs-5" id="exampleModalLabel">Détail Utilisateur</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body details">
+                <div class="imageProfilUser me-4 p-2">
+                    <img src="https://img.freepik.com/premium-photo/advertising-concept-confident-smiling-young-african-woman-crossed-hands-looking-camera_613652-185.jpg?w=740"
+                        class="rounded-circle mt-4" alt="profil" style="width: 140px; height: 140px;">
+                </div>
+                <div class="infosUser">
+                    <p><span class="fondText">Nom:</span> Diagne</p>
+                    <p><span class="fondText">Prénom:</span> Fatou</p>
+                    <p><span class="fondText">Adresse email:</span> Fatou@gmail.com</p>
+                    <p><span class="fondText">Téléphone:</span> 773458719</p>
+                    <p><span class="fondText">statut :</span> Passager</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btnClose" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>

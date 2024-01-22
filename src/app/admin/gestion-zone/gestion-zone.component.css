@@ -1,0 +1,57 @@
+.contenu{
+    display: flex;
+    justify-content: space-between;
+    gap: 3px;
+}
+.zoneAjout{
+    width: 400px;
+    height: 194px;
+    border-top-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    padding: 8px;
+}
+.ajouter{
+    background-color: #FA7436;
+    color: #FFFFFF;
+    float: right;
+}
+.modif{
+    background-color: #FA7436;
+    color: #FFFFFF;
+}
+.sup{
+    background-color: #FFFFFF;
+    color: #FA7436;
+    border: thin solid #FA7436;
+}
+.sta{
+    background-color: #FA7436;
+    color: #FFFFFF;
+    width: 220px;
+    height: 105px;
+    border-top-left-radius: 20px;
+    border-bottom-right-radius:20px ;
+    padding: 20px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+
+.droite{
+    font-weight: bold;
+    font-size: 18px;
+}
+.gauche{
+    float: right;
+    font-size: 24px;
+}
+
+.btnClose {
+    background-color: #FFFFFF;
+    color: #FA7436;
+    border: thin solid #FA7436;
+}
+
+.btnSave {
+    background-color: #FA7436;
+    color: #FFFFFF;
+}

@@ -1,0 +1,15 @@
+*{
+text-align: justify;}
+.fondTitre{
+    color: #FA7436;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.container h4{
+    margin-top: 6rem;
+}
+.para{
+    font-weight:bold;
+}

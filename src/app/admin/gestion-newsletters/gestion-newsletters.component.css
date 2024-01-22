@@ -1,0 +1,10 @@
+.info{
+    display: flex;
+    justify-content: space-between;
+}
+
+.fond-bt{
+    background-color: #FFFFFF;
+    color: #FA7436;
+    border: thin solid #FA7436;
+}

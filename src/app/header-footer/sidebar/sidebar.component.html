@@ -1,0 +1,82 @@
+<div class="d-flex flex-column flex-shrink-0 p-3 sidebar" style="width: 230px; height: 100vh;">
+    <img src="../../../assets/logo1.png" class="logo" alt="logo" width="120px" height="58px" [routerLink]="['/admin']" style="cursor: pointer;">
+    <hr>
+    <div class="profil ">
+        <img src="https://img.freepik.com/free-photo/confident-business-woman-portrait-smiling-face_53876-137693.jpg?size=626&ext=jpg&uid=R109978541&ga=GA1.2.1650161440.1694444933&semt=sph"
+            class="rounded-circle mb-2" alt="profil" style="width: 70px; height: 70px;">
+        <h5 [routerLink]="['/profil']" style="cursor: pointer;">Administrateur</h5>
+    </div>
+    
+    <hr>
+    <ul class="nav nav-pills flex-column mb-auto">
+        <li class="nav-item">
+            <a  class="nav-link clr" [routerLink]="['/admin']">
+                <i class="bi bi-speedometer2" [ngClass]="{'active': boutonActif === 1}" (click)="boutonActif = 1"></i>
+                <font _mstmutation="1" _msttexthash="111306" _msthash="15" [ngClass]="{'active': boutonActif === 1}" (click)="boutonActif = 1"> Dashboard </font>
+            </a>
+        </li>
+        <li>
+            <a  class="nav-link clr" [routerLink]="['/users']" >
+                <i class="bi bi-people" [ngClass]="{'active': boutonActif === 2}" (click)="boutonActif = 2"></i>
+                <font _mstmutation="1" _msttexthash="226772" _msthash="16" [ngClass]="{'active': boutonActif === 2}" (click)="boutonActif = 2"> Utilisateurs </font>
+            </a>
+        </li>
+        <li>
+            <a  class="nav-link clr" [routerLink]="['/news']">
+                <i class="bi bi-newspaper" [ngClass]="{'active': boutonActif === 3}" (click)="boutonActif = 3"></i>
+                <font _mstmutation="1" _msttexthash="77948" _msthash="17" [ngClass]="{'active': boutonActif === 3}" (click)="boutonActif = 3"> Newsletters </font>
+            </a>
+        </li>
+        <li>
+            <a  class="nav-link clr" [routerLink]="['/zone']">
+                <i class="bi bi-geo"  [ngClass]="{'active': boutonActif === 4}" (click)="boutonActif = 4"></i>
+                <font _mstmutation="1" _msttexthash="118768" _msthash="18"  [ngClass]="{'active': boutonActif === 4}" (click)="boutonActif = 4"> Zone </font>
+            </a>
+        </li>
+    </ul>
+
+    <a class="nav-link clr logout" [routerLink]="['/accueil']">
+        <i class="bi bi-box-arrow-left"></i>
+        <font _mstmutation="1" _msttexthash="111306" _msthash="15"> Déconnexion </font>
+    </a> 
+</div>
+
+<nav class="navbar menuSup navbar-expand-lg">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Hello Dieynaba 👋🏼,</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse  navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav secondMenu">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Utilisateurs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Newsletters</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" aria-disabled="true">Zone</a>
+                </li>
+            </ul>
+            <div class="box">
+                <div class="rectangle">
+                    <img class=" rounded-circle" src="https://img.freepik.com/free-photo/confident-business-woman-portrait-smiling-face_53876-137693.jpg?size=626&ext=jpg&uid=R109978541&ga=GA1.2.1650161440.1694444933&semt=sph" style="width: 40px; height: 40px;" />
+                    <p>Dieynaba <br>Administrateur</p>
+                    <!-- <i class="bi bi-chevron-down mt-3 ms-4 dropbtn "></i> -->
+                    <div class="dropdown">
+                        <i class="bi bi-chevron-down mt-3 ms-4 dropbtn "></i>
+                        <div class="dropdown-content">
+                            <a [routerLink]="['/profil']" [ngClass]="{'active': boutonActif === 4}" (click)="boutonActif = 4">Profil</a>
+                            <a [routerLink]="['/accueil']" [ngClass]="{'active': boutonActif === 4}" (click)="boutonActif = 4">Déconnexion</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>

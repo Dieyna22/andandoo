@@ -1,0 +1,230 @@
+.banniere img {
+    width: 100%;
+    height: 32rem;
+}
+
+h3 {
+    color: #FA7436;
+    font-family: Poppins;
+    font-size: 20px;
+    text-align: center;
+    font-weight: 800;
+}
+
+h5 {
+    color: #444;
+    text-align: center;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    line-height: normal;
+    text-align: center;
+}
+
+.btnSeach{
+    display: flex;
+    flex-direction: row;
+    gap: 18px;
+    justify-content: center;
+    align-items: center;
+}
+.mestrajets,.reservation,.historique{
+    border-radius: 10px;
+}
+.mestrajets button{
+    background: #FA7436;
+    color: #FFF!important;
+    width: 160px;
+}
+.reservation,.historique button{
+    border: 1px solid #FA7436;
+    background: #FFF;
+    color: #FA7436;
+    width: 160px;
+}
+.reservation button {
+    color: #FA7436;
+    width: 160px;
+}
+
+.rechercheArticles {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.rechercheArticles .nbrArticles {
+    font-family: popins;
+    font-size: 24px;
+    font-weight: bold;
+    color: #FA7436;
+}
+
+.rechercheArticles .zoneArticles {
+    display: flex;
+}
+
+.rechercheArticles .zoneArticles .champRecherche input {
+    padding: 5px;
+    border-radius: none !important;
+}
+
+.rechercheArticles .zoneArticles .btnRecherche button {
+    background-color: #FA7436    ;
+    border: none;
+    color: #fff;
+}
+
+.btnRecherche button  {
+    padding: 6px 18px;
+}
+
+.champRecherche input{
+    border: thin solid #FA7436;
+}
+
+.cardTrajets {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+.infosTrajet {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+}
+
+.trajet {
+    /* width: 455px; */
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    border-radius: 25px;
+    padding: 15px;
+
+}
+
+.chauffeur {
+    margin: 0 auto;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+.chauffeur p {
+    color: #000;
+    text-align: center;
+    font-family: Inter;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 26px;
+}
+
+.trajet p {
+    text-align: center;
+}
+
+.lieu,
+.date {
+    display: flex;
+    padding: 8px 28px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    border-radius: 24px;
+    box-shadow: 0px 8px 16px 0px rgba(96, 97, 112, 0.16), 0px 2px 4px 0px rgba(40, 41, 61, 0.04);
+}
+
+.details,
+.autreDetails {
+    display: flex;
+    justify-content: space-around;
+}
+
+.reserver {
+    border-radius: 5px;
+    border: 1px solid #FA7436;
+    background: #FFF;
+    color: #FA7436;
+    display: inline-flex;
+    align-items: center;
+}
+
+.gauche {
+    color: #000;
+    font-family: popins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.droite {
+    color: #000;
+    font-family: popins;
+    font-size: 16px;
+    font-style: normal;
+    line-height: normal;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+
+
+
+/* resposivité */
+
+@media(max-width:700px) {
+    .banniere img {
+        height: 20rem;
+    }
+    .searching {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .cardTrajets {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    .trajet {
+        width: 100%;
+    }
+
+    .infosTrajet {
+        display: flex;
+        flex-direction: row;
+    }
+}
+
+@media only screen and (min-width: 700px) and (max-width:1100px) {
+    .banniere img {
+        height: 20rem;
+    }
+    .searching {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .cardTrajets {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    .trajet {
+        width: 100%;
+    }
+
+    .infosTrajet {
+        display: flex;
+        flex-direction: row;
+    }
+}

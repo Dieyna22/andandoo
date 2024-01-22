@@ -1,0 +1,109 @@
+<app-sidebar></app-sidebar>
+<div class="container zone shadow p-2">
+    <div class="statistique mt-3 mb-4">
+        <div class="carte">
+            <span style="background-color: #FA7436;"><i class="bi bi-person"></i></span>
+            <div class="text-wrapper-3">Utilisateurs globale</div>
+            <div class="text-wrapper-4">+1200</div>
+        </div>
+        <div class="carte">
+            <span style="background-color: #FFB60A;"><i class="bi bi-geo"></i></span>
+            <div class="text-wrapper-5">Nombre de zone couvert</div>
+            <div class="text-wrapper-4">4</div>
+        </div>
+        <div class="carte">
+            <span style="background-color: #999999;"><i class="bi bi-signpost-2"></i></span>
+            <div class="text-wrapper-6">Nombre de trajets effectués</div>
+            <div class="text-wrapper-4">+20</div>
+        </div>
+        <div class="carte">
+            <span style="background-color: #4086F4;"><i class="bi bi-car-front"></i></span>
+            <div class="text-wrapper-7">Nombre de conducteur</div>
+            <div class="text-wrapper-4">+42</div>
+        </div>
+    </div>
+   <div class="contenu">
+    <div>
+        <div class="zoneAjout mb-3">
+            <h5 class="text-center">Ajout Zone</h5>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Ajouter</label>
+                <input type="text" name="auteur" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                    placeholder="zone">
+            </div>
+            <button class="btn ajouter">Ajouter</button>
+        </div>
+        <div class="sta">
+            <h5 class="mb-4">Total zone</h5>
+            <span class="droite">4</span>
+            <span class="gauche"><i class="bi bi-files"></i></span>
+        </div>
+    </div>
+    <div class="table-responsive tab overflow-y-scroll mt-2 border shadow p-2" style="height: 45vh; width: 60%;">
+        <table datatable [dtOptions]="dtOptions" class="table align-items-center  p-2">
+            <thead class="sticky-top fond">
+                <tr class="">
+                    <th scope="col" class="fond ">Nom zone </th>
+                    <th scope="col" class="fond ">Action </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td> Dakar</td>
+                    <td>
+                        <button class="btn sup me-2">Supprimer</button>
+                        <button class="btn modif" data-bs-toggle="modal" data-bs-target="#modifZone">Modifier</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Pikine</td>
+                    <td>
+                        <button class="btn sup me-2" >Supprimer</button>
+                        <button class="btn modif" data-bs-toggle="modal" data-bs-target="#modifZone">Modifier</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td> Keur massar</td>
+                    <td>
+                        <button class="btn sup me-2" >Supprimer</button>
+                        <button class="btn modif" data-bs-toggle="modal" data-bs-target="#modifZone">Modifier</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td> Mbour</td>
+                    <td>
+                        <button class="btn sup me-2" >Supprimer</button>
+                        <button class="btn modif" data-bs-toggle="modal" data-bs-target="#modifZone">Modifier</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+   </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modifZone" tabindex="-1" aria-labelledby="modifZoneLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modifZoneLabel" style="color: #FA7436;">Modifier Zone</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Nom:</label>
+                        <input type="text" name="titre" class="form-control" id="exampleInputEmail1"
+                            aria-describedby="emailHelp">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btnClose" data-bs-dismiss="modal">Annuler</button>
+                <button type="button" class=" btn btnSave" data-bs-dismiss="modal">Modifier</button>
+            </div>
+        </div>
+    </div>
+</div>
+

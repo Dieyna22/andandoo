@@ -1,0 +1,99 @@
+.banniere img {
+    width: 100%;
+    height: 32rem;
+}
+
+h3 {
+    color: #FA7436;
+    font-family: Poppins;
+    font-size: 20px;
+    text-align: center;
+    font-weight: 800;
+}
+
+h5 {
+    color: #444;
+    text-align: center;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    line-height: normal;
+    text-align: center;
+}
+.passager{
+    background: #FA7436;
+    color: #fff;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    border-radius: none;
+    padding: 8px;
+}
+.conducteur{
+    background: #FFF;
+    color: #FA7436;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    border-radius: none;
+    padding: 8px;
+}
+
+summary {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: popins;
+}
+
+.arrow {
+    transform: rotate(0deg);
+    transition: transform 0.2s;
+    margin-left: 60px;
+}
+details{
+    background: #F6F6F6;
+    margin-bottom: 5px;
+    padding: 10px;
+}
+
+details[open] .arrow {
+    transform: rotate(180deg);
+}
+
+/* Style lorsque les détails sont ouverts */
+details[open] {
+    background-color: #F7F8FC;
+    text-align: justify;
+}
+
+.simplonFaq {
+    margin-bottom: 35px;
+}
+
+.simplonFaq h5 {
+    color: #000;
+    font-family: popins;
+    font-size: 19px!important;
+    text-align: left!important;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+
+@media(max-width:700px) {
+    .titreFaq {
+        margin-bottom: 15px;
+    }
+
+    .simplonFaq {
+        text-align: center;
+    }
+
+    .trait {
+        margin: 0 auto !important;
+        width: 15%;
+    }
+
+    summary {
+        font-size: 14px;
+    }
+}

@@ -1,0 +1,146 @@
+<div id="main-wrapper" class="container mt-5">
+    <div class="row justify-content-center ">
+        <div class="col-xl-10 ">
+            <div class="card shadow containerCard" *ngIf="choixFormulaire">
+                <div class="card-body p-0">
+                    <div class="row no-gutters">
+                        <div class="col-lg-6 d-none d-lg-inline-block">
+                            <div class="account-block rounded-right">
+                                <div class="overlay rounded-right"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="p-5 mt-5">
+                               
+                                <h6 class="h5 mb-4">Connexion</h6>
+
+
+                                <form (submit)="submitFunction($event)">
+                                    <div class="form-group mb-3">
+                                        <label for="exampleInputEmail1">Email address</label>
+                                        <input type="email" class="form-control" id="email" name="email"
+                                            [(ngModel)]="emailLogin">
+                                    </div>
+                                    <div class="form-group mb-5">
+                                        <label for="exampleInputPassword1">Password</label>
+                                        <input type="password" class="form-control" id="password" name="password"
+                                            [(ngModel)]="passwordLogin">
+                                        <p class="register" (click)="afficherFormulaire()"><a class="bg">Vous n'avez-pas
+                                                de compte.<span class="clr">Inscrivez-vous</span></a></p>
+                                    </div>
+                                    <button type="submit" class="btn btn-theme mt-2" (click)=" connexion()">Se
+                                        connecter</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end card-body -->
+            </div>
+            <div class="card shadow containerCard" *ngIf="!choixFormulaire">
+                <div class="card-body p-0">
+                    <div class="row no-gutters">
+                        <div class="col-lg-5 d-none d-lg-inline-block">
+                            <div class="account-block rounded-right">
+                                <div class="overlay rounded-right"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-7" *ngIf="showSteps">
+                            <div class="p-5">
+                                <h6 class="h5 mb-4">Inscription</h6>
+                                <form (submit)="submitFunction($event)">
+                                    <div class="row">
+                                        <div class="mb-2 col-lg-6">
+                                            <label for="prenom" class="form-label">Prénom: <span class="clr">*</span></label>
+                                            <input type="text" class="form-control" id="prenom" name=prenom
+                                                [(ngModel)]="prenom">
+                                        </div>
+                                        <div class="mb-2 col-lg-6">
+                                            <label for="nom" class="form-label">Nom: <span class="clr">*</span></label>
+                                            <input type="text" class="form-control" id="nom" name="nom"
+                                                [(ngModel)]="nom">
+                                        </div>
+                                        <div class="mb-2 col-lg-6">
+                                            <label for="example" class="form-label">Email address: <span class="clr">*</span></label>
+                                            <input type="email" class="form-control" id="example" name="email"
+                                                [(ngModel)]="email">
+                                        </div>
+                                        <div class="mb-2 col-lg-6">
+                                            <label for="password" class="form-label">Mot de passe: <span class="clr">*</span></label>
+                                            <input type="password" class="form-control" id="password" name="password"
+                                                [(ngModel)]="password">
+                                        </div>
+                                        <div class="mb-2 col-lg-6">
+                                            <label for="adresse" class="form-label">Téléphone: <span class="clr">*</span></label>
+                                            <input type="text" class="form-control" id="adresse" name="adresse"
+                                                [(ngModel)]="adresse">
+                                        </div>
+                                        <div class="mb-2 col-lg-6">
+                                            <label for="region" class="form-label">Image: <span class="clr">*</span></label>
+                                            <input type="file" class="form-control" id="region" name="region"
+                                                [(ngModel)]="region">
+                                        </div>
+
+                                        <div class="mb-1 col-lg-6 choix">
+                                            <label for="exampleFormControlInput1"
+                                                class="form-label">Statut: <span class="clr">*</span></label>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                                    id="flexRadioDefault1" (click)="showComponant('experimente')"
+                                                    [(ngModel)]="statExp">
+                                                <label class="form-check-label" for="flexRadioDefault1"
+                                                    name="experimente" style="color: black;">
+                                                    Conducteur
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="flexRadio"
+                                                    id="flexRadioDefault2" (click)="showComponant('novice')"
+                                                    [(ngModel)]="  statNov">
+                                                <label class="form-check-label" for="flexRadioDefault2" name="novice"
+                                                    style="color: black;">
+                                                    Passager
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-theme " (click)="afficherFormulaire()"
+                                        id="novice" *ngIf="currentContent === 'novice'">S'inscrire</button>
+                                    <button class="btn btn-theme" (click)="afficherStep()"  id="experimente"
+                                        *ngIf="currentContent === 'experimente'">Suivant</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-lg-6" *ngIf="!showSteps">
+                            <div class="p-5">
+                        
+                                <form (submit)="submitFunction($event)">
+                                    <div class="row mt-5" >
+                                        <div class="mb-3">
+                                            <label for="region" class="form-label">Permis de conduire: <span class="clr">*</span></label>
+                                            <input type="file" class="form-control" id="region" name="region" [(ngModel)]="region">
+                                        </div>
+                                       
+                                        <div class="mb-5">
+                                            <label for="semester" class="form-label">Zone: <span class="clr">*</span></label>
+                                            <select class="form-select" aria-label="Default select example" name="semester">
+                                                <option selected>Choisisez une zone</option>
+                                                <option value="1">zone 1</option>
+                                                <option value="2">zone 2</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-theme mt-2 mb-3"
+                                        (click)="afficherFormulaire() ">S'inscrire</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end card-body -->
+            </div>
+        </div>
+        <!-- end col -->
+    </div>
+    <!-- Row -->
+</div>

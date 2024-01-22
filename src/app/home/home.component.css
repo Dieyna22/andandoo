@@ -1,0 +1,232 @@
+.banniere img{
+    width: 100%;
+    height: 32rem;
+}
+.sectionCard{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.sectionCard .imageCard {
+    width: 80%;
+}
+.sectionCard .imageCard img {
+    width: 100%;
+}
+h3{
+    color: #FA7436;
+    font-family: Poppins;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 9.6px;
+    text-transform: uppercase;
+    text-align: center;
+}
+.textCard h5{
+    color: #444;
+    text-align: center;
+    font-family: Poppins;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+}
+.textCard{
+    color: #222;
+    text-align: justify;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 160%;
+}
+
+.textCard span{
+    color: #222;
+    font-family: Poppins;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 160%;
+}
+.textCard .firstLetter{
+    text-transform: uppercase;
+}
+.textCard .last{
+    font-style: normal;
+}
+.commentçamarche{
+    background: #F7F8FC;
+    padding: 20px;
+}
+.commentçamarche h6{
+    color: #222;
+    font-family: Poppins;
+    text-align: center;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+}
+.steps  span{
+    color: #222;
+    font-family: Poppins;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%;
+    letter-spacing: -0.48px;
+}
+.steps p{
+    color: #222;
+    font-family: Poppins;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 175%;
+    letter-spacing: -0.28px;
+}
+.step .icone{
+    width: 25%;
+    text-align: center;
+}
+.step .text{
+    width: 25%;
+    text-align: center;
+}
+
+
+
+/* Test step  */
+.containerStep{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 3vh;
+}
+
+.childsection p{
+    color: #222;
+    font-family: popins;
+    font-size: 16px;
+    font-style: normal;
+    text-align: center;
+    line-height: 150%;
+    letter-spacing: -0.48px;
+}
+
+.childsection span{
+    font-weight: 900;
+}
+
+.totalTemoinage{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+.cardTemoinage{
+    width: 85%;
+    padding: 8px;
+    border-radius: 10px;
+    background: #FFF;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    margin: 0 auto;
+}
+.messageTemoinage{
+    color: #444;
+    font-family: popins;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 30px;
+    text-align: justify;
+}
+.pagination{
+    float: right;
+}
+.contact{
+    background: #F7F8FC;
+    padding: 20px;
+}
+.sectionContact{
+    border-radius: 15px;
+    height: 453px;
+}
+input {
+    width: 100%;
+    height: 95%;
+}
+ textarea {
+    width: 100%;
+    height: 95%;
+}
+form button {
+    background-color: #FA7436;
+    color: #FFF;
+}
+
+
+
+
+
+
+
+
+/* resposivité */
+
+@media(max-width:700px){
+    .banniere img {
+        height: 20rem;
+    }
+    .sectionCard {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+    .sectionCard .imageCard {
+        width: 100%;
+    }
+    .containerStep {
+        display: grid;
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .containerStep .ligne {
+        rotate: 90deg;
+        margin: 10vh 0;
+    }
+    .totalTemoinage {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap:8px;
+    }
+    .cardTemoinage {
+        width: 100%;
+    }
+}
+
+@media only screen and (min-width: 700px) and (max-width:1100px){
+    .banniere img {
+        height: 20rem;
+    }
+    .sectionCard {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+    .sectionCard .imageCard {
+        width: 100%;
+    }
+
+    .containerStep {
+        display: grid;
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    .totalTemoinage {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+
+    .cardTemoinage {
+        width: 100%;
+    }
+}
