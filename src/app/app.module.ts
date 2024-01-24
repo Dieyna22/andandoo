@@ -34,6 +34,7 @@ import { ReservationComponent } from './conducteur/reservation/reservation.compo
 import { HistoriquesComponent } from './conducteur/historiques/historiques.component';
 import { HistoriquesEnCoursComponent } from './conducteur/historiques-en-cours/historiques-en-cours.component';
 import { FaqConducteurComponent } from './conducteur/faq-conducteur/faq-conducteur.component';
+import { NavbarComponent } from './header-footer/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { FaqConducteurComponent } from './conducteur/faq-conducteur/faq-conducte
     ReservationComponent,
     HistoriquesComponent,
     HistoriquesEnCoursComponent,
-    FaqConducteurComponent
+    FaqConducteurComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

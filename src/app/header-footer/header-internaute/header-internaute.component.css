@@ -1,0 +1,10 @@
+a{
+    text-decoration: none;
+    color: #808080;
+    margin: 0px 6px;
+}
+*{
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+    transition: scroll-snap-align 5s ease-in-out;
+}

@@ -1,36 +1,104 @@
-.admin{
-    display: flex;
-    padding: 10px;
-    justify-content: center;
-    gap: 10px;
+.dashbord {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 5fr;
 }
-.profilAdmin{
-    width: 280px;
-    height: 312px;
-    padding: 15px;
-    border-radius: 35px;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-}
-.infoSup{
-    width: 280px;
-    height: 312px;
-    padding: 25px;
-    border-radius: 35px;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-}
-.btnModif{
-    background-color: #FA7436;
-    color: #FFFFFF;
-    border-radius: 5px;
-    float: right;
-    margin-top: 14vh;
-}
-.btnClose{
-    background-color: #FFFFFF;
-    color: #FA7436;
-    border: thin solid #FA7436;
-}
-.btnSave{
-    background-color: #FA7436;
-    color: #FFFFFF;
+
+main {
+    width: 90%;
+    height: 100%;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 12px;
+    padding: 5px;
+    display: grid;
+    grid-template-columns: 28% 70%;
+    justify-content: space-between;
+
+    .mainContainerLeft {
+
+        display: grid;
+        grid-template-rows: 30% 68%;
+        gap: 2%;
+        box-shadow: 1px 0px 5px 0px rgba(0, 0, 0, 0.08);
+        height: 100%;
+
+        .mainContainerLeftImage {
+    
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .image img {
+                height: 150px;
+                width: 150px;
+        
+                border-radius: 50%;
+                background-size: cover;
+                background-position: center;
+            }
+        }
+
+        .mainContainerLeftInfo {
+    
+         
+
+            .mainContainerLeftInfoDetail {
+        
+                width: 100%;
+
+                h5 {
+                    color: #FA7436;
+                    font-size: 18px;
+
+                    span {
+                        color: black;
+                        font-size: 13px;
+                    }
+                }
+            }
+        }
+    }
+
+    .mainContainerRight {
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+
+        .navTabsButton {
+            color: #FA7436;
+
+            &.active {
+                background-color: #FA7436;
+                color: white;
+            }
+
+        }
+
+        #updateInfo {
+
+            button {
+                background-color: #FA7436;
+                color: white;
+                border: none;
+            }
+        }
+
+        #updatePassword {
+
+            button {
+                background-color: #FA7436;
+                color: white;
+                border: none;
+            }
+        }
+
+    }
+    
+    .positionbtn{
+        float: right;
+    }
 }

@@ -1,7 +1,6 @@
 .contenu{
-    display: flex;
-    justify-content: space-between;
-    gap: 3px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
 .zoneAjout{
     width: 400px;
@@ -17,12 +16,12 @@
     float: right;
 }
 .modif{
-    background-color: #FA7436;
-    color: #FFFFFF;
+    background-color: #FA7436!important;
+    color: #FFFFFF!important;
 }
 .sup{
-    background-color: #FFFFFF;
-    color: #FA7436;
+    background-color: #FFFFFF!;
+    color: #FA7436!important;
     border: thin solid #FA7436;
 }
 .sta{
@@ -52,6 +51,111 @@
 }
 
 .btnSave {
-    background-color: #FA7436;
-    color: #FFFFFF;
+    background-color: #FA7436!important;
+    color: #FFFFFF!important;
+}
+
+.details {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+}
+
+.imageProfilUser {
+    border: thin solid #f6f6f6;
+    border-radius: 9px;
+    padding: 2px;
+    /* text-align: center; */
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+
+.btnClose {
+    background-color: #FFFFFF;
+    color: #FA7436 !important;
+    border: thin solid #FA7436;
+}
+
+.fondText {
+    color: #FA7436;
+}
+
+.dashbord {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+}
+
+
+.containerReseau .card {
+    border: none;
+    border-radius: 0;
+    min-height: 50vh;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+
+.containerReseau .cardAjout {
+    border-top-left-radius: 4vh;
+    border-bottom-right-radius: 4vh;
+}
+
+/* table{
+    box-shadow: 0px 4px 10px 2px rgba(160, 153, 153, 0.25);
+} */
+/* le tableau  */
+thead tr th {
+    background-color: #222;
+    color: white;
+}
+
+.btnAction {
+    border: 1px solid #FA7436;
+    background-color: white;
+    color: #FA7436 !important;
+}
+
+.btnReseaux {
+    padding: 0 8.5vh;
+}
+
+.btn {
+    background-color: var(--base1);
+    color: white;
+    font-weight: bold;
+}
+
+.titre {
+    color: #FA7436;
+}
+
+.require {
+    color: var(--base1);
+}
+
+/* pagination  */
+.pageActuelle {
+    color: #FA7436;
+    font-weight: bold;
+    border: 1px solid #FA7436;
+    padding: 4px;
+}
+
+
+.btnColor {
+    color: #222;
+    border: 1px solid #222;
+    background-color: white;
+}
+
+.page {
+    background-color: white;
+    border: none;
+}
+
+.btnEnvoie {
+    color: #FA7436;
+    font-family: Poppins;
+    border-radius: 5px;
+    border: 1px solid #FA7436;
+    background: #FFF;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    margin-right: 18px;
 }

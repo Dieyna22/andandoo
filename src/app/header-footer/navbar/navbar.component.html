@@ -1,0 +1,64 @@
+<!-- Navbar  -->
+<div class="navbar mb-5 px-5 shadow-sm sticky-top bg-body">
+    <div>
+        <h5>Administrateur</h5>
+    </div>
+    <div class="profil dropdown">
+        <!-- <img src="assets/yonewilogo.png" alt=""> -->
+        <img src="https://i.pinimg.com/564x/2a/7e/1c/2a7e1c6b168e033ff2c10800f7fc2813.jpg" alt="" class="dropbtn "> 
+        <div class="dropdown-content">
+            <a [routerLink]="['/profil']">Profil</a>
+            <a [routerLink]="['/accueil']">Déconnexion</a>
+        </div>
+    </div>
+</div>
+
+<!-- Les statistiques de l'admin systeme  -->
+<div class="container statistiqueDashbord mb-5">
+    <!-- Les statistiques utilisateurs lignes et réseaux -->
+    <div class="row px-5">
+        <!-- Utilisateurs  -->
+        <div class="col-md-3">
+            <div>
+                <div class=" carte">
+                    <span style="background-color: #FA7436;"><i class="bi bi-person"></i></span>
+                    <div class="text-wrapper-3">Utilisateurs globale</div>
+                    <div class="text-wrapper-4">+1200</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Réseaux  -->
+        <div class="col-md-3">
+            <div>
+                <div class="carte">
+                    <span style="background-color: #FFB60A;"><i class="bi bi-geo"></i></span>
+                    <div class="text-wrapper-5">Nombre de zone couvert</div>
+                    <div class="text-wrapper-4">4</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Messages  -->
+        <div class="col-md-3">
+            <div>
+                <div class="carte">
+                    <span style="background-color: #999999;"><i class="bi bi-signpost-2"></i></span>
+                    <div class="text-wrapper-6">Nombre de trajets effectués</div>
+                    <div class="text-wrapper-4">+20</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Messages  -->
+        <div class="col-md-3">
+            <div>
+                <div class="carte">
+                    <span style="background-color: #4086F4;"><i class="bi bi-car-front"></i></span>
+                    <div class="text-wrapper-7">Nombre de conducteur</div>
+                    <div class="text-wrapper-4">+42</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,80 +1,100 @@
-<app-sidebar></app-sidebar>
-<div class="container zone shadow p-2">
-    <div class="statistique mt-3 mb-4">
-        <div class="carte">
-            <span style="background-color: #FA7436;"><i class="bi bi-person"></i></span>
-            <div class="text-wrapper-3">Utilisateurs globale</div>
-            <div class="text-wrapper-4">+1200</div>
-        </div>
-        <div class="carte">
-            <span style="background-color: #FFB60A;"><i class="bi bi-geo"></i></span>
-            <div class="text-wrapper-5">Nombre de zone couvert</div>
-            <div class="text-wrapper-4">4</div>
-        </div>
-        <div class="carte">
-            <span style="background-color: #999999;"><i class="bi bi-signpost-2"></i></span>
-            <div class="text-wrapper-6">Nombre de trajets effectués</div>
-            <div class="text-wrapper-4">+20</div>
-        </div>
-        <div class="carte">
-            <span style="background-color: #4086F4;"><i class="bi bi-car-front"></i></span>
-            <div class="text-wrapper-7">Nombre de conducteur</div>
-            <div class="text-wrapper-4">+42</div>
-        </div>
+<div class="dashbord">
+    <div class="section sidebar">
+        <app-sidebar></app-sidebar>
     </div>
-    <div class=" container contenu admin">
-        <div class="profilAdmin">
-            <img src="https://img.freepik.com/free-photo/confident-business-woman-portrait-smiling-face_53876-137693.jpg?size=626&ext=jpg&uid=R109978541&ga=GA1.2.1650161440.1694444933&semt=sph"
-                class="rounded-circle mb-2" alt="profil" style="width: 120px; height: 120px;">
-                <P>Dieynaba SENE <br> CEO , Andandoo</P>
-                <p><i class="bi bi-telephone"></i> 77 692 58 147<br><i class="bi bi-envelope"></i> admin@gmail.com</p>
-        </div>
-        <div class="infoSup">
-            <h5>Details</h5>
-            <p><i class="bi bi-globe me-1"></i> <span style="color: #4086F4;">www.àndandoo.sn</span> <br><i class="bi bi-geo-alt"></i> Location :Dakar , Sénegal</p>
-            <p>Note :Disponible h24 7J/7</p>
-            <button class="btn btnModif" data-bs-toggle="modal" data-bs-target="#exampleModal">Modifier</button>
+
+    <div class="section">
+        <!-- Le navbar  -->
+        <app-navbar></app-navbar>
+        <!-- Contenu dashbord  -->
+        <div class="container containerReseau mb-5">
+        <main class="container">
+            <div class="mainContainerLeft p-2">
+                <div class="mainContainerLeftImage">
+                    <div class="image">
+                        <img src="https://i.pinimg.com/564x/2a/7e/1c/2a7e1c6b168e033ff2c10800f7fc2813.jpg" alt="">
+                    </div>
+                </div>
+                <div class="mainContainerLeftInfo p-3">
+                    <h4 class="text-center p-3">Informations personnelles</h4>
+                    <div class="mainContainerLeftInfoDetail px-1">
+                        <h5 class="mb-4">Nom complet: <span>Dieynaba SENE</span></h5>
+                        <h5 class="mb-4">Email: <span>dieyna@gmail.com</span></h5>
+                        <h5 class="mb-4">Addresse: <span>Ouakam</span></h5>
+                        <h5 class="mb-4">Telephone: <span>78 023 46 14</span></h5>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="mainContainerRight pt-3">
+                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active navTabsButton" id="updateInfo-tab" data-bs-toggle="pill"
+                            data-bs-target="#updateInfo" type="button" role="tab" aria-controls="updateInfo"
+                            aria-selected="true">Modifier Information</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link navTabsButton" id="updatePassword-tab" data-bs-toggle="pill"
+                            data-bs-target="#updatePassword" type="button" role="tab" aria-controls="updatePassword"
+                            aria-selected="false">Modifier Mot de passe</button>
+                    </li>
+                </ul>
+        
+                <div class="tab-content w-100 h-100" id="pills-tabContent">
+                    <div class="tab-pane fade show active" id="updateInfo" role="tabpanel" aria-labelledby="updateInfo-tab"
+                        tabindex="0">
+                        <form action="" class="p-3">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
+                                <label for="floatingInput">Prénom</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
+                                <label for="floatingInput">Nom</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
+                                <label for="floatingInput">Email</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
+                                <label for="floatingInput">Téléphone</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
+                                <label for="floatingInput">Addresse</label>
+                            </div>
+        
+                            <button type="submit" class="btn positionbtn">Enregistrer</button>
+        
+                        </form>
+                    </div>
+        
+                    <div class="tab-pane fade " id="updatePassword" role="tabpanel" aria-labelledby="updatePassword-tab"
+                        tabindex="0">
+                        <form action="" class="p-3">
+                            <div class="form-floating mb-3">
+                                <input type="password" class="form-control" id="floatingInput" placeholder="name@example.com">
+                                <label for="floatingInput">Ancien Mot de Passe</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="password" class="form-control" id="floatingInput" placeholder="name@example.com">
+                                <label for="floatingInput">Nouveau Mot de Passe</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="password" class="form-control" id="floatingInput" placeholder="name@example.com">
+                                <label for="floatingInput">Confirmation du Mot de Passe</label>
+                            </div>
+        
+                            <button type="submit" class="btn positionbtn">Enregistrer</button>
+                        </form>
+        
+                    </div>
+                </div>
+            </div>
+        </main>
         </div>
     </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel" style="color: #FA7436;">Modifier Profil</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Image:</label>
-                        <input type="file" name="titre" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Nom:</label>
-                        <input type="text" name="titre" class="form-control" id="exampleInputEmail1"
-                            aria-describedby="emailHelp" >
-                    </div>
-                    <div class="mb-3">
-                        <label for="image" class="form-label">Prénom:</label>
-                        <input class="form-control" name="image" type="text" id="image">
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleFormControlTextarea1" class="form-label">Email:</label>
-                        <input class="form-control" name="image" type="text" id="image">
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleFormControlTextarea1" class="form-label">Téléphone:</label>
-                        <input class="form-control" name="image" type="text" id="image">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btnClose" data-bs-dismiss="modal">Annuler</button>
-                <button type="button" class=" btn btnSave" data-bs-dismiss="modal">Modifier</button>
-            </div>
-        </div>
-    </div>
-</div>
+

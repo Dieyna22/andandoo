@@ -1,87 +1,79 @@
-<app-sidebar></app-sidebar>
-<div class="container zone shadow p-2">
-    <div class="statistique mt-3 mb-4">
-        <div class="carte">
-            <span style="background-color: #FA7436;"><i class="bi bi-person"></i></span>
-            <div class="text-wrapper-3">Utilisateurs globale</div>
-            <div class="text-wrapper-4">+1200</div>
-        </div>
-        <div class="carte">
-            <span style="background-color: #FFB60A;"><i class="bi bi-geo"></i></span>
-            <div class="text-wrapper-5">Nombre de zone couvert</div>
-            <div class="text-wrapper-4">4</div>
-        </div>
-        <div class="carte">
-            <span style="background-color: #999999;"><i class="bi bi-signpost-2"></i></span>
-            <div class="text-wrapper-6">Nombre de trajets effectués</div>
-            <div class="text-wrapper-4">+20</div>
-        </div>
-        <div class="carte">
-            <span style="background-color: #4086F4;"><i class="bi bi-car-front"></i></span>
-            <div class="text-wrapper-7">Nombre de conducteur</div>
-            <div class="text-wrapper-4">+42</div>
-        </div>
+<div class="dashbord">
+    <div class="section sidebar">
+        <app-sidebar></app-sidebar>
     </div>
-    <h5 class="text-center">Listes des messages reçu</h5>
-    <div class="table-responsive tab overflow-y-scroll mt-2 border shadow p-2" style="height: 45vh;">
-        <table datatable [dtOptions]="dtOptions" class="table align-items-center  p-2">
-            <thead class="sticky-top fond">
-                <tr class="">
-                    <th scope="col" class="fond ">ID </th>
-                    <th scope="col" class="fond ">Nom </th>
-                    <th scope="col" class="fond ">Prénom </th>
-                    <th scope="col" class="fond ">Action </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        1
-                    </td>
-                    <td>Diagne</td>
-                    <td>Fatou</td>
-                    <td>
-                        <button class="btn fond-btn" data-bs-toggle="modal"
-                            data-bs-target="#detailMatiere">Répondre</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Someone</td>
-                    <td>Youknow</td>
-                    <td>
-                        <button class="btn fond-btn" data-bs-toggle="modal"
-                            data-bs-target="#detailMatiere">Répondre</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Foo</td>
-                    <td>Bar</td>
-                    <td>
-                        <button class="btn fond-btn" data-bs-toggle="modal"
-                            data-bs-target="#detailMatiere">Répondre</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>Yoda</td>
-                    <td>Skywalker</td>
-                    <td>
-                        <button class="btn fond-btn" data-bs-toggle="modal"
-                            data-bs-target="#detailMatiere">Répondre</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td>Patrick</td>
-                    <td>Dupont</td>
-                    <td>
-                        <button class="btn fond-btn" data-bs-toggle="modal"
-                            data-bs-target="#detailMatiere">Répondre</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+
+    <div class="section">
+        <!-- Le navbar  -->
+        <app-navbar></app-navbar>
+
+        <!-- Contenu dashbord  -->
+        <div class="container containerReseau mb-5">
+            <div class="row px-5">
+                <!-- Liste des réseaux  -->
+                <div class="col-md-12 px-4">
+                    <div class="card px-4 py-2 pt-4 shadow-sm rounded-4">
+                        <!-- Recherhcer une ligne  -->
+                        <div class="row sectionEspace ligneReseauSearch mb-3">
+                            <div class="col-md-7">
+                                <h3 class="fw-bold">Messages reçues</h3>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="input-group">
+                                    <!-- <input type="text" name="search" class="form-control" [(ngModel)]="filterValue" (input)="onSearch()"> -->
+                                    <input type="text" name="search" class="form-control" [(ngModel)]="filterValue"
+                                        (input)="onSearch()" placeholder="Rechercher ......">
+                                    <button class="iconesearch input-group-text"><i class="bi bi-search"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Le tableau des réseaux -->
+                        <table class="table table-responsive mb-4">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nom Complet</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Message</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let message of getItemsPage()">
+                                <tr>
+                                    <td>{{message.nom}}</td>
+                                    <td>{{message.Email}}</td>
+                                    <td>{{message.messages}}</td>
+                                    <td>
+                                        <button class="btnAction px-2 py-1 rounded-2 me-4" title="réponse"
+                                            data-bs-toggle="modal" data-bs-target="#detailReseau">
+                                            Réponse
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- Pagination  -->
+                        <div *ngIf="getItemsPage().length">
+                            <div class="d-flex justify-content-end mb-2">
+                                <button class="rounded-2 btnColor  mx-2" [disabled]="pageActuelle === 1"
+                                    (click)="pageActuelle = pageActuelle - 1">
+                                    <i class="bi bi-caret-left-fill fs-4"></i>
+                                </button>
+                                <button class=" mx-2 page" *ngFor="let page of pages" (click)="pageActuelle = page">
+                                    <span class="pageActuelle fs-5" *ngIf="page===pageActuelle">{{page}}</span>
+                                    <span *ngIf="page != pageActuelle">{{page}}</span>
+                                    <!-- {{ page }} -->
+                                </button>
+                                <button class="rounded-2 btnColor mx-2" [disabled]="pageActuelle === totalPages"
+                                    (click)="pageActuelle = pageActuelle + 1">
+                                    <i class="bi bi-caret-right-fill fs-4"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
