@@ -85,23 +85,23 @@ h5 {
 
 .cardTrajets {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 25px;
+    justify-content: center;
+    align-items: center;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
 }
 
 .infosTrajet {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 25px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
 }
 
 .trajet {
-    /* width: 455px; */
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    width: 400px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
     border-radius: 25px;
     padding: 15px;
-
 }
 
 .chauffeur {
@@ -119,6 +119,7 @@ h5 {
     font-style: normal;
     font-weight: 600;
     line-height: 26px;
+    padding-top: 14px;
 }
 
 .trajet p {
@@ -128,12 +129,12 @@ h5 {
 .lieu,
 .date {
     display: flex;
-    padding: 8px 28px;
+    padding: 0px 10px;
     justify-content: center;
     align-items: center;
     gap: 8px;
     border-radius: 24px;
-    box-shadow: 0px 8px 16px 0px rgba(96, 97, 112, 0.16), 0px 2px 4px 0px rgba(40, 41, 61, 0.04);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
 }
 
 .details,
@@ -173,7 +174,27 @@ h5 {
     justify-content: center;
     align-items: center;
 }
-
+.pageActuelle {
+    color: #FA7436;
+}
+.sta{
+    display: flex;
+    gap: 9px;
+    text-align: center;
+    padding: 5px;
+}
+.separation{
+    border-right: 1px solid #FA7436;
+    border-left: 1px solid #FA7436;
+    padding: 0px 5px;
+}
+.commentaire{
+    display: flex;
+    border-radius: 32px 32px 32px 0px;
+    background: #FFF;
+    box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.10), 0px 1px 6px 0px rgba(0, 0, 0, 0.20);
+    padding: 15px;
+}
 
 
 

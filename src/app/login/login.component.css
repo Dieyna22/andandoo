@@ -142,3 +142,7 @@ body {
     background: #87a5f8;
     cursor: not-allowed;
 }
+
+.radio{
+    display: flex;
+}

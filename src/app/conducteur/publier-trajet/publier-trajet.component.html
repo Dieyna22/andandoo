@@ -3,7 +3,7 @@
     <img src="../../assets/containter.png" alt="">
 </div>
 <div class="btnPublier container mb-5">
-    <button class="btn publier">Publier un trajet</button>
+    <button class="btn publier" data-bs-toggle="modal" data-bs-target="#publierTrajet">Publier un trajet</button>
 </div>
 <div class="pourquoi mb-5">
     <h3 class="mb-4">Vous etes nouveaux dans notre application découvrez des bonnes raisons de covoiturer avec nous</h3>
@@ -73,8 +73,70 @@
 </div>
 <div class="publicitee mb-5 ">
     <div class="banner container mb-5 mt-5">
-        <button class="btn publier addTrajet">Publier un trajet</button>
+        <button class="btn publier addTrajet" data-bs-toggle="modal" data-bs-target="#publierTrajet">Publier un trajet</button>
     </div>
 </div>
 
 <app-footer></app-footer>
+
+<!-- Modal publier trajet -->
+<div class="modal fade" id="publierTrajet" tabindex="-1" aria-labelledby="publierTrajetLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 titre" id="publierTrajetLabel">Publier un trajet</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Images:</label>
+                        <input type="file" class="form-control" id="image">
+                    </div>
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Lieu de départ:</label>
+                        <select class="form-select" aria-label="Default select example">
+                            <option selected>selectionner votre lieu de départ</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Lieu d'arriver:</label>
+                        <select class="form-select" aria-label="Default select example">
+                            <option selected>selectionner votre lieu de d'arriver</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="date" class="form-label">Date:</label>
+                        <input type="date" class="form-control" id="date">
+                    </div>
+                    <div class="mb-3">
+                        <label for="time" class="form-label">Heure:</label>
+                        <input type="time" class="form-control" id="time">
+                    </div>
+                    <div class="mb-3">
+                        <label for="prix" class="form-label">Prix:</label>
+                        <input type="number" class="form-control" id="prix">
+                    </div>
+                    <div class="mb-3">
+                        <label for="nbrPlace" class="form-label">Places disponibles:</label>
+                        <input type="number" class="form-control" id="nbrPlace">
+                    </div>
+                    <div class="mb-3">
+                        <label for="nbrPlace" class="form-label">Description:</label>
+                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btnAjout">Ajouter</button>
+                <button type="button" class="btn btnClose" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>

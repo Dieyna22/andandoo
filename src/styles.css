@@ -107,6 +107,27 @@ input::placeholder {
 #cach {
     display: none;
 }
+
+
+
+/* ---------------------------Détails trajet------------------------ */
+.traitL {
+    border: 2px solid #FA7436;
+}
+.titre {
+    color: #FA7436;
+}
+
+.btnAjout {
+    background-color: #FA7436 !important;
+    color: #FFF !important;
+}
+
+.btnClose {
+    background-color: #FFF! important;
+    color: #FA7436!important;
+    border: 1px solid #FA7436!  important;
+}
 /* ----------------------------Responsivite-------------------------------- */
 @media (max-width:600px) {
     .section-footer {

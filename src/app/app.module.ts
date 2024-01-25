@@ -35,6 +35,7 @@ import { HistoriquesComponent } from './conducteur/historiques/historiques.compo
 import { HistoriquesEnCoursComponent } from './conducteur/historiques-en-cours/historiques-en-cours.component';
 import { FaqConducteurComponent } from './conducteur/faq-conducteur/faq-conducteur.component';
 import { NavbarComponent } from './header-footer/navbar/navbar.component';
+import { ProfilUsersComponent } from './conducteur/profil-users/profil-users.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { NavbarComponent } from './header-footer/navbar/navbar.component';
     HistoriquesComponent,
     HistoriquesEnCoursComponent,
     FaqConducteurComponent,
-    NavbarComponent
+    NavbarComponent,
+    ProfilUsersComponent
   ],
   imports: [
     BrowserModule,

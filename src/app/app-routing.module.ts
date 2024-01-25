@@ -18,6 +18,7 @@ import { HistoriquesComponent } from './conducteur/historiques/historiques.compo
 import { HistoriquesEnCoursComponent } from './conducteur/historiques-en-cours/historiques-en-cours.component';
 import { FAQComponent } from './conducteur/faq/faq.component';
 import { FaqConducteurComponent } from './conducteur/faq-conducteur/faq-conducteur.component';
+import { ProfilUsersComponent } from './conducteur/profil-users/profil-users.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'accueil', pathMatch: 'full' },
@@ -39,6 +40,8 @@ const routes: Routes = [
   { path: 'enCours', component: HistoriquesEnCoursComponent },
   { path: 'faqP', component: FAQComponent },
   { path: 'faqC', component: FaqConducteurComponent },
+  { path: 'profilUser', component: ProfilUsersComponent },
+
 
 
 

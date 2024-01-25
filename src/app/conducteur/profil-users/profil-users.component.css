@@ -1,0 +1,102 @@
+.banniere img {
+    width: 100%;
+    height: 32rem;
+}
+main {
+    width: 90%;
+    height: 100%;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 12px;
+    padding: 5px;
+    display: grid;
+    grid-template-columns: 28% 70%;
+    justify-content: space-between;
+
+    .mainContainerLeft {
+
+        display: grid;
+        grid-template-rows: 30% 68%;
+        gap: 2%;
+        box-shadow: 1px 0px 5px 0px rgba(0, 0, 0, 0.08);
+        height: 100%;
+
+        .mainContainerLeftImage {
+
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .image img {
+                height: 150px;
+                width: 150px;
+
+                border-radius: 50%;
+                background-size: cover;
+                background-position: center;
+            }
+        }
+
+        .mainContainerLeftInfo {
+
+
+
+            .mainContainerLeftInfoDetail {
+
+                width: 100%;
+
+                h5 {
+                    color: #FA7436;
+                    font-size: 18px;
+
+                    span {
+                        color: black;
+                        font-size: 13px;
+                    }
+                }
+            }
+        }
+    }
+
+    .mainContainerRight {
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+
+        .navTabsButton {
+            color: #FA7436;
+
+            &.active {
+                background-color: #FA7436;
+                color: white;
+            }
+
+        }
+
+        #updateInfo {
+
+            button {
+                background-color: #FA7436;
+                color: white;
+                border: none;
+            }
+        }
+
+        #updatePassword {
+
+            button {
+                background-color: #FA7436;
+                color: white;
+                border: none;
+            }
+        }
+
+    }
+
+    .positionbtn {
+        float: right;
+    }
+}

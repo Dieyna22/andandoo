@@ -67,6 +67,10 @@ a{
     color: #FA7436!important;
 }
 
+.active path{
+    fill: #FA7436 !important;
+}
+
 
 @media screen and (max-width: 1000px) {
     .sidebar {

@@ -80,28 +80,33 @@
                                             <input type="file" class="form-control" id="region" name="region"
                                                 [(ngModel)]="region">
                                         </div>
-
+                                        <div class="mb-2 col-lg-6">
+                                            <label for="semester" class="form-label">Zone: <span class="clr">*</span></label>
+                                            <select class="form-select" aria-label="Default select example" name="semester">
+                                                <option selected>Choisisez une zone</option>
+                                                <option value="1">zone 1</option>
+                                                <option value="2">zone 2</option>
+                                            </select>
+                                        </div>
                                         <div class="mb-1 col-lg-6 choix">
                                             <label for="exampleFormControlInput1"
                                                 class="form-label">Statut: <span class="clr">*</span></label>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                                    id="flexRadioDefault1" (click)="showComponant('experimente')"
-                                                    [(ngModel)]="statExp">
-                                                <label class="form-check-label" for="flexRadioDefault1"
-                                                    name="experimente" style="color: black;">
-                                                    Conducteur
-                                                </label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="flexRadio"
-                                                    id="flexRadioDefault2" (click)="showComponant('novice')"
-                                                    [(ngModel)]="  statNov">
-                                                <label class="form-check-label" for="flexRadioDefault2" name="novice"
-                                                    style="color: black;">
-                                                    Passager
-                                                </label>
-                                            </div>
+                                                <div class="radio">
+                                                    <div class="form-check me-2">
+                                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"
+                                                            (click)="showComponant('experimente')" [(ngModel)]="statExp">
+                                                        <label class="form-check-label" for="flexRadioDefault1" name="experimente" style="color: black;">
+                                                            Conducteur
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="flexRadio" id="flexRadioDefault2"
+                                                            (click)="showComponant('novice')" [(ngModel)]="  statNov">
+                                                        <label class="form-check-label" for="flexRadioDefault2" name="novice" style="color: black;">
+                                                            Passager
+                                                        </label>
+                                                    </div>
+                                                </div>
                                         </div>
                                     </div>
                                     <button class="btn btn-theme " (click)="afficherFormulaire()"
@@ -122,12 +127,8 @@
                                         </div>
                                        
                                         <div class="mb-5">
-                                            <label for="semester" class="form-label">Zone: <span class="clr">*</span></label>
-                                            <select class="form-select" aria-label="Default select example" name="semester">
-                                                <option selected>Choisisez une zone</option>
-                                                <option value="1">zone 1</option>
-                                                <option value="2">zone 2</option>
-                                            </select>
+                                            <label for="region" class="form-label">Licence de transport: <span class="clr">*</span></label>
+                                            <input type="file" class="form-control" id="region" name="region" [(ngModel)]="region">
                                         </div>
                                     </div>
                                     <button class="btn btn-theme mt-2 mb-3"
