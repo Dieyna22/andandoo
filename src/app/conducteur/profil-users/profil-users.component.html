@@ -6,16 +6,16 @@
     <div class="mainContainerLeft p-2">
         <div class="mainContainerLeftImage">
             <div class="image">
-                <img src="https://i.pinimg.com/564x/2a/7e/1c/2a7e1c6b168e033ff2c10800f7fc2813.jpg" alt="">
+                <img src="http://127.0.0.1:8000/images/profils/{{userConnect.ImageProfile}}" alt="">
             </div>
         </div>
         <div class="mainContainerLeftInfo p-3">
             <h4 class="text-center p-3">Informations personnelles</h4>
             <div class="mainContainerLeftInfoDetail px-1">
-                <h5 class="mb-4">Nom complet: <span>Dieynaba SENE</span></h5>
-                <h5 class="mb-4">Email: <span>dieyna@gmail.com</span></h5>
-                <h5 class="mb-4">Addresse: <span>Ouakam</span></h5>
-                <h5 class="mb-4">Telephone: <span>78 023 46 14</span></h5>
+                <h5 class="mb-4">Nom complet: <span>{{userConnect.Prenom}} {{userConnect.Nom}}</span></h5>
+                <h5 class="mb-4">Email: <span>{{userConnect.Email}}</span></h5>
+                <h5 class="mb-4">Telephone: <span>{{userConnect.Telephone}}</span></h5>
+                <h5 class="mb-4">Role: <span>{{userConnect.role}}</span></h5>
             </div>
         </div>
     </div>
@@ -39,24 +39,20 @@
                 tabindex="0">
                 <form action="" class="p-3">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
-                        <label for="floatingInput">Prénom</label>
+                        <input type="text" class="form-control" id="prenom" placeholder="name@example.com" value="{{userConnect.Prenom}}">
+                        <label for="prenom">Prénom</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
-                        <label for="floatingInput">Nom</label>
+                        <input type="text" class="form-control" id="nom" placeholder="name@example.com" value="{{userConnect.Nom}}">
+                        <label for="nom">Nom</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
-                        <label for="floatingInput">Email</label>
+                        <input type="text" class="form-control" id="email" placeholder="name@example.com" value="{{userConnect.Email}}">
+                        <label for="email">Email</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
-                        <label for="floatingInput">Téléphone</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
-                        <label for="floatingInput">Addresse</label>
+                        <input type="text" class="form-control" id="telephone" placeholder="name@example.com" value="{{userConnect.Telephone}}">
+                        <label for="telephone">Téléphone</label>
                     </div>
 
                     <button type="submit" class="btn positionbtn">Enregistrer</button>

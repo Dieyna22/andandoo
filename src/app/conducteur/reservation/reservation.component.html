@@ -36,59 +36,19 @@
    
 </div>
 <div class="cardReservation mb-5 container">
-    <div class="card mb-3 mt-3 carteF">
+    <div class="card mb-3 mt-3 carteF" *ngFor="let reservation of getItemsPage()">
         <div class="row g-0">
             <div class="col-md-4 espaceImage">
-                <img src="https://img.freepik.com/free-photo/front-view-muslim-woman-posing-outdoors_23-2150506619.jpg?size=626&ext=jpg&ga=GA1.1.1650161440.1694444933&semt=ais"
+                <img [src]="reservation.profil"
                     class="img-fluid rounded-start" alt="...">
             </div>
             <div class="col-md-8">
                 <div class="card-body p-5">
-                    <p class="card-text">Prenom : Dieynaba</p>
-                    <p class="card-text">Nom : SENE</p>
-                    <p class="card-text">Heure : 07h:30</p>
-                    <p class="card-text">Date : 10 janvier</p>
-                    <p class="card-text">Trajet : Pikine-Yoff</p>
-                    <p class="card-text mt-3 mb-3">
-                        <button class="btn reserver">Accepter</button>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="card mb-3 mt-3 carteF">
-        <div class="row g-0">
-            <div class="col-md-4 espaceImage">
-                <img src="https://img.freepik.com/free-photo/front-view-muslim-woman-posing-outdoors_23-2150506619.jpg?size=626&ext=jpg&ga=GA1.1.1650161440.1694444933&semt=ais"
-                    class="img-fluid rounded-start" alt="...">
-            </div>
-            <div class="col-md-8">
-                <div class="card-body p-5">
-                    <p class="card-text">Prenom : Dieynaba</p>
-                    <p class="card-text">Nom : SENE</p>
-                    <p class="card-text">Heure : 07h:30</p>
-                    <p class="card-text">Date : 10 janvier</p>
-                    <p class="card-text">Trajet : Pikine-Yoff</p>
-                    <p class="card-text mt-3 mb-3">
-                        <button class="btn reserver">Accepter</button>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="card mb-3 mt-3 carteF">
-        <div class="row g-0">
-            <div class="col-md-4 espaceImage">
-                <img src="https://img.freepik.com/free-photo/front-view-muslim-woman-posing-outdoors_23-2150506619.jpg?size=626&ext=jpg&ga=GA1.1.1650161440.1694444933&semt=ais"
-                    class="img-fluid rounded-start" alt="...">
-            </div>
-            <div class="col-md-8">
-                <div class="card-body p-5">
-                    <p class="card-text">Prenom : Dieynaba</p>
-                    <p class="card-text">Nom : SENE</p>
-                    <p class="card-text">Heure : 07h:30</p>
-                    <p class="card-text">Date : 10 janvier</p>
-                    <p class="card-text">Trajet : Pikine-Yoff</p>
+                    <p class="card-text">Prenom : {{reservation.prenom}}</p>
+                    <p class="card-text">Nom : {{reservation.nom}}</p>
+                    <p class="card-text">Heure : {{reservation.heure}}</p>
+                    <p class="card-text">Date :{{reservation.date}} </p>
+                    <p class="card-text">Trajet : {{reservation.depart}}- {{reservation.arriver}}</p>
                     <p class="card-text mt-3 mb-3">
                         <button class="btn reserver">Accepter</button>
                     </p>
@@ -97,8 +57,22 @@
         </div>
     </div>
 </div>
-<div class="pagination mb-5">
-    <i class="bi bi-arrow-left-circle-fill me-2"></i>
-    <i class="bi bi-arrow-right-circle-fill"></i>
+<!-- Pagination  -->
+<div class="pagination mb-5" *ngIf="getItemsPage().length">
+    <div class="d-flex justify-content-end mb-2">
+        <button class="rounded-2 btnColor  mx-2" [disabled]="pageActuelle === 1"
+            (click)="pageActuelle = pageActuelle - 1">
+            <i class="bi bi-arrow-left-circle-fill me-2"></i>
+        </button>
+        <button class=" mx-2 page" *ngFor="let page of pages" (click)="pageActuelle = page">
+            <span class="pageActuelle fs-5" *ngIf="page===pageActuelle">{{page}}</span>
+            <span *ngIf="page != pageActuelle">{{page}}</span>
+            <!-- {{ page }} -->
+        </button>
+        <button class="rounded-2 btnColor mx-2" [disabled]="pageActuelle === totalPages"
+            (click)="pageActuelle = pageActuelle + 1">
+            <i class="bi bi-arrow-right-circle-fill"></i>
+        </button>
+    </div>
 </div>
 <app-footer></app-footer>

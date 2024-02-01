@@ -17,7 +17,7 @@
                 </div>
                 <div class="mainContainerLeftInfo p-3">
                     <h4 class="text-center p-3">Informations personnelles</h4>
-                    <div class="mainContainerLeftInfoDetail px-1">
+                    <div class="mainContainerLeftInfoDetail px-1" *ngFor="let profil of dbUsers.utilisateur">
                         <h5 class="mb-4">Nom complet: <span>Dieynaba SENE</span></h5>
                         <h5 class="mb-4">Email: <span>dieyna@gmail.com</span></h5>
                         <h5 class="mb-4">Addresse: <span>Ouakam</span></h5>

@@ -15,13 +15,13 @@
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Ajouter</label>
                             <input type="text" name="auteur" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                                placeholder="zone">
+                                placeholder="zone" [(ngModel)]="addUser.nom">
                         </div>
-                        <button class="btn ajouter">Ajouter</button>
+                        <button class="btn ajouter" (click)="ajouterZone()">Ajouter</button>
                     </div>
                     <div class="sta">
                         <h5 class="mb-4">Total zone</h5>
-                        <span class="droite">4</span>
+                        <span class="droite">{{tabZone.length}}</span>
                         <span class="gauche"><i class="bi bi-files"></i></span>
                     </div>
                 </div>
@@ -34,12 +34,12 @@
                                 <th scope="col">Action </th>
                             </tr>
                         </thead>
-                        <tbody *ngFor="let user of getItemsPage()">
+                        <tbody *ngFor="let zone of getItemsPage()">
                             <tr>
-                                <td>{{user.nom}}</td>
+                                <td>{{zone.nom}}</td>
                                 <td>
-                                    <button class="btn modif me-2" data-bs-toggle="modal" data-bs-target="#modifZone">Modifier</button>
-                                    <button class="btn sup ">Supprimer</button>
+                                    <button class="btn modif me-2" data-bs-toggle="modal" data-bs-target="#modifZone" (click)="chargerInfosZone(zone)">Modifier</button>
+                                    <button class="btn sup" (click)="supprimerZone(zone.id)">Supprimer</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -54,7 +54,6 @@
                             <button class=" mx-2 page" *ngFor="let page of pages" (click)="pageActuelle = page">
                                 <span class="pageActuelle fs-5" *ngIf="page===pageActuelle">{{page}}</span>
                                 <span *ngIf="page != pageActuelle">{{page}}</span>
-                                <!-- {{ page }} -->
                             </button>
                             <button class="rounded-2 btnColor mx-2" [disabled]="pageActuelle === totalPages"
                                 (click)="pageActuelle = pageActuelle + 1">
@@ -81,14 +80,13 @@
             <div class="modal-body">
                 <form>
                     <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Nom:</label>
-                        <input type="text" name="titre" class="form-control" id="exampleInputEmail1"
-                            aria-describedby="emailHelp">
+                        <label for="inputNom" class="form-label">Nom</label>
+                        <input type="text" class="form-control" id="inputNom" name="inputNom" [(ngModel)]="inputNom">
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class=" btn btnSave" data-bs-dismiss="modal">Modifier</button>
+                <button type="button" class=" btn btnSave" data-bs-dismiss="modal" (click)=" MAJZone() ">Modifier</button>
                 <button type="button" class="btn btnClose" data-bs-dismiss="modal">Annuler</button>
             </div>
         </div>

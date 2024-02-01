@@ -36,9 +36,9 @@
 }
 
 /* Pour les navigateurs chrome et edge  */
-.containerLink::-webkit-scrollbar {
+/* .containerLink::-webkit-scrollbar {
     display: none;
-}
+} */
 
 ul li {
     list-style: none;

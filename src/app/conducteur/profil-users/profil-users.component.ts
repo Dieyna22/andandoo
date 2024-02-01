@@ -5,6 +5,17 @@ import { Component } from '@angular/core';
   templateUrl: './profil-users.component.html',
   styleUrls: ['./profil-users.component.css']
 })
-export class ProfilUsersComponent {
+export class ProfilUsersComponent  {
+  dbUsers: any;
+  userConnect: any;
+
+  ngOnInit() {
+    this.dbUsers = JSON.parse(localStorage.getItem("userOnline") || "[]");
+    console.log(this.dbUsers.original);
+    this.userConnect = this.dbUsers.original.data.utilisateur;
+    console.error(this.userConnect);
+  }
+
+
 
 }

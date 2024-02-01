@@ -16,7 +16,7 @@
                         <!-- Recherhcer une ligne  -->
                         <div class="row sectionEspace ligneReseauSearch mb-3">
                             <div class="col-md-7">
-                                <h3 class="fw-bold">Listes des clients</h3>
+                                <h3 class="fw-bold">Listes des conducteurs</h3>
                             </div>
                             <div class="col-md-5">
                                 <div class="input-group">
@@ -40,18 +40,19 @@
                                     <th scope="col">Action </th>
                                 </tr>
                             </thead>
-                            <tbody *ngFor="let client of getItemsPage()">
+                             <tbody *ngFor="let conducteur of getItemsPage()">
                             <tr>
                                 <td>
-                                    <img src="https://img.freepik.com/premium-photo/advertising-concept-confident-smiling-young-african-woman-crossed-hands-looking-camera_613652-185.jpg?w=740"
+                                    <img src="https://img.freepik.com/premium-photo/black-guy-driving-car_53419-3152.jpg?w=740"
                                         class="rounded-circle mb-2" alt="profil" style="width: 40px; height: 40px;">
                                 </td>
-                                <td>{{client.Nom}}</td>
-                                <td>{{client.Prenom}}</td>
-                                <td>{{client.Email}}</td>
-                                <td>{{client.Telephone}}</td>
+                                <td>{{conducteur.Nom}}</td>
+                                <td>{{conducteur.Prenom}}</td>
+                                <td>{{conducteur.Email}}</td>
+                                <td>{{conducteur.Telephone}}</td>
                                 <td>
-                                    <button class="btn btnAction" data-bs-toggle="modal" data-bs-target="#detailUser" titre="détail" (click)="detailClient(client.id)">Détails</button>
+                                    <button class="btn btnAction" data-bs-toggle="modal" data-bs-target="#detailUser" titre="détail" (click)="detailConducteur(conducteur.id)" *ngIf="conducteur.BlockerTemporairement==0">Détails</button>
+                                    <button class="btn btnAction" *ngIf="conducteur.BlockerTemporairement==1" (click)="activer(conducteur)">Débloquer</button>
                                 </td>
                             </tr>
                             </tbody>
@@ -94,17 +95,31 @@
                 <h1 class="modal-title fondText fs-5" id="exampleModalLabel">Détail Client</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body details">
-                <div class="imageProfilUser me-4 p-2">
-                    <img src="https://img.freepik.com/premium-photo/advertising-concept-confident-smiling-young-african-woman-crossed-hands-looking-camera_613652-185.jpg?w=740"
-                        class="rounded-circle mt-4" alt="profil" style="width: 140px; height: 140px;">
+            <div class="modal-body ">
+                <div class="details mb-3">
+                    <div class="imageProfilUser me-4 p-2">
+                        <img src="https://img.freepik.com/premium-photo/black-guy-driving-car_53419-3152.jpg?w=740"
+                            class="rounded-circle mt-4" alt="profil" style="width: 140px; height: 140px;">
+                    </div>
+                    <div class="infosUser">
+                        <p><span class="fondText">Nom Complet:</span> {{currentConducteur?.Prenom}} {{currentConducteur?.Nom}}</p>
+                        <p><span class="fondText">Adresse email:</span> {{currentConducteur?.Email}}</p>
+                        <p><span class="fondText">Téléphone:</span> {{currentConducteur?.Telephone}}</p>
+                        <p><span class="fondText">statut :</span> {{currentConducteur?.role}}</p>
+                        <p><span class="fondText">Zone :</span> {{currentConducteur?.Zone}}</p>
+                    </div>
                 </div>
-                <div class="infosUser">
-                    <p><span class="fondText">Nom Complet:</span> {{curentClient?.Prenom}} {{curentClient?.Nom}}</p>
-                    <p><span class="fondText">Adresse email:</span> {{curentClient?.Email}}</p>
-                    <p><span class="fondText">Téléphone:</span> {{curentClient?.Telephone}}</p>
-                    <p><span class="fondText">statut :</span> {{curentClient?.role}}</p>
-                    <p><span class="fondText">Zone :</span> {{curentClient?.Zone}}</p>
+                <div class="evenbtn">
+                    <div class="dropdown me-3" >
+                        <a class="btn fond-btn  dropdown-toggle"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Bloquer
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item"  (click)="Desactiver(currentConducteur)">temporairement</a></li>
+                            <li><a class="dropdown-item" (click)="bloquer(currentConducteur)">définitivement</a></li>
+                        </ul>
+                    </div>
+                    <button class="btn btnAction">Avertissement</button>
                 </div>
             </div>
             <div class="modal-footer">

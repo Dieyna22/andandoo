@@ -101,6 +101,27 @@ export class HistoriquesComponent {
     },
   ];
 
+
+
+  tabTrajetilter: any;
+
+  filterValue: string = "";
+
+
+  ngOnInit(): void {
+    this.tabTrajetilter = this.tabTrajet;
+  }
+
+  // Methode de recherche automatique pour professeur
+  onSearch() {
+    // Recherche se fait selon le depart ou l' arriver 
+    this.tabTrajetilter = this.tabTrajet.filter(
+      (elt: any) => (elt?.depart.toLowerCase().includes(this.filterValue.toLowerCase()) || elt?.arriver.toLowerCase().includes(this.filterValue.toLowerCase()))
+    );
+  }
+
+
+
   // Attribut pour la pagination
   itemsParPage = 3; // Nombre d'articles par page
   pageActuelle = 1; // Page actuelle
@@ -110,17 +131,17 @@ export class HistoriquesComponent {
   getItemsPage(): any[] {
     const indexDebut = (this.pageActuelle - 1) * this.itemsParPage;
     const indexFin = indexDebut + this.itemsParPage;
-    return this.tabTrajet.slice(indexDebut, indexFin);
+    return this.tabTrajetilter.slice(indexDebut, indexFin);
   }
 
   // Méthode pour générer la liste des pages
   get pages(): number[] {
-    const totalPages = Math.ceil(this.tabTrajet.length / this.itemsParPage);
+    const totalPages = Math.ceil(this.tabTrajetilter.length / this.itemsParPage);
     return Array(totalPages).fill(0).map((_, index) => index + 1);
   }
 
   // Méthode pour obtenir le nombre total de pages
   get totalPages(): number {
-    return Math.ceil(this.tabTrajet.length / this.itemsParPage);
+    return Math.ceil(this.tabTrajetilter.length / this.itemsParPage);
   }
 }

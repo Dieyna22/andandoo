@@ -9,6 +9,7 @@
         <div class="dropdown-content">
             <a [routerLink]="['/profil']">Profil</a>
             <a [routerLink]="['/accueil']">Déconnexion</a>
+
         </div>
     </div>
 </div>
@@ -23,7 +24,7 @@
                 <div class=" carte">
                     <span style="background-color: #FA7436;"><i class="bi bi-person"></i></span>
                     <div class="text-wrapper-3">Utilisateurs globale</div>
-                    <div class="text-wrapper-4">+1200</div>
+                    <div class="text-wrapper-4">{{tabUsers.length}}</div>
                 </div>
             </div>
         </div>
@@ -33,8 +34,8 @@
             <div>
                 <div class="carte">
                     <span style="background-color: #FFB60A;"><i class="bi bi-geo"></i></span>
-                    <div class="text-wrapper-5">Nombre de zone couvert</div>
-                    <div class="text-wrapper-4">4</div>
+                    <div class="text-wrapper-5">Nombre de zones</div>
+                    <div class="text-wrapper-4">{{tabZone.length}}</div>
                 </div>
             </div>
         </div>
@@ -43,9 +44,9 @@
         <div class="col-md-3">
             <div>
                 <div class="carte">
-                    <span style="background-color: #999999;"><i class="bi bi-signpost-2"></i></span>
-                    <div class="text-wrapper-6">Nombre de trajets effectués</div>
-                    <div class="text-wrapper-4">+20</div>
+                    <span style="background-color: #999999;"><i class="bi bi-person-lines-fill"></i></span>
+                    <div class="text-wrapper-6">Nombre de Clients</div>
+                    <div class="text-wrapper-4">{{tabClients.length}}</div>
                 </div>
             </div>
         </div>
@@ -55,8 +56,8 @@
             <div>
                 <div class="carte">
                     <span style="background-color: #4086F4;"><i class="bi bi-car-front"></i></span>
-                    <div class="text-wrapper-7">Nombre de conducteur</div>
-                    <div class="text-wrapper-4">+42</div>
+                    <div class="text-wrapper-7">Nombre de conducteurs</div>
+                    <div class="text-wrapper-4">{{tabConducteurs.length}}</div>
                 </div>
             </div>
         </div>

@@ -52,3 +52,9 @@ img{
 .dropdown:hover .dropdown-content {
     display: block;
 }
+
+.desCar{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 8px;
+}

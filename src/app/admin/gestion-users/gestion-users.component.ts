@@ -1,4 +1,5 @@
 import { Component,OnInit } from '@angular/core';
+import { UtilisateurService } from 'src/app/services/utilisateur.service';
 
 @Component({
   selector: 'app-gestion-users',
@@ -7,55 +8,10 @@ import { Component,OnInit } from '@angular/core';
 })
 export class GestionUsersComponent implements OnInit  {
   // Déclaration des variables 
-  tabUsers = [
-    {
-      nom: "Diouf",
-      prenom:"Astou",
-      email: "ayou@gmail.com",
-    },
-    {
-      nom: "Ndiaye",
-      prenom: "Amy",
-      email: "test@gmail.com",
-    },
-    {
-      nom: "sidy",
-      prenom: "pape",
-      email: "fun@gmail.com",
-    },
-    {
-      nom: "diagne",
-      prenom: "Marie",
-      email: "bg@gmail.com",
-    },
-    {
-      nom: "anta",
-      prenom:"Mame",
-      email: "test@gmail.com",
-    },
-    {
-      nom: "diop",
-      prenom: "Alioune",
-      email: "fun@gmail.com",
-    },
-    {
-      nom: "diaw",
-      prenom: "Rokhaya",
-      email: "bg@gmail.com",
-    },
-    {
-      nom: "ndoye",
-      prenom: "Libasse",
-      email: "test@gmail.com",
-    },
-    {
-      nom: "Ba",
-      prenom: "Khady",
-      Email: "dija@gmail.com",
-    },
-  ];
+  tabClients: any[] = [];
+  
 
-  tabReaseauFilter: any;
+  tabClientFilter: any[] = [];
 
   filterValue: string = "";
 
@@ -66,37 +22,47 @@ export class GestionUsersComponent implements OnInit  {
 
 
   // Déclaration des méthodes 
-  constructor() { }
+  constructor( private client: UtilisateurService) { }
 
   ngOnInit(): void {
-    this.tabReaseauFilter = this.tabUsers;
+    this.client.getAllClients().subscribe((clients: any) => {
+      this.tabClients = clients;
+      console.log(this.tabClients);
+      this.tabClientFilter = this.tabClients;
+    })
+  }
+
+  // detail du formateur cliqué
+  curentClient: any;
+  detailClient(paramClient: any) {
+    this.curentClient = this.tabClientFilter.find((item: any) => item.id == paramClient)
+    console.log(this.curentClient);
   }
 
   // Methode de recherche automatique pour professeur
   onSearch() {
     // Recherche se fait selon le nom ou le prenom 
-    this.tabReaseauFilter = this.tabUsers.filter(
-      (elt: any) => (elt?.nom.toLowerCase().includes(this.filterValue.toLowerCase()))
+    this.tabClientFilter = this.tabClients.filter(
+      (elt: any) => (elt?.Nom.toLowerCase().includes(this.filterValue.toLowerCase()) || elt?.Prenom.toLowerCase().includes(this.filterValue.toLowerCase()))
     );
   }
-
 
   // Pagination 
   // Méthode pour déterminer les articles à afficher sur la page actuelle
   getItemsPage(): any[] {
     const indexDebut = (this.pageActuelle - 1) * this.itemsParPage;
     const indexFin = indexDebut + this.itemsParPage;
-    return this.tabReaseauFilter.slice(indexDebut, indexFin);
+    return this.tabClientFilter.slice(indexDebut, indexFin);
   }
 
   // Méthode pour générer la liste des pages
   get pages(): number[] {
-    const totalPages = Math.ceil(this.tabReaseauFilter.length / this.itemsParPage);
+    const totalPages = Math.ceil(this.tabClientFilter.length / this.itemsParPage);
     return Array(totalPages).fill(0).map((_, index) => index + 1);
   }
 
   // Méthode pour obtenir le nombre total de pages
   get totalPages(): number {
-    return Math.ceil(this.tabReaseauFilter.length / this.itemsParPage);
+    return Math.ceil(this.tabClientFilter.length / this.itemsParPage);
   }
 }

@@ -90,51 +90,43 @@
             <div class="modal-body">
                 <form>
                     <div class="mb-3">
-                        <label for="image" class="form-label">Images:</label>
-                        <input type="file" class="form-control" id="image">
-                    </div>
-                    <div class="mb-3">
                         <label for="image" class="form-label">Lieu de départ:</label>
-                        <select class="form-select" aria-label="Default select example">
+                        <select class="form-select" aria-label="Default select example" name="depart" [(ngModel)]="depart">
                             <option selected>selectionner votre lieu de départ</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                            <option value="Dakar">Dakar</option>
+                            <option value="Pikine">Pikine</option>
+                            <option value="Keur Massar">Keur Massar</option>
                         </select>
                     </div>
                     <div class="mb-3">
                         <label for="image" class="form-label">Lieu d'arriver:</label>
-                        <select class="form-select" aria-label="Default select example">
+                        <select class="form-select" aria-label="Default select example" name="arriver" [(ngModel)]="arriver">
                             <option selected>selectionner votre lieu de d'arriver</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                            <option value="Dakar">Dakar</option>
+                            <option value="Pikine">Pikine</option>
+                            <option value="Keur Massar">Keur Massar</option>
                         </select>
                     </div>
                     <div class="mb-3">
                         <label for="date" class="form-label">Date:</label>
-                        <input type="date" class="form-control" id="date">
+                        <input type="date" class="form-control" id="date" name="date" [(ngModel)]="date">
                     </div>
                     <div class="mb-3">
                         <label for="time" class="form-label">Heure:</label>
-                        <input type="time" class="form-control" id="time">
+                        <input type="time" class="form-control" id="time" name="time" [(ngModel)]="time">
                     </div>
                     <div class="mb-3">
                         <label for="prix" class="form-label">Prix:</label>
-                        <input type="number" class="form-control" id="prix">
-                    </div>
-                    <div class="mb-3">
-                        <label for="nbrPlace" class="form-label">Places disponibles:</label>
-                        <input type="number" class="form-control" id="nbrPlace">
+                        <input type="number" class="form-control" id="prix" name="prix" [(ngModel)]="prix">
                     </div>
                     <div class="mb-3">
                         <label for="nbrPlace" class="form-label">Description:</label>
-                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" name="description" [(ngModel)]="description"></textarea>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btnAjout">Ajouter</button>
+                <button type="button" class="btn btnAjout" (click)=" addTrajet()">Ajouter</button>
                 <button type="button" class="btn btnClose" data-bs-dismiss="modal">Fermer</button>
             </div>
         </div>

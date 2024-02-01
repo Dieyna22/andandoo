@@ -10,38 +10,140 @@
                 <li class="nav-item" routerLinkActive="active"  >
                     <a class="nav-link" [routerLink]="['/accueilUtilisateur']" >Accueil</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLinkActive="active"
-                        [routerLink]="['/publierTrajet']">Publier un trajet</a>
-                </li>
+                <ng-container *ngIf="isChauffeur">
+                    <li class="nav-item">
+                        <a class="nav-link" routerLinkActive="active" [routerLink]="['/publierTrajet']">Publier un trajet</a>
+                    </li>
+                </ng-container>
                 <li class="nav-item">
                     <a class="nav-link" routerLinkActive="active"
                         [routerLink]="['/reserverTrajet']">Reserver un trajet</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLinkActive="active"
-                        [routerLink]="['/mesTrajets']">Mes trajets</a>
-                </li>
+                <ng-container *ngIf="isChauffeur">
+                    <li class="nav-item">
+                        <a class="nav-link" routerLinkActive="active" [routerLink]="['/mesTrajets']">Mes trajets</a>
+                    </li>
+                </ng-container>
                 <li class="nav-item">
                     <a class="nav-link" routerLinkActive="active"
                         [routerLink]="['/faqP']">FAQ</a>
                 </li>
+                <div class="dropdown" *ngIf="isChauffeur">
+                    <ng-container>
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"  style="cursor: pointer;">Voiture</a>
+                    </ng-container>
+                    <div class="dropdown-content">
+                        <a class="nav-link" routerLinkActive="active" data-bs-toggle="modal" data-bs-target="#ajoutVoiture"
+                            style="cursor: pointer;">Ajout Voiture</a>
+                            <a class="nav-link" routerLinkActive="active" data-bs-toggle="modal" data-bs-target="#voirVoiture"
+                                style="cursor: pointer;" (click)="listerVoiture()">Voir Voiture</a>
+                    </div>
+                </div>
+              
             </ul>
             <i class="bi bi-bell me-4"></i>
             <div class="dropdown">
-                <img class=" rounded-circle"
-                    src="https://img.freepik.com/free-photo/confident-business-woman-portrait-smiling-face_53876-137693.jpg?size=626&ext=jpg&uid=R109978541&ga=GA1.2.1650161440.1694444933&semt=sph"
-                    class="dropbtn" style="width: 40px; height: 40px;"  />
+                <ng-container>
+                    <img class="rounded-circle"
+                        src="http://127.0.0.1:8000/images/profils/{{userConnect.ImageProfile}}" alt="profile"
+                        class="dropbtn" style="width: 40px; height: 40px;"/>
+                </ng-container>
                     <div class="dropdown-content">
-                        <a [routerLink]="['/profilUser']" [ngClass]="{'active': boutonActif === 4}" (click)="boutonActif = 4">Profil</a>
-                        <a [routerLink]="['/accueil']" [ngClass]="{'active': boutonActif === 4}" (click)="boutonActif = 4">Déconnexion</a>
+                        <a [routerLink]="['/profilUser']">Profil</a>
+                        <a [routerLink]="['/accueil']">Déconnexion</a>
                     </div>
             </div>
-            
-           
-            <!-- <button class="fw-bold text-white btnConnexion" [routerLink]="['/login']">Connexion</button> -->
-            <!-- <button class="fw-bold text-white btnConnexion" [routerLink]="['/profilUser']" >Profile</button> -->
         </div>
     </div>
 </nav>
+
+
+<!-- Modal Ajout -->
+<div class="modal fade" id="ajoutVoiture" tabindex="-1" aria-labelledby="ajoutVoitureLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 titre" id="ajoutVoitureLabel">Ajout Voiture</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="imageVoiture" class="form-label">Image Voiture:</label>
+                        <input class="form-control" type="file" id="imageVoiture" name="imageVoiture" [(ngModel)]="imageVoiture" (change)="getFile($event)">
+                    </div>
+                    <div class="mb-3">
+                        <label for="nbrPlaces" class="form-label">Nombre de place:</label>
+                        <input class="form-control" type="text" id="nbrPlaces" name="nbrPlaces" [(ngModel)]="nbrPlaces">
+                    </div>
+                    <div class="form-floating">
+                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
+                            style="height: 100px" name="des" [(ngModel)]="description"></textarea>
+                        <label for="floatingTextarea2">Comments</label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btnAjout" (click)="addVoiture()">Ajout</button>
+                <button type="button" class="btn btnClose" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Details -->
+<div class="modal fade" id="voirVoiture" tabindex="-1" aria-labelledby="voirVoitureLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="voirVoitureLabel">Détails Voiture</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body desCar">
+                <img src="http://127.0.0.1:8000/images/voiture/{{userConnectCar.ImageVoitures}}" alt="">
+                <div>
+                    <p> Nombre de place: {{userConnectCar.NbrPlaces}}</p>
+                    <p> Déscription: {{userConnectCar.Descriptions}}</p>
+                </div>
+                <button class="btn btnAjout" data-bs-toggle="modal" data-bs-target="#modifierVoiture" (click)="chargerInfosVoiture(userConnectCar)">Modifier</button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btnClose" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Modif -->
+<div class="modal fade" id="modifierVoiture" tabindex="-1" aria-labelledby="modifierVoitureLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 titre" id="modifierVoitureLabel">Modification Voiture</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="inputCar" class="form-label">Image Voiture:</label>
+                        <input class="form-control" type="file" id="inputCar" name="inputCar"
+                            [(ngModel)]="inputCar" (change)="getFile($event)">
+                    </div>
+                    <div class="mb-3">
+                        <label for="inputPlace" class="form-label">Nombre de place:</label>
+                        <input class="form-control" type="text" id="inputPlace" name="inputPlace" [(ngModel)]="inputPlace">
+                    </div>
+                    <div class="form-floating">
+                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
+                            style="height: 100px" name="inputDes" [(ngModel)]="inputDes"></textarea>
+                        <label for="floatingTextarea2">Comments</label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btnAjout" data-bs-dismiss="modal" (click)="MAJCar()">Modifier</button>
+            </div>
+        </div>
+    </div>
+</div>
 

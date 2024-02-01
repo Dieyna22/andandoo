@@ -22,7 +22,9 @@
     text-decoration: underline;
     text-underline-offset: 4px;
 }
-
+.pageActuelle {
+    color: #FA7436;
+}
 
 /*----------------- Debut Section Footer ---------------------------- */
 .footer-container {
@@ -206,6 +208,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .fond-btn {
-    background-color: #FA7436;
-    color: #FFFFFF;
+    background-color: #FA7436!important;
+    color: #FFFFFF!important;
 }

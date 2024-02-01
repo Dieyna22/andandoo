@@ -25,11 +25,11 @@
 </div>
 <div class="rechercheArticles mb-5 container">
     <div class="nbrArticles">
-        <p>6 trajets</p>
+        <p>{{tabTrajetilter.length }} trajets</p>
     </div>
     <div class="zoneArticles">
         <div class="champRecherche">
-            <input type="search" name="" id="searchInput" placeholder="Recherche un trajet">
+            <input type="search" name="" id="searchInput" placeholder="Recherche un trajet" [(ngModel)]="filterValue" (input)="onSearch()">
         </div>
         <div class="btnRecherche">
             <button><i class="bi bi-search"></i></button>

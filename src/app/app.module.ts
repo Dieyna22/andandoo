@@ -36,6 +36,10 @@ import { HistoriquesEnCoursComponent } from './conducteur/historiques-en-cours/h
 import { FaqConducteurComponent } from './conducteur/faq-conducteur/faq-conducteur.component';
 import { NavbarComponent } from './header-footer/navbar/navbar.component';
 import { ProfilUsersComponent } from './conducteur/profil-users/profil-users.component';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { AuthService } from './services/auth.service';
+import { AuthInterceptor } from './interceptors/interceptor';
+import { ConducteurComponent } from './admin/conducteur/conducteur.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +68,8 @@ import { ProfilUsersComponent } from './conducteur/profil-users/profil-users.com
     HistoriquesEnCoursComponent,
     FaqConducteurComponent,
     NavbarComponent,
-    ProfilUsersComponent
+    ProfilUsersComponent,
+    ConducteurComponent
   ],
   imports: [
     BrowserModule,
@@ -77,8 +82,16 @@ import { ProfilUsersComponent } from './conducteur/profil-users/profil-users.com
     MatIconModule,
     MatDividerModule,
     DataTablesModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

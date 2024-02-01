@@ -263,22 +263,22 @@
                     <span class="mb-1" _msttexthash="159549" _msthash="154">Nom complet</span>
                     <input type="text" placeholder="Leroy Jenkins"
                         class="block w-full rounded-md shadow-sm focus:ring focus:ri focus:ri dark:bg-gray-800 "
-                        _mstplaceholder="205049" _msthash="153">
+                        _mstplaceholder="205049" _msthash="153" name="nom" [(ngModel)]="nomComplet">
                 </label>
                 <label class="block">
                     <span class="mb-1" _msttexthash="291785" _msthash="156">Adresse courriel</span>
                     <input type="email" placeholder="leroy@jenkins.com"
                         class="block w-full rounded-md shadow-sm focus:ring focus:ri focus:ri dark:bg-gray-800"
-                        _mstplaceholder="336063" _msthash="155">
+                        _mstplaceholder="336063" _msthash="155" name="email" [(ngModel)]="email">
                 </label>
                 <label class="block">
                     <span class="mb-1" _msttexthash="92924" _msthash="157">Message</span>
                     <textarea rows="3"
-                        class="block w-full rounded-md focus:ring focus:ri focus:ri dark:bg-gray-800"></textarea>
+                        class="block w-full rounded-md focus:ring focus:ri focus:ri dark:bg-gray-800" name="contenue" [(ngModel)]="contenue"></textarea>
                 </label>
                 <button type="button"
                     class="self-center px-4 py-3 text-lg rounded focus:ring hover:ring focus:ri dark:bg-violet-400 dark:text-gray-900 focus:ri hover:ri"
-                    _msttexthash="98280" _msthash="158">Envoyer</button>
+                    _msttexthash="98280" _msthash="158" (click)="ajouterZone()">Envoyer</button>
             </form>
         </div>
     </section>

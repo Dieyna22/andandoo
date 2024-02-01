@@ -40,13 +40,13 @@
                             </thead>
                             <tbody *ngFor="let message of getItemsPage()">
                                 <tr>
-                                    <td>{{message.nom}}</td>
-                                    <td>{{message.Email}}</td>
-                                    <td>{{message.messages}}</td>
+                                    <td>{{message.nomComplet}}</td>
+                                    <td>{{message.email}}</td>
+                                    <td>{{message.contenue}}</td>
                                     <td>
                                         <button class="btnAction px-2 py-1 rounded-2 me-4" title="réponse"
-                                            data-bs-toggle="modal" data-bs-target="#detailReseau">
-                                            Réponse
+                                            data-bs-toggle="modal" data-bs-target="#sendSms" (click)="chargerInfos(message)">
+                                            Réponse 
                                         </button>
                                     </td>
                                 </tr>
@@ -63,7 +63,6 @@
                                 <button class=" mx-2 page" *ngFor="let page of pages" (click)="pageActuelle = page">
                                     <span class="pageActuelle fs-5" *ngIf="page===pageActuelle">{{page}}</span>
                                     <span *ngIf="page != pageActuelle">{{page}}</span>
-                                    <!-- {{ page }} -->
                                 </button>
                                 <button class="rounded-2 btnColor mx-2" [disabled]="pageActuelle === totalPages"
                                     (click)="pageActuelle = pageActuelle + 1">
@@ -73,6 +72,39 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Send message -->
+<div class="modal fade" id="sendSms" tabindex="-1" aria-labelledby="sendSmsLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" *ngIf="CurrentItem">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 titre" id="sendSmsLabel">Répondre à {{CurrentItem.nomComplet}}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3 ">
+                    <label for="exampleInputEmail1" class="form-label">Emai</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" name="mail" [(ngModel)]="mail" aria-describedby="emailHelp">
+                </div>
+                <div class="form-floating mb-3">
+                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"
+                        name="message" [(ngModel)]="message"></textarea>
+                    <label for="floatingTextarea2">message</label>
+                </div>
+                <div class="form-floating">
+                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
+                        style="height: 100px" name="contenue" [(ngModel)]="contenue"></textarea>
+                    <label for="floatingTextarea2">Réponse</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btnAjout" (click)="sendReponse()">Envoyer</button>
+                <button type="button" class="btn btnClose" data-bs-dismiss="modal">Fermer</button>
             </div>
         </div>
     </div>
