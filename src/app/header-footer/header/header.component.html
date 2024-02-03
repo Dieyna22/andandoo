@@ -43,9 +43,9 @@
             </ul>
             <i class="bi bi-bell me-4"></i>
             <div class="dropdown">
-                <ng-container>
-                    <img class="rounded-circle"
-                        src="http://127.0.0.1:8000/images/profils/{{userConnect.ImageProfile}}" alt="profile"
+                <ng-container *ngIf="userConnect">
+                    <img class="rounded-circle "
+                        src="http://127.0.0.1:8000/images/profils/{{userConnect.ImageProfile}}"  alt="profile"
                         class="dropbtn" style="width: 40px; height: 40px;"/>
                 </ng-container>
                     <div class="dropdown-content">
@@ -99,13 +99,13 @@
                 <h1 class="modal-title fs-5" id="voirVoitureLabel">Détails Voiture</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body desCar">
-                <img src="http://127.0.0.1:8000/images/voiture/{{userConnectCar.ImageVoitures}}" alt="">
+            <div class="modal-body desCar" *ngIf="userConnectCar">
+                <img  src="http://127.0.0.1:8000/images/voiture/{{userConnectCar.ImageVoitures}}" alt="">
                 <div>
                     <p> Nombre de place: {{userConnectCar.NbrPlaces}}</p>
                     <p> Déscription: {{userConnectCar.Descriptions}}</p>
+                    <button class="btn btnAjout" data-bs-toggle="modal" data-bs-target="#modifierVoiture" (click)="chargerInfosVoiture(userConnectCar)">Modifier</button>
                 </div>
-                <button class="btn btnAjout" data-bs-toggle="modal" data-bs-target="#modifierVoiture" (click)="chargerInfosVoiture(userConnectCar)">Modifier</button>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btnClose" data-bs-dismiss="modal">Fermer</button>

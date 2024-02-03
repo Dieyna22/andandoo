@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { AvisService } from 'src/app/services/avis.service';
+import { ReservationService } from 'src/app/services/reservation.service';
+import { TrajetService } from 'src/app/services/trajet.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-reserver-trajet',
@@ -7,121 +11,125 @@ import { Component } from '@angular/core';
 })
 export class ReserverTrajetComponent {
   // Déclaration des variables 
-  tabTrajet = [
-    {
-      profil:"https://i.pinimg.com/236x/ec/01/8e/ec018ee761344a3248fe013ba6048aa9.jpg",
-      prenom:"Astou",
-      nom: "Diouf",
-      depart: "Pikine",
-      arriver: "Yoff",
-      date: "12/09/2015",
-      heure: "18:00:00",
-      prix: "500",
-      place: "3",
-      description: "chien autoriser",
-      etat:"terminer",
-    },
-    {
-      profil:"https://i.pinimg.com/236x/3e/7f/93/3e7f9375439a273f916b2fe2fb0545c6.jpg",
-      prenom: "Amy",
-      nom: "Sarr",
-      depart: "Sandaga",
-      arriver: "Yoff",
-      date: "19/09/2015",
-      heure: "07:00:00",
-      prix: "500",
-      place: "2",
-      description: "chien non autoriser autoriser",
-      etat: "terminer",
-    },
-    {
-      profil: "https://i.pinimg.com/236x/3e/7f/93/3e7f9375439a273f916b2fe2fb0545c6.jpg",
-      prenom: "Fatou",
-      nom: "Ndiaye",
-      depart: "Pikine",
-      arriver: "Centre ville",
-      date: "23/09/2015",
-      heure: "12:00:00",
-      prix: "700",
-      place: "1",
-      description: "interdit de fumer",
-      etat: "terminer",
-    },
-    {
-      profil: "https://i.pinimg.com/236x/3e/7f/93/3e7f9375439a273f916b2fe2fb0545c6.jpg",
-      prenom: "Mamadou",
-      nom: "Diop",
-      depart: "Mbour",
-      arriver: "Dakar",
-      date: "23/05/2015",
-      heure: "07:00:00",
-      prix: "1500",
-      place: "3",
-      description: "interdit de fumer",
-      etat: "terminer",
-    },
-    {
-      profil: "https://i.pinimg.com/236x/3e/7f/93/3e7f9375439a273f916b2fe2fb0545c6.jpg",
-      prenom: "Arame",
-      nom: "Faye",
-      depart: "Bambey",
-      arriver: "Dakar",
-      date: "25/01/2024",
-      heure: "07:00:00",
-      prix: "2000",
-      place: "4",
-      description: "interdit de fumer",
-      etat: "en cours",
-    },
-    {
-      profil: "https://i.pinimg.com/236x/3e/7f/93/3e7f9375439a273f916b2fe2fb0545c6.jpg",
-      prenom: "Germaine",
-      nom: "Diouf",
-      depart: "Saly",
-      arriver: "Foire",
-      date: "03/02/2024",
-      heure: "07:00:00",
-      prix: "1500",
-      place: "5",
-      description: "interdit de fumer",
-      etat: "en cours",
-    },
-    {
-      profil: "https://i.pinimg.com/236x/3e/7f/93/3e7f9375439a273f916b2fe2fb0545c6.jpg",
-      prenom: "Libasse",
-      nom: "Ndoye",
-      depart: "Keur Masar",
-      arriver: "Yoff",
-      date: "05/02/2024",
-      heure: "07:00:00",
-      prix: "700",
-      place: "2",
-      description: "interdit de fumer",
-      etat: "en cours",
-    },
-  ];
+  tabTrajet: any[] = [];
+  tabTrajetFilter: any[] = [];
 
+  dbUsers: any;
+  userConnect: any;
+
+  commentaire: string = '';
+ 
   // Attribut pour la pagination
   itemsParPage = 3; // Nombre d'articles par page
   pageActuelle = 1; // Page actuelle
+
+  // Déclaration des méthodes 
+  constructor(private listerTrajet: TrajetService, private deleteTrajet: TrajetService, private sendAvisService: AvisService, private reservation:ReservationService) { }
+ 
+  ngOnInit(): void {
+    this.listeTrajet();
+    this.dbUsers = JSON.parse(localStorage.getItem("userOnline") || "[]");
+    console.log(this.dbUsers.original);
+    this.userConnect = this.dbUsers.original.data.utilisateur;
+    console.error(this.userConnect);
+  }
 
   // Pagination 
   // Méthode pour déterminer les articles à afficher sur la page actuelle
   getItemsPage(): any[] {
     const indexDebut = (this.pageActuelle - 1) * this.itemsParPage;
     const indexFin = indexDebut + this.itemsParPage;
-    return this.tabTrajet.slice(indexDebut, indexFin);
+    return this.tabTrajetFilter.slice(indexDebut, indexFin);
   }
 
   // Méthode pour générer la liste des pages
   get pages(): number[] {
-    const totalPages = Math.ceil(this.tabTrajet.length / this.itemsParPage);
+    const totalPages = Math.ceil(this.tabTrajetFilter.length / this.itemsParPage);
     return Array(totalPages).fill(0).map((_, index) => index + 1);
   }
 
   // Méthode pour obtenir le nombre total de pages
   get totalPages(): number {
-    return Math.ceil(this.tabTrajet.length / this.itemsParPage);
+    return Math.ceil(this.tabTrajetFilter.length / this.itemsParPage);
+  }
+
+  listeTrajet() {
+    this.listerTrajet.getAllTrajets().subscribe(
+      (trajet: any) => {
+        this.tabTrajet = trajet;
+        console.log(this.tabTrajet);
+        this.tabTrajetFilter = this.tabTrajet;
+        console.log('$$$$$$$$$$$$$$$$$$$$$$$',this.tabTrajetFilter)
+      },
+      (err) => {
+        console.log(err);
+      }
+    )
+  }
+
+  // detail du passager cliqué
+  trajetSelected: any;
+  detailClient(paramTrajet: any) {
+    this.trajetSelected = this.tabTrajetFilter.find((item: any) => item.id == paramTrajet)
+    console.log(this.trajetSelected);
+  }
+
+  note: any;
+  // gestion de note avec étoile
+  noteStar(note: number) {
+    let stars = document.querySelectorAll('#star');
+    stars.forEach((element: any) => {
+
+      element.classList.remove("bi-star-fill");
+      element.classList.add("bi-star");
+    });
+    for (let i = 0; i < note; i++) {
+      stars[i].classList.remove("bi-star");
+      stars[i].classList.add("bi-star-fill");
+    }
+    this.note = note;
+  }
+
+  envoyerAvis() {
+    const avis = {
+      Contenue: this.commentaire,
+      Notation: this.note,
+    };
+    this.sendAvisService.sendAvis(avis).subscribe(
+      (reponse) => {
+        console.log(reponse);
+      },
+      (err) => {
+        console.log(err);
+      }
+    )
+  }
+
+  // Demande de reservation
+  demandeRservation(paramReservation: any) {
+    alert(paramReservation);
+    const addReservation = {
+      trajet_id: paramReservation,
+      NombrePlaces:1,
+    }
+    this.reservation.postReservation(addReservation).subscribe(
+      (reponse) => {
+        console.log(reponse);
+        this.alertMessage("Response...", reponse.message);
+      },
+      (error) => { 
+        console.log(error);
+      }
+    )
+  }
+
+ 
+  // sweetAlert
+  alertMessage(title: any, text: any) {
+    Swal.fire({
+      title: title,
+      text: text
+    });
   }
 
 }

@@ -14,8 +14,8 @@
                         <h5 class="text-center">Ajout Zone</h5>
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Ajouter</label>
-                            <input type="text" name="auteur" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                                placeholder="zone" [(ngModel)]="addUser.nom">
+                            <input type="text" name="auteur" class="form-control" id="exampleInputEmail1"
+                                aria-describedby="emailHelp" placeholder="zone" [(ngModel)]="addUser.NomZ">
                         </div>
                         <button class="btn ajouter" (click)="ajouterZone()">Ajouter</button>
                     </div>
@@ -38,7 +38,8 @@
                             <tr>
                                 <td>{{zone.nom}}</td>
                                 <td>
-                                    <button class="btn modif me-2" data-bs-toggle="modal" data-bs-target="#modifZone" (click)="chargerInfosZone(zone)">Modifier</button>
+                                    <button class="btn modif me-2" data-bs-toggle="modal" data-bs-target="#modifZone"
+                                        (click)="chargerInfosZone(zone)">Modifier</button>
                                     <button class="btn sup" (click)="supprimerZone(zone.id)">Supprimer</button>
                                 </td>
                             </tr>
@@ -62,8 +63,8 @@
                         </div>
                     </div>
                 </div>
-                
-            </div>       
+
+            </div>
         </div>
     </div>
 </div>
@@ -86,10 +87,10 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class=" btn btnSave" data-bs-dismiss="modal" (click)=" MAJZone() ">Modifier</button>
+                <button type="button" class=" btn btnSave" data-bs-dismiss="modal"
+                    (click)=" MAJZone() ">Modifier</button>
                 <button type="button" class="btn btnClose" data-bs-dismiss="modal">Annuler</button>
             </div>
         </div>
     </div>
 </div>
-

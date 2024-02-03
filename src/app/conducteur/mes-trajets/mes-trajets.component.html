@@ -12,56 +12,48 @@
             <button class="btn"[routerLink]="['/reservation']" >Reservations</button>
         </div>
         <div class="historique">
-            <button class="btn" [routerLink]="['/historique']">Historiques</button>
-        </div>
-    </div>
-</div>
-<div class="rechercheArticles mb-5 container">
-    <div class="nbrArticles">
-        <p>{{tabTrajetilter.length }} trajets</p>
-    </div>
-    <div class="zoneArticles">
-        <div class="champRecherche">
-            <input type="search" name="" id="searchInput" placeholder="Recherche un trajet" [(ngModel)]="filterValue" (input)="onSearch()">
-        </div>
-        <div class="btnRecherche">
-            <button><i class="bi bi-search"></i></button>
+            <button class="btn" [routerLink]="['/enCours']">Historiques</button>
         </div>
     </div>
 </div>
 <div class="cardTrajets mb-5 container">
     <div class="trajet" *ngFor="let trajet of getItemsPage()">
-        <ng-container *ngIf="trajet.prenom=='Astou' && trajet.nom=='Diouf'">
-            <div class="chauffeur">
-                <img [src]="trajet.profil" alt="" class="rounded-circle" style="height: 130px; width: 130px;">
-                <p> {{trajet.prenom}} {{trajet.nom}}</p>
+        <div class="chauffeur">
+            <img src="http://127.0.0.1:8000/images/profils/{{trajet.ImageProfile}}" alt="" class="rounded-circle text-center"
+                style="height: 150px; width: 150px;">
+            <p class="text-center"> {{trajet.PrenomChauffeur}} {{trajet.NomChauffeur}}</p>
+        </div>
+        <hr>
+        <div class="infosTrajet">
+            <div class="lieu">
+                <p class=" mb-1 mt-1">
+                    {{trajet.LieuDepart}}
+                    <i class="bi bi-car-front-fill" style="color: #ff5900;"></i>
+                    {{trajet.LieuArrivee}}
+                </p>
             </div>
-            <hr>
-            <div class="infosTrajet">
-                <div class="lieu">
-                    <p class=" mb-1 mt-1">
-                        <i class="bi bi-car-front-fill" style="color: #ff5900;"></i>
-                        {{trajet.depart}}-{{trajet.arriver}}
-                    </p>
-                </div>
-                <div class="date">
-                    <p class=" mb-1 mt-1">
-                        <i class="bi bi-calendar4-week" style="color: #ff5900;"></i>
-                        {{trajet.date}}-{{trajet.heure}}
-                    </p>
-                </div>
+            <div class="date">
+                <p class=" mb-1 mt-1">
+                    {{trajet.DateDepart}}
+                    <i class="bi bi-calendar4-week" style="color: #ff5900;"></i>
+                    {{trajet.HeureDepart}}
+                </p>
             </div>
-            <hr>
-            <div class="details mb-3">
-                <span class="gauche">{{trajet.prix}} FCA</span>
-                <span class="droite"><i class="bi bi-people-fill"></i> {{trajet.place}} places disponibles</span>
-            </div>
-            <div class="autreDetails">
-                <span data-bs-toggle="modal" data-bs-target="#profilChauffeur" style="cursor: pointer;">Voir profil <i class="bi bi-arrow-right-circle-fill"></i></span>
-                <button class="btn reserver" data-bs-toggle="modal" data-bs-target="#detailTrajet">Détails</button>
-            </div>
-        </ng-container>
-        
+        </div>
+        <hr>
+        <div class="details mb-3">
+            <span class="gauche">{{trajet.Prix}} FCA</span>
+            <span class="droite"><i class="bi bi-people-fill"></i> {{trajet.NombrePlaceDisponible}} places
+                disponibles</span>
+        </div>
+        <div class="autreDetails">
+            <span data-bs-toggle="modal" data-bs-target="#profilChauffeur" style="cursor: pointer;" (click)="detailClient(trajet.id)">Voir profil <i class="bi bi-arrow-right-circle-fill"></i></span>
+            <span class=" reserver" >
+                <i class="bi bi-eye me-4" title="détails" data-bs-toggle="modal" data-bs-target="#detailTrajet" (click)="detailClient(trajet.id)"></i>
+                <i class="bi bi-pencil-square me-4" title="modifier" data-bs-toggle="modal" data-bs-target="#modifierTrajet" (click)="chargerInfosTrajets(trajet)"></i>
+                <i class="bi bi-trash" title="supprimer" (click)="supprimerTrajet(trajet.id)"></i>
+            </span>
+        </div>
     </div>
 </div>
 <!-- Pagination  -->
@@ -84,41 +76,30 @@
 </div>
 <app-footer></app-footer>
 
-<!-- Modal détails projet -->
-<div class="modal fade" id="detailTrajet">
-    <div class="modal-dialog modal-dialog-centered modal-xl">
+<!-- Modal détails trajet -->
+<div class="modal fade" id="detailTrajet" *ngIf="trajetSelected">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5 fw-bold titre">Détails Trajet</h1>
                 <button type="button" class="btn-close fond-bleu text-light" data-bs-dismiss="modal"
                     aria-label="Close"></button>
             </div>
-            <div class="modal-body" >
+            <div class="modal-body">
                 <div class="row">
-                    <div class="col-12 col-md-3">
-                        <img src= "https://i.pinimg.com/236x/ec/01/8e/ec018ee761344a3248fe013ba6048aa9.jpg" class="img-fluid" alt="">
+                    <div class="col-12 col-md-5 divImage">
+                        <img src= "http://127.0.0.1:8000/images/profils/{{trajetSelected.ImageProfile}}" class="img-fluid profilChauffeur" alt="" >
                     </div>
-                    <div class="col-12 col-md-9 p-2">
-                        <h4 class=""> Astou Diouf</h4>
+                    <div class="col-12 col-md-6 p-2">
+                        <h4 class=""> {{trajetSelected.PrenomChauffeur}} {{trajetSelected.NomChauffeur}}</h4>
                         <div class="w-100">
-                            <p>pikine-Yoff</p>
-                            <p> pour le 02/02:2024 à 7:30</p>
-                            <p>3 places disponibles</p>
+                            <p>{{trajetSelected.LieuDepart}}-{{trajetSelected.LieuArrivee}}</p>
+                            <p> pour le {{trajetSelected.DeateDepart}} à {{trajetSelected.HeureDepart}}</p>
+                            <p>{{trajetSelected.NombrePlaceDisponible}} places disponibles</p>
                         </div>
                     </div>
                 </div>
-                <div class="traitL my-2"></div>
-                <div class="row mt-2">
-                    <div class="col-12 col-md-4">
-                        <button class=" btn btnAjout">Modifier</button>
-                    </div>
-                    <div class="col-12 col-md-4">
-                        <button class="btn btnAjout">Annuler</button>
-                    </div>
-                    <div class="col-12 col-md-4">
-                        <button class="btn btnAjout">Reporter</button>
-                    </div>
-                </div>
+               
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btnClose  fw-bold" data-bs-dismiss="modal">Fermer</button>
@@ -129,8 +110,8 @@
 </div>
 
 <!-- Modal détails Chauffeur -->
-<div class="modal fade" id="profilChauffeur">
-    <div class="modal-dialog modal-dialog-centered modal-xl">
+<div class="modal fade" id="profilChauffeur" *ngIf="trajetSelected">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5 fw-bold titre">Profil Chauffeur</h1>
@@ -139,19 +120,14 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-12 col-md-3">
-                        <img src="https://img.freepik.com/premium-photo/pink-small-sports-car-coupe-3d-rendering_101266-10050.jpg?w=826"
+                    <div class="col-12 col-md-5">
+                        <img src="http://127.0.0.1:8000/images/voiture/{{trajetSelected.ImageVoiture}}"
                             class="img-fluid" alt="">
                     </div>
-                    <div class="col-12 col-md-9 p-2">
-                        <img src="https://i.pinimg.com/236x/ec/01/8e/ec018ee761344a3248fe013ba6048aa9.jpg" class="rounded-circle" style="width: 40px; height: 40px;">
-                        <h4 class=""> Astou Diouf <br></h4>
+                    <div class="col-12 col-md-6 p-2">
+                        <img src="http://127.0.0.1:8000/images/profils/{{trajetSelected.ImageProfile}}" class="rounded-circle" style="width: 40px; height: 40px;">
+                        <h4 class=""> {{trajetSelected.PrenomChauffeur}} {{trajetSelected.NomChauffeur}} <br></h4>
                         <span>Chauffeur</span>
-                        <div class="w-100 sta mt-2">
-                            <span>262<br>Trajets</span>
-                            <span class="separation">262<br>Trajets</span>
-                            <span>262<br>Trajets</span>
-                        </div>
                     </div>
                 </div>
                 <div class="traitL my-2"></div>
@@ -160,7 +136,7 @@
                         <h4>Commentaires</h4>
                     </div>
                     <div class="col-12 col-md-6">
-                        <button class="btn btnAjout">Commenter</button>
+                        <button class="btn btnAjout" data-bs-toggle="modal" data-bs-target="#commentaire">Commenter</button>
                     </div>
                 </div>
                 <div class="row mt-2 overflow-y-scroll" style="height: 20vh;">
@@ -179,6 +155,87 @@
             <div class="modal-footer">
                 <button type="button" class="btn btnClose  fw-bold" data-bs-dismiss="modal">Fermer</button>
                 <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal modifier trajet -->
+<div class="modal fade" id="modifierTrajet" tabindex="-1" aria-labelledby="modifierTrajetLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 titre" id="modifierTrajetLabel">Modifier un trajet</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="lieuDepart" class="form-label">Lieu de départ:</label>
+                        <input type="text" class="form-control" id="lieuDepart" name="depart" [(ngModel)]="depart">
+                    </div>
+                    <div class="mb-3">
+                        <label for="lieuDepart" class="form-label">Lieu d'arriver:</label>
+                        <input type="text" class="form-control" id="lieuDepart" name="arriver" [(ngModel)]="arriver">
+                    </div>
+                    <div class="mb-3">
+                        <label for="date" class="form-label">Date:</label>
+                        <input type="date" class="form-control" id="date" name="date" [(ngModel)]="date">
+                    </div>
+                    <div class="mb-3">
+                        <label for="time" class="form-label">Heure:</label>
+                        <input type="time" class="form-control" id="time" name="time" [(ngModel)]="time">
+                    </div>
+                    <div class="mb-3">
+                        <label for="prix" class="form-label">Prix:</label>
+                        <input type="number" class="form-control" id="prix" name="prix" [(ngModel)]="prix">
+                    </div>
+                    <div class="mb-3">
+                        <label for="nbrPlace" class="form-label">Description:</label>
+                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"
+                            name="description" [(ngModel)]="description"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btnAjout" (click)=" MAJTrajet()">Modifier</button>
+                <button type="button" class="btn btnClose" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal commentaire -->
+<div class="modal fade" id="commentaire" tabindex="-1" aria-labelledby="commentaire" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 titre" id="commentaire">Commentaire</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex w-50 justify-content-between mb-2">
+                    <span>La note : </span>
+                    <div class="w-50 d-flex justify-content-between">
+                        <i class="bi bi-star" id="star" (click)="noteStar(1)"></i>
+                        <i class="bi bi-star" id="star" (click)="noteStar(2)"></i>
+                        <i class="bi bi-star" id="star" (click)="noteStar(3)"></i>
+                        <i class="bi bi-star" id="star" (click)="noteStar(4)"></i>
+                        <i class="bi bi-star" id="star" (click)="noteStar(5)"></i>
+                    </div>
+                </div>
+                <div class="form-floating">
+                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"
+                        name="contenue" [(ngModel)]="commentaire"></textarea>
+                    <label for="floatingTextarea2">commentaire</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btnAjout" (click)="envoyerAvis()">Envoyer</button>
+                <button type="button" class="btn btnClose" data-bs-dismiss="modal" aria-label="Close" #closeAddExpenseModal>
+                    Annuler
+                </button>
             </div>
         </div>
     </div>

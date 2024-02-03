@@ -15,9 +15,19 @@ export class TrajetService {
     return this.http.get<any>(`${apiUrl}/ListTrajet`);
   }
 
+  // lister mes trajets
+  getMesTrajets(): Observable<any> {
+    return this.http.get<any>(`${apiUrl}/mestrajets`);
+  }
+
   // Méthode pour ajouter un trajet
   postTrajet(trajet: any): Observable<any> {
     return this.http.post<any>(`${apiUrl}/CreateTrajet`, trajet);
+  }
+
+  // Méthode pour affichr les détails d'un trajet
+  detailsTrajet(trajet: any): Observable<any> {
+    return this.http.post<any>(`${apiUrl}/DetailsTrajet/${trajet}`, trajet);
   }
 
   // Méthode pour supprimer un trajet

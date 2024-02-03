@@ -28,6 +28,7 @@ export class LoginComponent {
   permis: any;
   licence: any;
   role: string = "";
+  CAG:any;
 
   activite: string = '';
   image: string = '';
@@ -99,6 +100,11 @@ export class LoginComponent {
   getFileLicence(event: any) {
     console.warn(event.target.files[0]);
     this.licence = event.target.files[0] as File;
+  }
+
+  getFileCAG(event: any) {
+    console.warn(event.target.files[0]);
+    this.CAG = event.target.files[0] as File;
   }
 
   // connexion 
@@ -199,6 +205,7 @@ export class LoginComponent {
     formData.append("role", this.role);
     formData.append("PermisConduire", this.permis);
     formData.append("Licence", this.licence);
+    formData.append("CarteGrise", this.CAG);
 
     if (
       this.nom == '' ||

@@ -68,37 +68,45 @@
         </div>
     </div>
 </div>
+
 <div class="cardTrajets mb-5 container">
-    <div class="trajet" *ngFor="let trajet of getItemsPage()">
-        <div class="chauffeur">
-            <img [src]="trajet.profil" alt="" class="rounded-circle" style="height: 130px; width: 130px;">
-            <p> {{trajet.prenom}} {{trajet.nom}}</p>
-        </div>
-        <hr>
-        <div class="infosTrajet">
-            <div class="lieu">
-                <p class=" mb-1 mt-1">
-                    <i class="bi bi-car-front-fill" style="color: #ff5900;"></i> 
-                    {{trajet.depart}}-{{trajet.arriver}}
-                </p>
+    <ng-container *ngFor="let trajet of getItemsPage()">
+        <div class="trajet" *ngIf="trajet.ChauffeurId!=userConnect.id">
+            <div class="chauffeur">
+                <img src="http://127.0.0.1:8000/images/profils/{{trajet.ImageProfile}}" alt=""
+                    class="rounded-circle text-center" style="height: 150px; width: 150px;">
+                <p class="text-center"> {{trajet.PrenomChauffeur}} {{trajet.NomChauffeur}}</p>
             </div>
-            <div class="date">
-                <p class=" mb-1 mt-1">
-                    <i class="bi bi-calendar4-week" style="color: #ff5900;"></i>
-                    {{trajet.date}}-{{trajet.heure}}
-                </p>
+            <hr>
+            <div class="infosTrajet">
+                <div class="lieu">
+                    <p class=" mb-1 mt-1">
+                        {{trajet.LieuDepart}}
+                        <i class="bi bi-car-front-fill" style="color: #ff5900;"></i>
+                        {{trajet.LieuArrivee}}
+                    </p>
+                </div>
+                <div class="date">
+                    <p class=" mb-1 mt-1">
+                        {{trajet.DateDepart}}
+                        <i class="bi bi-calendar4-week" style="color: #ff5900;"></i>
+                        {{trajet.HeureDepart}}
+                    </p>
+                </div>
+            </div>
+            <hr>
+            <div class="details mb-3">
+                <span class="gauche">{{trajet.Prix}} FCA</span>
+                <span class="droite"><i class="bi bi-people-fill"></i> {{trajet.NombrePlaceDisponible}} places
+                    disponibles</span>
+            </div>
+            <div class="autreDetails">
+                <span data-bs-toggle="modal" data-bs-target="#profilChauffeur" style="cursor: pointer;"
+                    (click)="detailClient(trajet.id)">Voir profil <i class="bi bi-arrow-right-circle-fill"></i></span>
+                <button class="btn reserver" (click)="demandeRservation(trajet.id)">Reserver une place</button>
             </div>
         </div>
-        <hr>
-        <div class="details mb-3">
-            <span class="gauche">{{trajet.prix}} FCA</span>
-            <span class="droite"><i class="bi bi-people-fill"></i> {{trajet.place}} places disponibles</span>
-        </div>
-        <div class="autreDetails">
-            <span>Voir profil <i class="bi bi-arrow-right-circle-fill"></i></span>
-            <button class="btn reserver">Reserver une place</button>
-        </div>
-    </div>
+    </ng-container>
 </div>
 <!-- Pagination  -->
 <div class="pagination mb-5"  *ngIf="getItemsPage().length">
@@ -119,3 +127,93 @@
     </div>
 </div>
 <app-footer></app-footer>
+
+
+<!-- Modal détails Chauffeur -->
+<div class="modal fade" id="profilChauffeur" *ngIf="trajetSelected">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 fw-bold titre">Profil Chauffeur</h1>
+                <button type="button" class="btn-close fond-bleu text-light" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12 col-md-5">
+                        <img src="http://127.0.0.1:8000/images/voiture/{{trajetSelected.ImageVoiture}}"
+                            class="img-fluid" alt="">
+                    </div>
+                    <div class="col-12 col-md-6 p-2">
+                        <img src="http://127.0.0.1:8000/images/profils/{{trajetSelected.ImageProfile}}"
+                            class="rounded-circle" style="width: 40px; height: 40px;">
+                        <h4 class=""> {{trajetSelected.PrenomChauffeur}} {{trajetSelected.NomChauffeur}} <br></h4>
+                        <span>Chauffeur</span>
+                    </div>
+                </div>
+                <div class="traitL my-2"></div>
+                <div class="row mt-2">
+                    <div class="col-12 col-md-6">
+                        <h4>Commentaires</h4>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <button class="btn btnAjout" data-bs-toggle="modal"
+                            data-bs-target="#commentaire">Commenter</button>
+                    </div>
+                </div>
+                <div class="row mt-2 overflow-y-scroll" style="height: 20vh;">
+                    <div class="col-12  commentaire">
+                        <div class="image me-2">
+                            <img src="https://img.freepik.com/free-photo/portrait-attractive-dark-skinned-student-wearing-checkered-shirt-with-confident-joyful-expression-standing-chalkboard-wall_273609-5907.jpg?size=626&ext=jpg&uid=R109978541&ga=GA1.2.1650161440.1694444933&semt=ais"
+                                class="rounded-circle" style="width: 40px; height: 40px;">
+                        </div>
+                        <div class="textCom">
+                            <h6>nom user</h6>
+                            <p>commentaire que l'utilisateur à écris</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btnClose  fw-bold" data-bs-dismiss="modal">Fermer</button>
+                <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal commentaire -->
+<div class="modal fade" id="commentaire" tabindex="-1" aria-labelledby="commentaire" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 titre" id="commentaire">Commentaire</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex w-50 justify-content-between mb-2">
+                    <span>La note : </span>
+                    <div class="w-50 d-flex justify-content-between">
+                        <i class="bi bi-star" id="star" (click)="noteStar(1)"></i>
+                        <i class="bi bi-star" id="star" (click)="noteStar(2)"></i>
+                        <i class="bi bi-star" id="star" (click)="noteStar(3)"></i>
+                        <i class="bi bi-star" id="star" (click)="noteStar(4)"></i>
+                        <i class="bi bi-star" id="star" (click)="noteStar(5)"></i>
+                    </div>
+                </div>
+                <div class="form-floating">
+                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
+                        style="height: 100px" name="contenue" [(ngModel)]="commentaire"></textarea>
+                    <label for="floatingTextarea2">commentaire</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btnAjout" (click)="envoyerAvis()">Envoyer</button>
+                <button type="button" class="btn btnClose" data-bs-dismiss="modal" aria-label="Close"
+                    #closeAddExpenseModal>
+                    Annuler
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

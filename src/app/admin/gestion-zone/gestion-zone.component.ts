@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { apiUrl } from 'src/app/services/apiUrl';
 import { ZoneService } from 'src/app/services/zone.service';
 import Swal from 'sweetalert2';
@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
   templateUrl: './gestion-zone.component.html',
   styleUrls: ['./gestion-zone.component.css']
 })
-export class GestionZoneComponent implements OnInit  {
+export class GestionZoneComponent implements OnInit {
   // Déclaration des variables 
   tabZone: any[] = [];
   tabZoneFilter: any[] = [];
@@ -22,22 +22,22 @@ export class GestionZoneComponent implements OnInit  {
   pageActuelle = 1; // Page actuelle
 
   // Déclaration des méthodes 
-  constructor(private http: HttpClient, private zone: ZoneService, private ajoutService:ZoneService , private deleteZone:ZoneService) { }
+  constructor(private http: HttpClient, private zone: ZoneService, private ajoutService: ZoneService, private deleteZone: ZoneService) { }
 
-  
+
   ngOnInit(): void {
     this.listeZone();
   }
 
   addUser = {
-    nom: '',
+    NomZ: '',
   };
 
   listeZone() {
     this.zone.getAllZones().subscribe(
       (zones: any) => {
         this.tabZone = zones;
-        console.warn(this.tabZone);
+        console.log(this.tabZone);
         this.tabZoneFilter = this.tabZone;
         console.log(this.tabZoneFilter)
       },
@@ -51,10 +51,11 @@ export class GestionZoneComponent implements OnInit  {
     // alert('test ajout')
     this.ajoutService.postZone(this.addUser).subscribe((response: any) => {
       console.log('Réponse du service après ajout d\'User :', response);
-      this.addUser = { nom: ''};
+      this.addUser = { NomZ: '' };
+      this.listeZone();
     });
   }
-  supprimerZone(zoneId:any) {
+  supprimerZone(zoneId: any) {
     Swal.fire({
       title: "Etes vous sur",
       text: "voulez vous supprimer!",
@@ -68,10 +69,11 @@ export class GestionZoneComponent implements OnInit  {
         this.deleteZone.deleteZone(zoneId).subscribe((resp: any) => {
           console.log(resp)
           this.alertMessage("success", "Bravo", "Suppression effectuer avec succée");
+          this.listeZone();
         });
       }
     });
-    
+
   }
 
   currentZone: any;
@@ -105,6 +107,7 @@ export class GestionZoneComponent implements OnInit  {
           await this.http.post(urlUser, putData).toPromise();
 
           this.alertMessage("success", "Bravo", "Modification effectuée avec succès");
+          this.listeZone();
         } catch (error) {
           console.error("Erreur lors de la mise à jour :", error);
           this.alertMessage("error", "Erreur", "Une erreur est survenue lors de la modification");

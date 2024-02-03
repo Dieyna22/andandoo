@@ -21,9 +21,8 @@ export class PublierTrajetComponent {
   constructor(private http: HttpClient, private ajoutTrajet: TrajetService) { }
   
   // sweetAlert
-  alertMessage(icon: any, title: any, text: any) {
+  alertMessage(title: any, text: any) {
     Swal.fire({
-      icon: icon,
       title: title,
       text: text
     });
@@ -47,33 +46,26 @@ export class PublierTrajetComponent {
       Prix: this.prix,
       DescriptionTrajet: this.description,
     }
-    alert(this.depart);
-    alert(this.arriver);
-    alert(this.date);
-    alert(this.time);
-    alert(this.prix);
-    alert(this.description);
-
     if (
       this.depart == '' ||
       this.arriver == '' ||
       this.date == '' ||
       this.time == '' ||
-      this.prix == '' ||
-      this.description == ''
+      this.prix == '' 
     ) {
-      this.alertMessage("error", "Ooops...", "veuillez remplir tous les champs");
+      this.alertMessage("Response...", "veuillez remplir tous les champs");
     } else {
       this.ajoutTrajet.postTrajet(addTrajet).subscribe(
         (reponse) => {
           console.log(reponse);
           this.viderChamp();
-          this.alertMessage("success", "Good...", "success");
+          this.alertMessage("Response...", reponse.message);
+         
 
         },
         (error) => {
           console.log(error);
-          this.alertMessage("error", "Ooops...", error.message);
+          this.alertMessage("Response...", error.message);
         }
       )
     }

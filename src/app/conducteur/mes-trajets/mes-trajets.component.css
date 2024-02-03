@@ -144,12 +144,10 @@ h5 {
 }
 
 .reserver {
-    border-radius: 5px;
-    border: 1px solid #FA7436;
-    background: #FFF;
     color: #FA7436;
     display: inline-flex;
     align-items: center;
+    cursor: pointer;
 }
 
 .gauche {
@@ -195,6 +193,8 @@ h5 {
     box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.10), 0px 1px 6px 0px rgba(0, 0, 0, 0.20);
     padding: 15px;
 }
+
+
 
 
 

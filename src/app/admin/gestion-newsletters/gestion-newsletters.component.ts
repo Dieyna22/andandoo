@@ -1,4 +1,5 @@
 import { Component,OnInit } from '@angular/core';
+import { NewsletterService } from 'src/app/services/newsletter.service';
 
 @Component({
   selector: 'app-gestion-newsletters',
@@ -7,64 +8,10 @@ import { Component,OnInit } from '@angular/core';
 })
 export class GestionNewslettersComponent implements OnInit {
   // Déclaration des variables 
-  tabUsers = [
-    {
-      nom: "Diouf",
-      prenom: "Astou",
-      email: "ayou@gmail.com",
-      telephone: "770917628",
-    },
-    {
-      nom: "Ndiaye",
-      prenom: "Amy",
-      email: "test@gmail.com",
-      telephone: "770917628",
-    },
-    {
-      nom: "sidy",
-      prenom: "pape",
-      email: "fun@gmail.com",
-      telephone: "770917628",
-    },
-    {
-      nom: "diagne",
-      prenom: "Marie",
-      email: "bg@gmail.com",
-      telephone: "770917628",
-    },
-    {
-      nom: "anta",
-      prenom: "Mame",
-      email: "test@gmail.com",
-      telephone: "770917628",
-    },
-    {
-      nom: "diop",
-      prenom: "Alioune",
-      email: "fun@gmail.com",
-      telephone: "770917628",
-    },
-    {
-      nom: "diaw",
-      prenom: "Rokhaya",
-      email: "bg@gmail.com",
-      telephone: "770917628",
-    },
-    {
-      nom: "ndoye",
-      prenom: "Libasse",
-      email: "test@gmail.com",
-      telephone: "770917628",
-    },
-    {
-      nom: "Ba",
-      prenom: "Khady",
-      email: "dija@gmail.com",
-      telephone: "770917628",
-    },
-  ];
+  tabNews:any[]= [];
+ 
 
-  tabReaseauFilter: any;
+  tabNewsFilter: any[]=[];
 
   filterValue: string = "";
 
@@ -74,17 +21,30 @@ export class GestionNewslettersComponent implements OnInit {
   pageActuelle = 1; // Page actuelle
 
 
-  // Déclaration des méthodes 
-  constructor() { }
+  constructor(private listeNews: NewsletterService) { }
+
+  listerNews() {
+    this.listeNews.getAllNewsletter().subscribe(
+      (news: any) => {
+        this.tabNews = news;
+        console.warn(this.tabNews);
+        this.tabNewsFilter = this.tabNews;
+        console.log(this.tabNewsFilter)
+      },
+      (err) => {
+        console.log(err);
+      }
+    )
+  }
 
   ngOnInit(): void {
-    this.tabReaseauFilter = this.tabUsers;
+    this.listerNews();
   }
 
   // Methode de recherche automatique pour professeur
   onSearch() {
     // Recherche se fait selon le nom ou le prenom 
-    this.tabReaseauFilter = this.tabUsers.filter(
+    this.tabNewsFilter = this.tabNews.filter(
       (elt: any) => (elt?.nom.toLowerCase().includes(this.filterValue.toLowerCase()))
     );
   }
@@ -95,17 +55,17 @@ export class GestionNewslettersComponent implements OnInit {
   getItemsPage(): any[] {
     const indexDebut = (this.pageActuelle - 1) * this.itemsParPage;
     const indexFin = indexDebut + this.itemsParPage;
-    return this.tabReaseauFilter.slice(indexDebut, indexFin);
+    return this.tabNewsFilter.slice(indexDebut, indexFin);
   }
 
   // Méthode pour générer la liste des pages
   get pages(): number[] {
-    const totalPages = Math.ceil(this.tabReaseauFilter.length / this.itemsParPage);
+    const totalPages = Math.ceil(this.tabNewsFilter.length / this.itemsParPage);
     return Array(totalPages).fill(0).map((_, index) => index + 1);
   }
 
   // Méthode pour obtenir le nombre total de pages
   get totalPages(): number {
-    return Math.ceil(this.tabReaseauFilter.length / this.itemsParPage);
+    return Math.ceil(this.tabNewsFilter.length / this.itemsParPage);
   }
 }

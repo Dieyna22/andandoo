@@ -101,7 +101,7 @@ export class HeaderComponent {
   listerVoiture() {
     this.listeVoiture.getAllVoitures().subscribe((car: any) => {
       this.voitureUser = car;
-      console.warn(this.voitureUser.data.ImageVoitures);
+      console.log(this.voitureUser.data.ImageVoitures);
       this.userConnectCar = this.voitureUser.data;
       console.log(this.userConnectCar.ImageVoitures);
     },

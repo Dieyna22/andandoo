@@ -39,18 +39,19 @@
     <div class="card mb-3 mt-3 carteF" *ngFor="let reservation of getItemsPage()">
         <div class="row g-0">
             <div class="col-md-4 espaceImage">
-                <img [src]="reservation.profil"
+                <img src="http://127.0.0.1:8000/images/profils/{{reservation.Profile}}"
                     class="img-fluid rounded-start" alt="...">
             </div>
             <div class="col-md-8">
                 <div class="card-body p-5">
-                    <p class="card-text">Prenom : {{reservation.prenom}}</p>
-                    <p class="card-text">Nom : {{reservation.nom}}</p>
-                    <p class="card-text">Heure : {{reservation.heure}}</p>
-                    <p class="card-text">Date :{{reservation.date}} </p>
-                    <p class="card-text">Trajet : {{reservation.depart}}- {{reservation.arriver}}</p>
+                    <p class="card-text">Prenom : {{reservation.Prenom}}</p>
+                    <p class="card-text">Nom : {{reservation.Nom}}</p>
+                    <p class="card-text">Heure : {{reservation.HeureD}}</p>
+                    <p class="card-text">Date :{{reservation.DateDepart}} </p>
+                    <p class="card-text">Trajet : {{reservation.LieuDepart}}- {{reservation.LieuArrivee}}</p>
                     <p class="card-text mt-3 mb-3">
-                        <button class="btn reserver">Accepter</button>
+                        <button class="btn reserver" (click)="supprimerReservation(reservation.idreservation)">Annuler</button>
+                        <button class="btn reserver me-2" (click)="reservationAccepte(reservation.idreservation)">Accepter</button>
                     </p>
                 </div>
             </div>

@@ -211,3 +211,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     background-color: #FA7436!important;
     color: #FFFFFF!important;
 }
+.bi-star-fill {
+    color: #FA7436!important;
+}

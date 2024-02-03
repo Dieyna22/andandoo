@@ -32,7 +32,7 @@ export class GestionUsersComponent implements OnInit  {
     })
   }
 
-  // detail du formateur cliqué
+  // detail du passager cliqué
   curentClient: any;
   detailClient(paramClient: any) {
     this.curentClient = this.tabClientFilter.find((item: any) => item.id == paramClient)

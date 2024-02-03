@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ReservationService } from 'src/app/services/reservation.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-reservation',
@@ -7,84 +9,74 @@ import { Component } from '@angular/core';
 })
 export class ReservationComponent {
   // Déclaration des variables 
-  tabReservation = [
-    {
-      profil: "https://i.pinimg.com/236x/ec/01/8e/ec018ee761344a3248fe013ba6048aa9.jpg",
-      prenom: "Astou",
-      nom: "Diouf",
-      depart: "Pikine",
-      arriver: "Yoff",
-      date: "12/09/2015",
-      heure: "18:00:00",
-    },
-    {
-      profil: "https://i.pinimg.com/236x/ec/01/8e/ec018ee761344a3248fe013ba6048aa9.jpg",
-      prenom: "Astou",
-      nom: "Diouf",
-      depart: "Sandaga",
-      arriver: "Yoff",
-      date: "19/09/2015",
-      heure: "07:00:00",
-    },
-    {
-      profil: "https://i.pinimg.com/236x/3e/7f/93/3e7f9375439a273f916b2fe2fb0545c6.jpg",
-      prenom: "Fatou",
-      nom: "Ndiaye",
-      depart: "Pikine",
-      arriver: "Centre ville",
-      date: "23/09/2015",
-      heure: "12:00:00",
-    },
-    {
-      profil: "https://i.pinimg.com/236x/ec/01/8e/ec018ee761344a3248fe013ba6048aa9.jpg",
-      prenom: "Astou",
-      nom: "Diouf",
-      depart: "Mbour",
-      arriver: "Dakar",
-      date: "23/05/2024",
-      heure: "07:00:00",
-    },
-    {
-      profil: "https://i.pinimg.com/236x/ec/01/8e/ec018ee761344a3248fe013ba6048aa9.jpg",
-      prenom: "Astou",
-      nom: "Diouf",
-      depart: "Bambey",
-      arriver: "Dakar",
-      date: "25/01/2024",
-      heure: "07:00:00",
-    },
-    {
-      profil: "https://i.pinimg.com/236x/ec/01/8e/ec018ee761344a3248fe013ba6048aa9.jpg",
-      prenom: "Astou",
-      nom: "Diouf",
-      depart: "Saly",
-      arriver: "Foire",
-      date: "03/02/2024",
-      heure: "07:00:00",
-    },
-    {
-      profil: "https://i.pinimg.com/236x/3e/7f/93/3e7f9375439a273f916b2fe2fb0545c6.jpg",
-      prenom: "Libasse",
-      nom: "Ndoye",
-      depart: "Keur Masar",
-      arriver: "Yoff",
-      date: "05/02/2024",
-      heure: "07:00:00",
-    },
-    {
-      profil: "https://i.pinimg.com/236x/3e/7f/93/3e7f9375439a273f916b2fe2fb0545c6.jpg",
-      prenom: "Arame",
-      nom: "Ndoye",
-      depart: "Ouakam",
-      arriver: "Yoff",
-      date: "05/02/2024",
-      heure: "07:00:00",
-    },
-  ];
+  tabReservation: any[] = [];
 
   // Attribut pour la pagination
   itemsParPage = 3; // Nombre d'articles par page
   pageActuelle = 1; // Page actuelle
+
+  // Déclaration des méthodes 
+  constructor(private listeReservation: ReservationService, private accepted: ReservationService, private deleteReservation: ReservationService) { }
+
+  ngOnInit(): void {
+    this.listeRes();
+  }
+
+  listeRes() {
+    this.listeReservation.getReservation().subscribe(
+      (reservation: any) => {
+        console.error(reservation);
+        this.tabReservation = reservation;
+      },
+      (err) => {
+        console.log(err);
+      }
+    )
+  }
+
+  // Accepeter reservation
+  reservationAccepte(paramReservation: any) {
+    alert(paramReservation);
+    const addResponse = {
+      idreservation: paramReservation,
+    }
+    this.accepted.reservationAccepted(paramReservation).subscribe(
+      (reservation) => {
+        console.log(reservation);
+      },
+      (error) => { 
+        console.log(error);
+      }
+    )
+    
+  }
+
+  //Annuler reservation
+  supprimerReservation(reservationId: any) {
+    Swal.fire({
+      title: "Etes vous sur",
+      text: "voulez vous Annuler!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#FA7436",
+      cancelButtonColor: "#FA0436",
+      confirmButtonText: "OUI !!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.deleteReservation.reservationAnnuler(reservationId).subscribe((resp: any) => {
+          console.log(resp.error.message)
+          this.alertMessage( "Response...",resp.message);
+          this.listeRes();
+        },
+          (err) => {
+            this.alertMessage("Response...", err.error.message);
+          }
+        );
+      }
+    });
+
+  }
+
 
   // Pagination 
   // Méthode pour déterminer les articles à afficher sur la page actuelle
@@ -105,4 +97,11 @@ export class ReservationComponent {
     return Math.ceil(this.tabReservation.length / this.itemsParPage);
   }
 
+  // sweetAlert
+  alertMessage(title: any, text: any) {
+    Swal.fire({
+      title: title,
+      text: text
+    });
+  }
 }

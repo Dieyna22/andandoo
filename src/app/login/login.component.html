@@ -125,9 +125,15 @@
                                             <input type="file" class="form-control" id="permis" name="permis" [(ngModel)]="permis" (change)="getFilePermmis($event)">
                                         </div>
                                        
-                                        <div class="mb-5">
+                                        <div class="mb-3">
                                             <label for="licence" class="form-label">Licence de transport: <span class="clr">*</span></label>
                                             <input type="file" class="form-control" id="licence" name="licence" [(ngModel)]="licence" (change)="getFileLicence($event)">
+                                        </div>
+
+                                        <div class="mb-5">
+                                            <label for="CAG" class="form-label">Carte à grise: <span class="clr">*</span></label>
+                                            <input type="file" class="form-control" id="CAG" name="CAG" [(ngModel)]="CAG"
+                                                (change)="getFileCAG($event)">
                                         </div>
                                     </div>
                                     <button class="btn btn-theme mt-2 mb-3"
