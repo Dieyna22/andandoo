@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { param } from 'jquery';
 import { apiUrl } from 'src/app/services/apiUrl';
 import { VoitureService } from 'src/app/services/voiture.service';
@@ -24,7 +25,7 @@ export class HeaderComponent {
   disponible: string = '';
   description: string = '';
 
-  inputCar: string = '';
+  inputCar: any;
   inputPlace: string = '';
   inputDes: string='';
 
@@ -43,8 +44,13 @@ export class HeaderComponent {
     this.imageVoiture = event.target.files[0] as File;
   }
 
+  getFileUpdate(event: any) {
+    console.warn(event.target.files[0]);
+    this.inputCar = event.target.files[0] as File;
+  }
+
   // Déclaration des méthodes 
-  constructor(private http: HttpClient, private ajoutVoiture:VoitureService, private listeVoiture:VoitureService) { }
+  constructor( private route:Router, private http: HttpClient, private ajoutVoiture:VoitureService, private listeVoiture:VoitureService) { }
 
   ngOnInit() {
     // Renvoie un tableau de valeurs ou un tableau vide 
@@ -139,13 +145,13 @@ export class HeaderComponent {
         try {
           const urlUser = `${apiUrl}/ModifierVoiture/${this.currentCar.id}`;
           alert(urlUser);
-          const putData = {
-            id: this.currentCar.id,
-            ImageVoitures: this.currentCar.ImageVoitures,
-            NbrPlaces: places,
-            Descriptions: desc,
-          }
-          await this.http.post(urlUser, putData).toPromise();
+          let formData = new FormData();
+          formData.append("id", this.currentCar.id,);
+          formData.append("ImageVoitures", image);
+          formData.append("NbrPlaces", places);
+          formData.append("Descriptions", desc);
+          await this.http.post(urlUser, formData).toPromise();
+          console.log(await this.http.post(urlUser, formData).toPromise());
 
           this.alertMessage("success", "Bravo", "Modification effectuée avec succès");
         } catch (error) {
@@ -155,5 +161,28 @@ export class HeaderComponent {
         }
       }
     });
+  }
+
+  logout() {
+    Swal.fire({
+      title: "Êtes-vous sûr de vouloir vous déconnecter ?",
+      text: "Vous ne pourrez pas revenir en arrière !",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#FA7436",
+      cancelButtonColor: "#FA0436",
+      confirmButtonText: "Oui, me déconnecter"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.removeItem('userOnline');
+        this.route.navigate(['/accueil']);
+        Swal.fire({
+          title: "Déconnexion!",
+          text: "Vous vous etes déconnecté avec succés",
+          icon: "success"
+        });
+      }
+    });
+
   }
 }

@@ -26,12 +26,7 @@ export class ConducteurComponent {
   constructor(private conducteur: UtilisateurService, private temporaire:UtilisateurService, private definitive:UtilisateurService, private debloquer:UtilisateurService) { }
 
   ngOnInit(): void {
-    this.conducteur.getAllConducteur().subscribe((Conducteurs: any) => {
-      this.tabConducteurs = Conducteurs;
-      console.log(this.tabConducteurs);
-      this.tabConducteurFilter = this.tabConducteurs;
-      console.log(this.tabConducteurFilter);
-    })
+    this.listerConducteur();
   }
 
   // detail du formateur cliqué
@@ -57,6 +52,7 @@ export class ConducteurComponent {
           (response: any) => {
             console.log(response);
             this.alertMessage("success", "Bravo", "Conducteur bloquer avec succès");
+            this.listerConducteur();
           },
           (error) => {
             console.error("Erreur lors de la mise à jour :", error);
@@ -83,6 +79,7 @@ export class ConducteurComponent {
           (response: any) => {
             console.log(response);
             this.alertMessage("success", "Bravo", "Conducteur bloquer avec succès");
+            this.listerConducteur();
           },
           (error) => {
             console.error("Erreur lors de la mise à jour :", error);
@@ -127,6 +124,14 @@ export class ConducteurComponent {
     );
   }
 
+  listerConducteur() {
+    this.conducteur.getAllConducteur().subscribe((Conducteurs: any) => {
+      this.tabConducteurs = Conducteurs;
+      console.log(this.tabConducteurs);
+      this.tabConducteurFilter = this.tabConducteurs;
+      console.log(this.tabConducteurFilter);
+    })
+  }
 
   // Pagination 
   // Méthode pour déterminer les articles à afficher sur la page actuelle

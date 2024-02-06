@@ -20,25 +20,13 @@
     margin: 6% 4%;
 }
 
-.containerLink {
-    height: 75%;
-    overflow: scroll;
-}
 
-/* Pour firefox  */
-.containerLink {
-    scrollbar-color: white white;
-}
+
 .profil{
     width: 8vh;
     height: 8vh;
     border-radius: 100%;
 }
-
-/* Pour les navigateurs chrome et edge  */
-/* .containerLink::-webkit-scrollbar {
-    display: none;
-} */
 
 ul li {
     list-style: none;
@@ -58,10 +46,12 @@ li a {
 .btnDeconnect {
     color: #FA7436;
     display: flex;
+    
 }
 
 a{
     display: flex;
+    margin-top: 35px;
 }
 .active{
     color: #FA7436!important;
@@ -96,10 +86,20 @@ a{
     .separation {
         width: 100%;
     }
+
+    a {
+        display: flex;
+        margin-top: 15px;
+    }
 }
 
 @media screen and (max-width: 700px) {
     .sidebar {
         padding: 2%;
+    }
+
+    a {
+        display: flex;
+        margin-top: 5px;
     }
 }

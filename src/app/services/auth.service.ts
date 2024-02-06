@@ -30,12 +30,6 @@ export class AuthService {
     return this.http.post<any>(`${apiUrl}/loginadmin`, admin);
   }
 
-  login(user: any, onSuccess: Function) {
-    return this.http
-      .post(`${apiUrl}/loginadmin`, user)
-      .subscribe((reponse: any) => onSuccess(reponse));
-  }
-
   // déconnexion Admin
   déconnexionAdmin(admin: any): Observable<any> {
     return this.http.post<any>(`${apiUrl}/logoutadmin`, admin);
@@ -44,6 +38,16 @@ export class AuthService {
   // connexion utilisateur 
   connexionUtilisateur(users: any): Observable<any>{
     return this.http.post<any>(`${apiUrl}/login`, users);
+  }
+
+  // déconnexion utilisateur 
+  deconnexionUtilisateur(users: any): Observable<any> {
+    return this.http.post<any>(`${apiUrl}/login`, users);
+  }
+
+  // mot de passe oublier
+  forgetPass(pass: any): Observable<any> {
+    return this.http.post<any>(`${apiUrl}/forget-password`, pass);
   }
 
 }

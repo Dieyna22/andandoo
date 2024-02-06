@@ -28,7 +28,8 @@ export class LoginComponent {
   permis: any;
   licence: any;
   role: string = "";
-  CAG:any;
+  CAG: any;
+  resetEmail:string = "";
 
   activite: string = '';
   image: string = '';
@@ -44,7 +45,7 @@ export class LoginComponent {
   tabZone: any;
 
 
-  constructor(private route: Router, private auth: AuthService, private lieu: ZoneService , private authUser:AuthService, private logout:AuthService, private registerclient:AuthService, private registerConducteur:AuthService) { }
+  constructor(private route: Router, private auth: AuthService, private lieu: ZoneService , private authUser:AuthService, private logout:AuthService, private registerclient:AuthService, private registerConducteur:AuthService, private forget:AuthService) { }
 
   ngOnInit() {
     this.listeZone() 
@@ -79,9 +80,8 @@ export class LoginComponent {
     this.currentStep = contentId;
   }
   // sweetAlert
-  alertMessage(icon: any, title: any, text: any) {
+  alertMessage( title: any, text: any) {
     Swal.fire({
-      icon: icon,
       title: title,
       text: text
     });
@@ -128,8 +128,8 @@ export class LoginComponent {
         },
         (err) => {
           let message = err.error.error;
-          console.warn(err);
-          this.alertMessage("error", "Oops...", message);
+          console.log(err);
+          this.alertMessage("Reponse...", message);
         }
       );
     } else {
@@ -141,7 +141,7 @@ export class LoginComponent {
 
           localStorage.setItem('userOnline', JSON.stringify(response));
           if (response.original.data.statusCode == 200) {
-            this.alertMessage("success", "Good job!", "Connexion Reussi");
+            this.alertMessage("Reponse...","Connexion Reussi");
             this.route.navigate(['/accueilUtilisateur']);
           } else {
             console.log(response.original.data.statusCode);
@@ -150,7 +150,7 @@ export class LoginComponent {
         (err) => {
           let message = err.error.error;
           console.warn(message);
-          this.alertMessage("error", "Oops...", message);
+          this.alertMessage("Reponse", message);
         }
       );
     }
@@ -176,13 +176,13 @@ export class LoginComponent {
       this.password == '' ||
       this.zone == ''
     ) {
-      this.alertMessage("error", "Ooops...", "veuillez remplir tous les champs");
+      this.alertMessage("Reponse...", "veuillez remplir tous les champs");
     } else {
       this.registerclient.inscription(formData).subscribe(
         (reponse) => {
           console.log(reponse);
           this.viderChamp();
-          this.alertMessage("success", "Good...","success");
+          this.alertMessage("Reponse...","success");
 
         },
         (error) => { 
@@ -231,10 +231,27 @@ export class LoginComponent {
     }
   }
 
+  //reset password
+  forgetPassword() { 
+    const reset = {
+      "email": this.resetEmail
+    }
+    this.forget.forgetPass(reset).subscribe(
+      (reponse) => {
+        console.log(reponse.message);
+        this.alertMessage("response...", reponse.message);
+        this.resetEmail = '';
+      },
+      (err) => { 
+        this.alertMessage("response...", err.message);
+      }
+    )
+  }
+
   listeZone() {
     this.lieu.getAllZones().subscribe((zones: any) => {
       this.tabZone = zones;
-      console.warn(this.tabZone);
+      console.log(this.tabZone);
     })
   }
 

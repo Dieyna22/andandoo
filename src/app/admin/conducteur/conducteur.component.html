@@ -43,7 +43,7 @@
                              <tbody *ngFor="let conducteur of getItemsPage()">
                             <tr>
                                 <td>
-                                    <img src="https://img.freepik.com/premium-photo/black-guy-driving-car_53419-3152.jpg?w=740"
+                                    <img src="http://127.0.0.1:8000/images/profils/{{conducteur.Image}}"
                                         class="rounded-circle mb-2" alt="profil" style="width: 40px; height: 40px;">
                                 </td>
                                 <td>{{conducteur.Nom}}</td>
@@ -98,7 +98,7 @@
             <div class="modal-body ">
                 <div class="details mb-3">
                     <div class="imageProfilUser me-4 p-2">
-                        <img src="https://img.freepik.com/premium-photo/black-guy-driving-car_53419-3152.jpg?w=740"
+                        <img src="http://127.0.0.1:8000/images/profils/{{currentConducteur?.Image}}"
                             class="rounded-circle mt-4" alt="profil" style="width: 140px; height: 140px;">
                     </div>
                     <div class="infosUser">

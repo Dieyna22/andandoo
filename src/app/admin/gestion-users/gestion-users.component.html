@@ -43,7 +43,7 @@
                             <tbody *ngFor="let client of getItemsPage()">
                             <tr>
                                 <td>
-                                    <img src="https://img.freepik.com/premium-photo/advertising-concept-confident-smiling-young-african-woman-crossed-hands-looking-camera_613652-185.jpg?w=740"
+                                    <img src="http://127.0.0.1:8000/images/profils/{{client.Image}}"
                                         class="rounded-circle mb-2" alt="profil" style="width: 40px; height: 40px;">
                                 </td>
                                 <td>{{client.Nom}}</td>
@@ -96,7 +96,7 @@
             </div>
             <div class="modal-body details">
                 <div class="imageProfilUser me-4 p-2">
-                    <img src="https://img.freepik.com/premium-photo/advertising-concept-confident-smiling-young-african-woman-crossed-hands-looking-camera_613652-185.jpg?w=740"
+                    <img src="http://127.0.0.1:8000/images/profils/{{curentClient?.Image}}"
                         class="rounded-circle mt-4" alt="profil" style="width: 140px; height: 140px;">
                 </div>
                 <div class="infosUser">

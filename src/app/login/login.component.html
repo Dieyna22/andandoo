@@ -24,7 +24,8 @@
                                         <label for="password">Password</label>
                                         <input type="password" class="form-control" id="password" name="password" [(ngModel)]="passwordLogin"
                                             autocomplete="current-password">
-                                        <p class="register" (click)="afficherFormulaire()">
+                                            <a class="bg clr mt-4" data-bs-toggle="modal" data-bs-target="#exampleModal"> mot de passe oublier</a><br>
+                                        <p class="register " (click)="afficherFormulaire()">
                                             <a class="bg">Vous n'avez-pas de compte. <span class="clr">Inscrivez-vous</span></a>
                                         </p>
                                     </div>
@@ -149,4 +150,28 @@
         <!-- end col -->
     </div>
     <!-- Row -->
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 titre" id="exampleModalLabel">Email de reinitialison  mot de passe</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="resetEmail" [(ngModel)]="resetEmail">
+            </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btnAjout" (click)="forgetPassword()">Envoyer</button>
+                <button type="button" class="btn btnClose" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
 </div>

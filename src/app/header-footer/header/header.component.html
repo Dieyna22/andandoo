@@ -50,7 +50,7 @@
                 </ng-container>
                     <div class="dropdown-content">
                         <a [routerLink]="['/profilUser']">Profil</a>
-                        <a [routerLink]="['/accueil']">Déconnexion</a>
+                        <a (click)=" logout()">Déconnexion</a>
                     </div>
             </div>
         </div>
@@ -127,7 +127,7 @@
                     <div class="mb-3">
                         <label for="inputCar" class="form-label">Image Voiture:</label>
                         <input class="form-control" type="file" id="inputCar" name="inputCar"
-                            [(ngModel)]="inputCar" (change)="getFile($event)">
+                            [(ngModel)]="inputCar" (change)="getFileUpdate($event)"> 
                     </div>
                     <div class="mb-3">
                         <label for="inputPlace" class="form-label">Nombre de place:</label>
