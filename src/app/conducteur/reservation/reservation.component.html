@@ -12,26 +12,23 @@
             <button class="btn" [routerLink]="['/reservation']">Reservations</button>
         </div>
         <div class="historique">
-            <button class="btn" [routerLink]="['/historique']">Historiques</button>
+            <button class="btn" [routerLink]="['/enCours']">Historiques</button>
         </div>
     </div>
 </div>
 <div class="sectionSelect mb-5">
     <h5 class="mb-5">Trouver toutes les demandes de reservations pour vos trajets</h5>
     <div class="choice container">
-        <select class="form-select me-4 forum" aria-label="Default select example">
+        <select class="form-select me-4 forum" aria-label="Default select example"  [(ngModel)]="status">
             <option selected>Tout</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+            <option value="enCours">En cours</option>
+            <option value="terminee">Terminer</option>
         </select>
-        <select class="form-select me-4 forum" aria-label="Default select example">
-            <option selected>Secteur</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+        <select class="form-select me-4 forum" aria-label="Default select example" [(ngModel)]="secteur">
+            <option selected>Trajets</option>
+            <option *ngFor="let reservation of getItemsPage()" value="{{reservation.LieuArrivee}}">{{reservation.LieuArrivee}}</option>
         </select>
-        <button class="btn  sms ">Recherche</button>
+        <button class="btn  sms " (click)="onSearch()">Recherche</button>
     </div>
    
 </div>

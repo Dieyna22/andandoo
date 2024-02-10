@@ -23,4 +23,8 @@ export class MessageService {
     return this.http.post<any>(`${apiUrl}/repondre/Message`, send);
   }
 
+  sendMessage(send: any): Observable<any> {
+    return this.http.post<any>(`${apiUrl}/avertissement`, send);
+  }
+
 }

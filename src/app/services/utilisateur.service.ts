@@ -25,6 +25,11 @@ export class UtilisateurService {
     return this.http.get<any>(`${apiUrl}/listerUtilisateur`);
   }
 
+  // lister des utilisateurs
+  statUser(): Observable<any> {
+    return this.http.get<any>(`${apiUrl}/nombreutilisateur`);
+  }
+
   // bloquer temporairement un conducteur
   temporaireblock(conducteurId:any): Observable<any> {
     return this.http.post<any>(`${apiUrl}/BlockerTemporairement/${conducteurId}`, "");
@@ -38,5 +43,10 @@ export class UtilisateurService {
   // débloquer un conducteur bloquer temporairement
   debloquer(conducteurId: any): Observable<any> {
     return this.http.post<any>(`${apiUrl}/Debloquer/${conducteurId}`, "");
+  }
+
+  //modification du profil des utilisateurs
+  updateUser(userId: any): Observable<any> {
+    return this.http.post<any>(`${apiUrl}/Update/Profile/${userId}`, userId);
   }
 }

@@ -10,22 +10,39 @@ import Swal from 'sweetalert2';
 export class ReservationComponent {
   // Déclaration des variables 
   tabReservation: any[] = [];
+  tabRservationFilters: any[] = [];
 
   // Attribut pour la pagination
   itemsParPage = 3; // Nombre d'articles par page
   pageActuelle = 1; // Page actuelle
+
+  status: string = "";
+  secteur: string = "";
 
   // Déclaration des méthodes 
   constructor(private listeReservation: ReservationService, private accepted: ReservationService, private deleteReservation: ReservationService) { }
 
   ngOnInit(): void {
     this.listeRes();
+    this.tabRservationFilters = this.tabReservation;
+  }
+
+  //filtre
+  onSearch() {
+    alert(this.status)
+    alert(this.secteur)
+    // Recherche se fait selon le depart ou l' arriver 
+    this.tabRservationFilters = this.tabReservation.filter(
+      (elt: any) => (elt?.Nom.toLowerCase()?.includes(this.status.toLowerCase()) ||
+                    elt?.LieuArrivee.toLowerCase()?.includes(this.secteur.toLowerCase())
+                    )
+    );
   }
 
   listeRes() {
     this.listeReservation.getReservation().subscribe(
       (reservation: any) => {
-        console.error(reservation);
+        console.log(reservation);
         this.tabReservation = reservation;
       },
       (err) => {
@@ -81,9 +98,15 @@ export class ReservationComponent {
   // Pagination 
   // Méthode pour déterminer les articles à afficher sur la page actuelle
   getItemsPage(): any[] {
-    const indexDebut = (this.pageActuelle - 1) * this.itemsParPage;
-    const indexFin = indexDebut + this.itemsParPage;
-    return this.tabReservation.slice(indexDebut, indexFin);
+    if (Array.isArray(this.tabReservation)) {
+      const indexDebut = (this.pageActuelle - 1) * this.itemsParPage;
+      const indexFin = indexDebut + this.itemsParPage;
+      return this.tabReservation.slice(indexDebut, indexFin);
+    } else {
+      // Gérer le cas où this.tabReservation n'est pas un tableau
+      console.error("this.tabReservation n'est pas un tableau.");
+      return []; // ou autre traitement approprié
+    }
   }
 
   // Méthode pour générer la liste des pages

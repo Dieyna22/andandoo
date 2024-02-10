@@ -25,7 +25,7 @@
             <li class="nav-item" role="presentation">
                 <button class="nav-link active navTabsButton" id="updateInfo-tab" data-bs-toggle="pill"
                     data-bs-target="#updateInfo" type="button" role="tab" aria-controls="updateInfo"
-                    aria-selected="true">Modifier Information</button>
+                    aria-selected="true" (click)="chargerInfosUsers()">Modifier Information</button>
             </li>
             <li class="nav-item" role="presentation">
                 <button class="nav-link navTabsButton" id="updatePassword-tab" data-bs-toggle="pill"
@@ -39,23 +39,37 @@
                 tabindex="0">
                 <form action="" class="p-3">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="prenom" placeholder="name@example.com" value="{{userConnect.Prenom}}">
+                        <input type="file" class="form-control" id="file">
+                        <label for="file">Image Profil</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="prenom" name="prenom" [(ngModel)]="prenom">
                         <label for="prenom">Prénom</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="nom" placeholder="name@example.com" value="{{userConnect.Nom}}">
+                        <input type="text" class="form-control" id="nom" name="nom" [(ngModel)]="nom">
                         <label for="nom">Nom</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="email" placeholder="name@example.com" value="{{userConnect.Email}}">
-                        <label for="email">Email</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="telephone" placeholder="name@example.com" value="{{userConnect.Telephone}}">
+                        <input type="text" class="form-control" id="telephone" name="Tel" [(ngModel)]="tel">
                         <label for="telephone">Téléphone</label>
                     </div>
+                    <div *ngIf="isChauffeur">
+                        <div class="form-floating mb-3">
+                            <input type="file" class="form-control" id="file" >
+                            <label for="file">Permis</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="file" class="form-control" id="file">
+                            <label for="file">Licence</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="file" class="form-control" id="file">
+                            <label for="file">Carte à grise</label>
+                        </div>
+                    </div>
 
-                    <button type="submit" class="btn positionbtn">Enregistrer</button>
+                    <button type="submit" class="btn positionbtn" (click)=" updateProfil() ">Enregistrer</button>
 
                 </form>
             </div>

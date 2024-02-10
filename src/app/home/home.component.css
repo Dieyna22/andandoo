@@ -163,12 +163,33 @@ form button {
     color: #FFF;
 }
 
+/* Styles pour les étoiles */
+.full {
+    color: #FA7436;
+    /* Couleur de l'étoile pleine */
+}
 
+.half {
+    color: #f3ba9f;
+    /* Couleur de l'étoile demi */
+    position: relative;
+    display: inline-block;
+}
 
+.half::before {
+    content: '\2605';
+    /* Caractère pour l'étoile pleine en Unicode */
+    position: absolute;
+    left: 0;
+    overflow: hidden;
+    color: transparent;
+}
 
-
-
-
+.profilTemoinage img{
+    border-radius: 50%;
+    width: 20%;
+    height: 20%;
+}
 
 /* resposivité */
 

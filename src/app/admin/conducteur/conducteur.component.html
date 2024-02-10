@@ -119,10 +119,38 @@
                             <li><a class="dropdown-item" (click)="bloquer(currentConducteur)">définitivement</a></li>
                         </ul>
                     </div>
-                    <button class="btn btnAction">Avertissement</button>
+                    <button class="btn btnAction" data-bs-toggle="modal" data-bs-target="#sendSms" (click)="chargerInfos(currentConducteur)">Avertissement</button>
                 </div>
             </div>
             <div class="modal-footer">
+                <button type="button" class="btn btnClose" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Send message -->
+<div class="modal fade" id="sendSms" tabindex="-1" aria-labelledby="sendSmsLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" *ngIf="CurrentItem">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 titre" id="sendSmsLabel">Message à {{CurrentItem.Prenom}} {{CurrentItem.Nom}}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3 ">
+                    <label for="exampleInputEmail1" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" name="mail" [(ngModel)]="mail"
+                        aria-describedby="emailHelp">
+                </div>
+                <div class="form-floating mb-3">
+                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
+                        style="height: 100px" name="message" [(ngModel)]="message"></textarea>
+                    <label for="floatingTextarea2">message</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btnAjout" (click)="sendReponse()">Envoyer</button>
                 <button type="button" class="btn btnClose" data-bs-dismiss="modal">Fermer</button>
             </div>
         </div>

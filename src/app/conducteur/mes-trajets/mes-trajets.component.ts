@@ -18,6 +18,7 @@ export class MesTrajetsComponent {
   userConnect: any;
   filterValue: string = "";
 
+
   // attributs
   depart: string = '';
   arriver: string = '';
@@ -34,10 +35,11 @@ export class MesTrajetsComponent {
   ngOnInit(): void {
     this.listeTrajet();
 
+
     this.dbUsers = JSON.parse(localStorage.getItem("userOnline") || "[]");
-    console.log(this.dbUsers.original);
+    console.error(this.dbUsers.original);
     this.userConnect = this.dbUsers.original.data.utilisateur;
-    console.log(this.userConnect);
+    console.error(this.userConnect.id);
   }
 
 
@@ -86,6 +88,8 @@ export class MesTrajetsComponent {
     )
   }
 
+
+
   //Méthode pour charger les informations du trajets à modifier
   currentTrajet: any;
   chargerInfosTrajets(paramTrajet: any) {
@@ -106,7 +110,7 @@ export class MesTrajetsComponent {
     const date = this.date;
     const time = this.time;
     const prix = this.prix;
-    const desc = this.description;
+    const desc = this.description;   
 
     Swal.fire({
       title: "Etes vous sur",
@@ -186,21 +190,6 @@ export class MesTrajetsComponent {
       stars[i].classList.add("bi-star-fill");
     }
     this.note = note;
-  }
-
-  envoyerAvis() {
-    const avis = {
-      Contenue: this.commentaire,
-      Notation: this.note,
-    };
-    this.sendAvisService.sendAvis(avis).subscribe(
-      (reponse) => {
-        console.log(reponse);
-      },
-      (err) => {
-        console.log(err);
-      }
-    )
   }
 
   // sweetAlert

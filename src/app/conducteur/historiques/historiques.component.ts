@@ -86,63 +86,6 @@ export class HistoriquesComponent {
     )
   }
 
-  //Méthode pour charger les informations du trajets à modifier
-  currentTrajet: any;
-  chargerInfosTrajets(paramTrajet: any) {
-    this.currentTrajet = paramTrajet;
-    this.depart = paramTrajet.LieuDepart;
-    this.arriver = paramTrajet.LieuArrivee;
-    this.date = paramTrajet.DeateDepart;
-    this.time = paramTrajet.HeureDepart;
-    this.prix = paramTrajet.Prix;
-    this.description = paramTrajet.Description;
-    console.log(paramTrajet);
-  }
-
-  // Methode pour modifier un trajet 
-  MAJTrajet() {
-    const lDepart = this.depart;
-    const lArriver = this.arriver;
-    const date = this.date;
-    const time = this.time;
-    const prix = this.prix;
-    const desc = this.description;
-
-    Swal.fire({
-      title: "Etes vous sur",
-      text: "voulez vous modifier!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#FA7436",
-      cancelButtonColor: "#FA0436",
-      confirmButtonText: "OUI !!"
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        try {
-          const urlUser = `${apiUrl}/UpdateTrajet/${this.currentTrajet.id}`;
-          alert(urlUser);
-          const putData = {
-            id: this.currentTrajet.id,
-            LieuDepart: lDepart,
-            LieuArrivee: lArriver,
-            DateDepart: date,
-            HeureD: time,
-            Prix: prix,
-            DescriptionTrajet: desc,
-          }
-          await this.http.post(urlUser, putData).toPromise();
-          console.log(this.http.post(urlUser, putData).toPromise());
-
-          this.alertMessage("success", "Bravo", "Modification effectuée avec succès");
-          this.listeTrajet();
-        } catch (error) {
-          console.error("Erreur lors de la mise à jour :", error);
-          this.alertMessage("error", "Erreur", "Une erreur est survenue lors de la modification");
-        }
-      }
-    });
-  }
-
   // Methode pour supprimer un trajet 
   supprimerTrajet(trajetId: any) {
     Swal.fire({
@@ -170,37 +113,6 @@ export class HistoriquesComponent {
   detailClient(paramTrajet: any) {
     this.trajetSelected = this.tabTrajetFilter.find((item: any) => item.id == paramTrajet)
     console.log(this.trajetSelected);
-  }
-
-  note: any;
-  // gestion de note avec étoile
-  noteStar(note: number) {
-    let stars = document.querySelectorAll('#star');
-    stars.forEach((element: any) => {
-
-      element.classList.remove("bi-star-fill");
-      element.classList.add("bi-star");
-    });
-    for (let i = 0; i < note; i++) {
-      stars[i].classList.remove("bi-star");
-      stars[i].classList.add("bi-star-fill");
-    }
-    this.note = note;
-  }
-
-  envoyerAvis() {
-    const avis = {
-      Contenue: this.commentaire,
-      Notation: this.note,
-    };
-    this.sendAvisService.sendAvis(avis).subscribe(
-      (reponse) => {
-        console.log(reponse);
-      },
-      (err) => {
-        console.log(err);
-      }
-    )
   }
 
   // sweetAlert

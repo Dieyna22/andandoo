@@ -188,21 +188,6 @@ export class HistoriquesEnCoursComponent {
     this.note = note;
   }
 
-  envoyerAvis() {
-    const avis = {
-      Contenue: this.commentaire,
-      Notation: this.note,
-    };
-    this.sendAvisService.sendAvis(avis).subscribe(
-      (reponse) => {
-        console.log(reponse);
-      },
-      (err) => {
-        console.log(err);
-      }
-    )
-  }
-
   // sweetAlert
   alertMessage(icon: any, title: any, text: any) {
     Swal.fire({

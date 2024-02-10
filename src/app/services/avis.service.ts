@@ -9,8 +9,14 @@ import { apiUrl } from './apiUrl';
 export class AvisService {
 
   constructor(private http: HttpClient) { }
-  sendAvis(send: any): Observable<any> {
-    return this.http.post<any>(`${apiUrl}/Donner/avis`, send);
+
+  sendAvis(send: any,id:any): Observable<any> {
+    return this.http.post<any>(`${apiUrl}/Donner/avis/${id}`, send);
   }
+
+  getAllAvis(): Observable<any> {
+    return this.http.get<any>(`${apiUrl}/show/avis/`);
+  }
+
 
 }

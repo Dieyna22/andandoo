@@ -17,7 +17,12 @@ export class ReserverTrajetComponent {
   dbUsers: any;
   userConnect: any;
 
+
   commentaire: string = '';
+  depart: string = '';
+  arriver: string = '';
+  date: string = '';
+  time: string ='';
  
   // Attribut pour la pagination
   itemsParPage = 3; // Nombre d'articles par page
@@ -31,7 +36,7 @@ export class ReserverTrajetComponent {
     this.dbUsers = JSON.parse(localStorage.getItem("userOnline") || "[]");
     console.log(this.dbUsers.original);
     this.userConnect = this.dbUsers.original.data.utilisateur;
-    console.error(this.userConnect);
+    console.log(this.userConnect);
   }
 
   // Pagination 
@@ -59,7 +64,6 @@ export class ReserverTrajetComponent {
         this.tabTrajet = trajet;
         console.log(this.tabTrajet);
         this.tabTrajetFilter = this.tabTrajet;
-        console.log('$$$$$$$$$$$$$$$$$$$$$$$',this.tabTrajetFilter)
       },
       (err) => {
         console.log(err);
@@ -90,12 +94,18 @@ export class ReserverTrajetComponent {
     this.note = note;
   }
 
+  id_trajet: any;
+  recupId(paramTrajet:any) {
+    this.id_trajet = paramTrajet.id;
+    console.log(this.id_trajet);
+  }
+
   envoyerAvis() {
     const avis = {
       Contenue: this.commentaire,
       Notation: this.note,
     };
-    this.sendAvisService.sendAvis(avis).subscribe(
+    this.sendAvisService.sendAvis(avis,this.id_trajet).subscribe(
       (reponse) => {
         console.log(reponse);
       },
@@ -132,4 +142,12 @@ export class ReserverTrajetComponent {
     });
   }
 
+  onSearch() {
+    this.tabTrajetFilter = this.tabTrajet.filter(
+      (elt: any) => (elt?.LieuDepart.toLowerCase().includes(this.depart.toLowerCase()) &&
+                      elt?.LieuArrivee.toLowerCase().includes(this.arriver.toLowerCase()) &&
+                      elt?.DateDepart.toLowerCase().includes(this.date.toLowerCase())
+                    )
+    );
+  }
 }

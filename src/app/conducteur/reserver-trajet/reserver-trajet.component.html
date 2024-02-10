@@ -9,14 +9,10 @@
         <div class="add1">
             <div>
                 <!-- lieu de depart -->
-                <h3>Lieu de départ</h3>
-                <select name="" id="depart">
-                    <option value="" disabled selected>départ:</option>
-                    <option value="">dakar</option>
-                    <option value="">thies</option>
-                    <option value="">ouakam</option>
-                    <option value="">keur massar</option>
-                </select>
+                <h3>Lieu de départ *</h3>
+                <div class="mb-3">
+                    <input type="text" class="form-control" id="lieuDepart" name="depart" [(ngModel)]="depart">
+                </div>
                 <br>
             </div>
         
@@ -29,22 +25,18 @@
             <!-- lieu d'arriver -->
             <div>
                 <div>
-                    <h3>Lieu d'arriver</h3>
-                    <select name="" id="arrivee">
-                        <option value="" disabled selected>départ:</option>
-                        <option value="">dakar</option>
-                        <option value="">thies</option>
-                        <option value="">ouakam</option>
-                        <option value="">keur massar</option>
-                    </select>
+                    <h3>Lieu d'arriver *</h3>
+                    <div class="mb-3">
+                    <input type="text" class="form-control" id="lieuDepart" name="arriver" [(ngModel)]="arriver">
+                    </div>
                 </div>
             </div>
         </div>
         <div class="add1">
             <div>
                 <!-- lieu de depart -->
-                <h3>Date de départ</h3>
-                <input type="date">
+                <h3>Date de départ *</h3>
+                <input type="date"  name="date" [(ngModel)]="date">
                 <br>
             </div>
         
@@ -58,20 +50,20 @@
             <div>
                 <div>
                     <h3>Heure de départ</h3>
-                    <input type="time">
+                    <input type="time"  name="time" [(ngModel)]="time">
                 </div>
             </div>
         </div>
         <!-- bloc de droite pour recherche -->
         <div class="search">
-            <i class="bi bi-search" style="color: #fff;"></i>
+            <i class="bi bi-search" style="color: #fff; cursor: pointer;" (click)="onSearch()"></i>
         </div>
     </div>
 </div>
 
 <div class="cardTrajets mb-5 container">
     <ng-container *ngFor="let trajet of getItemsPage()">
-        <div class="trajet" *ngIf="trajet.ChauffeurId!=userConnect.id">
+        <div class="trajet" *ngIf="trajet.ChauffeurId!=userConnect.id && trajet.Status=='enCours'">
             <div class="chauffeur">
                 <img src="http://127.0.0.1:8000/images/profils/{{trajet.ImageProfile}}" alt=""
                     class="rounded-circle text-center" style="height: 150px; width: 150px;">
@@ -101,12 +93,19 @@
                     disponibles</span>
             </div>
             <div class="autreDetails">
-                <span data-bs-toggle="modal" data-bs-target="#profilChauffeur" style="cursor: pointer;"
-                    (click)="detailClient(trajet.id)">Voir profil <i class="bi bi-arrow-right-circle-fill"></i></span>
-                <button class="btn reserver" (click)="demandeRservation(trajet.id)">Reserver une place</button>
+                <span class="mt-2">
+                    <i class="bi bi-arrow-right-circle-fill me-2"  title="Voir Profil" data-bs-toggle="modal" data-bs-target="#profilChauffeur" style="cursor: pointer; color: #ff5900;"
+                        (click)="detailClient(trajet.id)"></i>
+                        <i class="bi bi-chat-left-heart" title="Commentaire" style="cursor: pointer; color: #ff5900;" data-bs-toggle="modal"
+                                data-bs-target="#commentaire" (click)=" recupId(trajet)"></i>
+                </span>
+                    <button class="btn reserver" (click)="demandeRservation(trajet.id)">Reserver une place</button>
             </div>
         </div>
     </ng-container>
+    <div *ngIf="tabTrajetFilter.length === 0">
+        <h3 class="titre text-center">Aucun trajet trouvé avec les critères sélectionnés.</h3>
+    </div>
 </div>
 <!-- Pagination  -->
 <div class="pagination mb-5"  *ngIf="getItemsPage().length">
@@ -149,28 +148,6 @@
                             class="rounded-circle" style="width: 40px; height: 40px;">
                         <h4 class=""> {{trajetSelected.PrenomChauffeur}} {{trajetSelected.NomChauffeur}} <br></h4>
                         <span>Chauffeur</span>
-                    </div>
-                </div>
-                <div class="traitL my-2"></div>
-                <div class="row mt-2">
-                    <div class="col-12 col-md-6">
-                        <h4>Commentaires</h4>
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <button class="btn btnAjout" data-bs-toggle="modal"
-                            data-bs-target="#commentaire">Commenter</button>
-                    </div>
-                </div>
-                <div class="row mt-2 overflow-y-scroll" style="height: 20vh;">
-                    <div class="col-12  commentaire">
-                        <div class="image me-2">
-                            <img src="https://img.freepik.com/free-photo/portrait-attractive-dark-skinned-student-wearing-checkered-shirt-with-confident-joyful-expression-standing-chalkboard-wall_273609-5907.jpg?size=626&ext=jpg&uid=R109978541&ga=GA1.2.1650161440.1694444933&semt=ais"
-                                class="rounded-circle" style="width: 40px; height: 40px;">
-                        </div>
-                        <div class="textCom">
-                            <h6>nom user</h6>
-                            <p>commentaire que l'utilisateur à écris</p>
-                        </div>
                     </div>
                 </div>
             </div>

@@ -120,9 +120,7 @@ export class LoginComponent {
       this.auth.connexionAdmin(user).subscribe(
         (response) => {
           console.log(response);
-
           this.auth.isAuthenticated = true;
-
           localStorage.setItem('userOnline', JSON.stringify(response));
           this.route.navigate(['/admin']);
         },

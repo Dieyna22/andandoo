@@ -41,7 +41,11 @@
                 </div>
               
             </ul>
-            <i class="bi bi-bell me-4"></i>
+            <i class="bi bi-bell me-4 position-relative"  data-bs-toggle="modal" data-bs-target="#notification" style="cursor: pointer;">
+                <span class="position-absolute d-none  top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle">
+                    <span class="visually-hidden">New alerts</span>
+                </span>
+            </i>
             <div class="dropdown">
                 <ng-container *ngIf="userConnect">
                     <img class="rounded-circle "
@@ -50,7 +54,7 @@
                 </ng-container>
                     <div class="dropdown-content">
                         <a [routerLink]="['/profilUser']">Profil</a>
-                        <a (click)=" logout()">Déconnexion</a>
+                        <a (click)=" logout()" style="cursor: pointer;">Déconnexion</a>
                     </div>
             </div>
         </div>
@@ -147,3 +151,22 @@
     </div>
 </div>
 
+
+<!-- Modal -->
+<div class="modal fade" id="notification" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="notificationLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 titre" id="notificationLabel">notification</h1>
+            </div>
+            <div class="modal-body">
+              <p> Nouveau trajet disponible {{tabNotifications.lieuDepart}}-{{tabNotifications.lieuArriver}} pour le {{tabNotifications.dateDepart}} à {{tabNotifications.heureDepart}} par {{tabNotifications.chauffeur}}</p>
+              <hr>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btnClose" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -175,50 +175,51 @@
 <div class="temoinage container mb-5" id="temoinage">
     <h3 class="mb-5">Témoinage</h3>
     <div class="totalTemoinage">
-        <div class="cardTemoinage">
-            <div class="profilTemoinage">
-            <svg xmlns="http://www.w3.org/2000/svg" width="41" height="41" viewBox="0 0 41 41" fill="none" class="me-4">
-                <circle cx="20.4995" cy="20.3574" r="20" fill="#407BFF" />
-            </svg>
-                <span>Nom Complet</span>
-            </div>
-            <div class="messageTemoinage">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident perspiciatis enim asperiores, reiciendis ipsa
-                    eveniet praesentium eius rem commodi, excepturi iste at velit dolorem error aliquam dolores ab mollitia magnam.</p>
-            </div>   
-        </div>
-        <div class="cardTemoinage">
-            <div class="profilTemoinage">
-                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="41" viewBox="0 0 40 41" fill="none"  class="me-4">
-                    <circle cx="20" cy="20.3569" r="20" fill="#FA7436" />
-                </svg>
-                <span>Nom Complet</span>
-            </div>
-            <div class="messageTemoinage">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident perspiciatis enim asperiores, reiciendis
-                    ipsa
-                    eveniet praesentium eius rem commodi, excepturi iste at velit dolorem error aliquam dolores ab mollitia
-                    magnam.</p>
-            </div>
-        </div>
-        <div class="cardTemoinage">
-            <div class="profilTemoinage">
-                <svg xmlns="http://www.w3.org/2000/svg" width="41" height="41" viewBox="0 0 41 41" fill="none"  class="me-4">
-                    <circle cx="20.5" cy="20.3569" r="20" fill="#FFBA00" />
-                </svg>
-                <span>Nom Complet</span>
-            </div>
-            <div class="messageTemoinage">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident perspiciatis enim asperiores, reiciendis
-                    ipsa
-                    eveniet praesentium eius rem commodi, excepturi iste at velit dolorem error aliquam dolores ab mollitia
-                    magnam.</p>
+        <div *ngFor="let chauffeur of tabAvis">
+            <div class="cardTemoinage" *ngIf="chauffeur.Avis && chauffeur.Avis.length > 0">
+                <div class="profilTemoinage">
+                    <img src="http://127.0.0.1:8000/images/profils/{{chauffeur.PhotoProfile}}" class="mb-1">
+                    <span>{{ chauffeur.PrenomChauffeur }} {{ chauffeur.NomChauffeur }}</span>
+                    <div class="moyenne-notation">
+                        <span *ngFor="let star of generateStarArray(calculateAverageRating(chauffeur.Avis))"
+                            [class.full]="star === 'full'" [class.half]="star === 'half'">&#9733;</span>
+                            {{ calculateAverageRating(chauffeur.Avis).toFixed(1) }}
+                    </div>
+                </div>
+                <div class="card-body overflow-y-scroll" style="height: 20vh;">
+                    <div class="avis-carte" *ngFor="let avis of chauffeur.Avis">
+                        <div class="card mb-1">
+                            <div class="card-body">
+                                <p class="card-text">{{ avis.Contenue }}</p>
+                                <p style="color: #FA7436;"><span *ngFor="let i of getArray(avis.Notation)">&#9733;</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+    
     <div class="pagination">
-        <i class="bi bi-arrow-left me-2"></i>
-        <i class="bi bi-arrow-right"></i>
+        <div class="pagination mb-5" *ngIf="getItemsPage().length">
+            <div class="d-flex justify-content-end mb-2">
+                <button class="rounded-2 btnColor  mx-2" [disabled]="pageActuelle === 1"
+                    (click)="pageActuelle = pageActuelle - 1">
+                    <i class="bi bi-arrow-left me-2"></i>
+                </button>
+                <button class=" mx-2 page" *ngFor="let page of pages" (click)="pageActuelle = page">
+                    <span class="pageActuelle fs-5" *ngIf="page===pageActuelle">{{page}}</span>
+                    <span *ngIf="page != pageActuelle">{{page}}</span>
+                    <!-- {{ page }} -->
+                </button>
+                <button class="rounded-2 btnColor mx-2" [disabled]="pageActuelle === totalPages"
+                    (click)="pageActuelle = pageActuelle + 1">
+                    <i class="bi bi-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+       
     </div>
 </div>
 <div class="contact mb-5" id="contact">

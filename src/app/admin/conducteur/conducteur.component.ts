@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MessageService } from 'src/app/services/message.service';
 import { UtilisateurService } from 'src/app/services/utilisateur.service';
 import Swal from 'sweetalert2';
 
@@ -15,7 +16,9 @@ export class ConducteurComponent {
   tabConducteurFilter: any[] = [];
 
   filterValue: string = "";
-
+  
+  mail: string = "";
+  message:string="";
 
   // Attribut pour la pagination
   itemsParPage = 3; // Nombre d'articles par page
@@ -23,7 +26,7 @@ export class ConducteurComponent {
 
 
   // Déclaration des méthodes 
-  constructor(private conducteur: UtilisateurService, private temporaire:UtilisateurService, private definitive:UtilisateurService, private debloquer:UtilisateurService) { }
+  constructor(private conducteur: UtilisateurService, private temporaire: UtilisateurService, private definitive: UtilisateurService, private debloquer: UtilisateurService, private send: MessageService) { }
 
   ngOnInit(): void {
     this.listerConducteur();
@@ -131,6 +134,35 @@ export class ConducteurComponent {
       this.tabConducteurFilter = this.tabConducteurs;
       console.log(this.tabConducteurFilter);
     })
+  }
+
+  CurrentItem: any;
+ 
+  // Methode pour charger les infos 
+  chargerInfos(paramItem: any) {
+    this.CurrentItem = paramItem;
+    this.mail = paramItem.Email;
+
+  }
+
+  sendReponse() {
+    const sendSMS = {
+      email: this.mail,
+      contenue: this.message,
+    };
+    alert(sendSMS.email);
+    alert(sendSMS.contenue);
+    this.send.sendMessage(sendSMS).subscribe(
+      (response) => {
+        console.warn(response);
+        this.alertMessage("success", "Bravo", response.message);
+        this.mail = '';
+        this.message = '';
+      },
+      (err) => {
+        console.log(err);
+      }
+    )
   }
 
   // Pagination 

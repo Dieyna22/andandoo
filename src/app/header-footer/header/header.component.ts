@@ -19,6 +19,7 @@ export class HeaderComponent {
   userConnect: any;
   userConnectCar: any;
   voitureUser: any;
+  tabNotifications: any;
 
   imageVoiture: any;
   nbrPlaces: string = '';
@@ -58,6 +59,7 @@ export class HeaderComponent {
     this.role = this.dbUsers.original.data.utilisateur.role;
     console.log(this.role);
 
+
     if (this.dbUsers.original.data.utilisateur.role == "chauffeur") {
       this.isChauffeur = true;
       this.isClient = false;
@@ -69,6 +71,9 @@ export class HeaderComponent {
     console.log(this.dbUsers.original);
     this.userConnect = this.dbUsers.original.data.utilisateur;
     console.log(this.userConnect);
+
+    this.tabNotifications = this.dbUsers.original.data.notification
+    console.warn(this.tabNotifications);
 
     this.listerVoiture()
   }
