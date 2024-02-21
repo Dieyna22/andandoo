@@ -73,24 +73,37 @@
             <div class="modal-body">
                 <form>
                     <div class="mb-3">
-                        <label for="imageVoiture" class="form-label">Image Voiture:</label>
-                        <input class="form-control" type="file" id="imageVoiture" name="imageVoiture" [(ngModel)]="imageVoiture" (change)="getFile($event)">
+                        <label for="inputCar" class="form-label">Image Voiture:</label>
+                        <input class="form-control" type="file" id="inputCar" name="inputCar" [(ngModel)]="inputCar"
+                            (change)="getFileUpdate($event)">
+                        <!-- Ajoutez une validation pour le champ Image Voiture -->
+                        <small class="text-danger" *ngIf="inputCar && !isValidFileType(inputCar)">Format de fichier invalide pour l'image de
+                            la voiture.</small>
                     </div>
-                    <div class="mb-3">
-                        <label for="nbrPlaces" class="form-label">Nombre de place:</label>
-                        <input class="form-control" type="text" id="nbrPlaces" name="nbrPlaces" [(ngModel)]="nbrPlaces">
-                    </div>
+                    
+                <div class="mb-3">
+                    <label for="inputPlace" class="form-label">Nombre de place:</label>
+                    <input class="form-control" type="text" id="inputPlace" name="inputPlace" [(ngModel)]="inputPlace">
+                    <!-- Ajoutez une validation pour le champ Nombre de place -->
+                    <small class="text-danger" *ngIf="!isNumber(inputPlace)">Veuillez saisir un nombre valide pour le nombre de
+                        places.</small>
+                    <small class="text-danger" *ngIf="!isPositiveNumber(inputPlace)">Veuillez saisir un nombre de places valide.</small>
+                </div>
+                    
                     <div class="form-floating">
-                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
-                            style="height: 100px" name="des" [(ngModel)]="description"></textarea>
+                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"
+                            name="inputDes" [(ngModel)]="inputDes"></textarea>
                         <label for="floatingTextarea2">Comments</label>
                     </div>
+
                 </form>
             </div>
+            
             <div class="modal-footer">
-                <button type="button" class="btn btnAjout" (click)="addVoiture()">Ajout</button>
+                <button type="button" class="btn btnAjout" (click)="addVoiture()" [disabled]="isFormAddValid()">Ajout</button>
                 <button type="button" class="btn btnClose" data-bs-dismiss="modal">Close</button>
             </div>
+
         </div>
     </div>
 </div>
@@ -108,10 +121,10 @@
                 <div>
                     <p> Nombre de place: {{userConnectCar.NbrPlaces}}</p>
                     <p> Déscription: {{userConnectCar.Descriptions}}</p>
-                    <button class="btn btnAjout" data-bs-toggle="modal" data-bs-target="#modifierVoiture" (click)="chargerInfosVoiture(userConnectCar)">Modifier</button>
                 </div>
             </div>
             <div class="modal-footer">
+                <button class="btn btnAjout" data-bs-toggle="modal" data-bs-target="#modifierVoiture" (click)="chargerInfosVoiture(userConnectCar)">Modifier</button>
                 <button type="button" class="btn btnClose" data-bs-dismiss="modal">Fermer</button>
             </div>
         </div>
@@ -130,22 +143,29 @@
                 <form>
                     <div class="mb-3">
                         <label for="inputCar" class="form-label">Image Voiture:</label>
-                        <input class="form-control" type="file" id="inputCar" name="inputCar"
-                            [(ngModel)]="inputCar" (change)="getFileUpdate($event)"> 
-                    </div>
+                        <input class="form-control" type="file" id="inputCar" name="inputCar" [(ngModel)]="inputCar"
+                            (change)="getFileUpdate($event)">
+                     </div>
+                    
                     <div class="mb-3">
                         <label for="inputPlace" class="form-label">Nombre de place:</label>
                         <input class="form-control" type="text" id="inputPlace" name="inputPlace" [(ngModel)]="inputPlace">
+                        <!-- Ajoutez une validation pour le champ Nombre de place -->
+                        <small class="text-danger" *ngIf="!isNumber(inputPlace)">Veuillez saisir un nombre valide pour le nombre de
+                            places.</small>
+                            <small class="text-danger" *ngIf="!isPositiveNumber(inputPlace)">Veuillez saisir un nombre de places valide.</small>
                     </div>
+                    
                     <div class="form-floating">
-                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
-                            style="height: 100px" name="inputDes" [(ngModel)]="inputDes"></textarea>
+                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"
+                            name="inputDes" [(ngModel)]="inputDes"></textarea>
                         <label for="floatingTextarea2">Comments</label>
                     </div>
+
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btnAjout" data-bs-dismiss="modal" (click)="MAJCar()">Modifier</button>
+                <button type="button" class="btn btnAjout" data-bs-dismiss="modal" (click)="MAJCar()" [disabled]="!isFormValid()">Modifier</button>
             </div>
         </div>
     </div>

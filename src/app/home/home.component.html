@@ -1,7 +1,7 @@
 <app-header-internaute></app-header-internaute>
 <br><br>
 <div class="banniere mb-5">
-    <img src="../../assets/containter.png" alt="">
+    <img src="../../assets/containter.png" class="" alt="">
 </div>
 <div class=" container mb-5" id="apropos">
     <h3 class="mb-5">A Propos</h3>
@@ -173,7 +173,7 @@
     </div>
 </div>
 <div class="temoinage container mb-5" id="temoinage">
-    <h3 class="mb-5">Témoinage</h3>
+    <h3 class="mb-5">Témoignage</h3>
     <div class="totalTemoinage">
         <div *ngFor="let chauffeur of tabAvis">
             <div class="cardTemoinage" *ngIf="chauffeur.Avis && chauffeur.Avis.length > 0">
@@ -262,24 +262,27 @@
             <form novalidate="" class="flex flex-col py-6 space-y-6 md:py-0 md:px-6">
                 <label class="block">
                     <span class="mb-1" _msttexthash="159549" _msthash="154">Nom complet</span>
-                    <input type="text" placeholder="Leroy Jenkins"
+                    <input type="text" placeholder="nom complet"
                         class="block w-full rounded-md shadow-sm focus:ring focus:ri focus:ri dark:bg-gray-800 "
                         _mstplaceholder="205049" _msthash="153" name="nom" [(ngModel)]="nomComplet">
                 </label>
+                    <p *ngIf="error" style="color: red;">{{error.NomComplet}}</p>
                 <label class="block">
                     <span class="mb-1" _msttexthash="291785" _msthash="156">Adresse courriel</span>
-                    <input type="email" placeholder="leroy@jenkins.com"
+                    <input type="email" placeholder="nom@gmail.com"
                         class="block w-full rounded-md shadow-sm focus:ring focus:ri focus:ri dark:bg-gray-800"
                         _mstplaceholder="336063" _msthash="155" name="email" [(ngModel)]="email">
-                </label>
+                    </label>
+                    <p *ngIf="error" style="color: red;">{{error.Email}}</p>
                 <label class="block">
                     <span class="mb-1" _msttexthash="92924" _msthash="157">Message</span>
                     <textarea rows="3"
                         class="block w-full rounded-md focus:ring focus:ri focus:ri dark:bg-gray-800" name="contenue" [(ngModel)]="contenue"></textarea>
                 </label>
+                    <p *ngIf="error" style="color: red;">{{error.Contenue}}</p>
                 <button type="button"
                     class="self-center px-4 py-3 text-lg rounded focus:ring hover:ring focus:ri dark:bg-violet-400 dark:text-gray-900 focus:ri hover:ri"
-                    _msttexthash="98280" _msthash="158" (click)="ajouterZone()">Envoyer</button>
+                    _msttexthash="98280" _msthash="158" (click)="sendMessages()">Envoyer</button>
             </form>
         </div>
     </section>

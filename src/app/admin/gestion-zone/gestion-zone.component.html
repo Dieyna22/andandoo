@@ -16,6 +16,7 @@
                             <label for="exampleInputEmail1" class="form-label">Ajouter</label>
                             <input type="text" name="auteur" class="form-control" id="exampleInputEmail1"
                                 aria-describedby="emailHelp" placeholder="zone" [(ngModel)]="addUser.NomZ">
+                                <p *ngIf="error" style="color: red;">{{error.NomZ}}</p>
                         </div>
                         <button class="btn ajouter" (click)="ajouterZone()">Ajouter</button>
                     </div>

@@ -19,12 +19,12 @@
 <div class="sectionSelect mb-5">
     <h5 class="mb-5">Trouver toutes les demandes de reservations pour vos trajets</h5>
     <div class="choice container">
-        <select class="form-select me-4 forum" aria-label="Default select example"  [(ngModel)]="status">
+        <select class="form-select me-4 forum espace" aria-label="Default select example"  [(ngModel)]="status">
             <option selected>Tout</option>
             <option value="enCours">En cours</option>
             <option value="terminee">Terminer</option>
         </select>
-        <select class="form-select me-4 forum" aria-label="Default select example" [(ngModel)]="secteur">
+        <select class="form-select me-4 forum espace" aria-label="Default select example" [(ngModel)]="secteur">
             <option selected>Trajets</option>
             <option *ngFor="let reservation of getItemsPage()" value="{{reservation.LieuArrivee}}">{{reservation.LieuArrivee}}</option>
         </select>

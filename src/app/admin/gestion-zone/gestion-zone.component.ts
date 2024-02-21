@@ -47,14 +47,17 @@ export class GestionZoneComponent implements OnInit {
     )
   }
 
+  error: any;
   ajouterZone() {
     // alert('test ajout')
     this.ajoutService.postZone(this.addUser).subscribe((response: any) => {
       console.log('Réponse du service après ajout d\'User :', response);
+      this.error = response.errorList;
       this.addUser = { NomZ: '' };
       this.listeZone();
     });
   }
+
   supprimerZone(zoneId: any) {
     Swal.fire({
       title: "Etes vous sur",

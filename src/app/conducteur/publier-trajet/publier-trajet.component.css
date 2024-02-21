@@ -127,49 +127,12 @@ h4{
     font-family: Poppins;
     font-size: 14px;
 }
-  .publicitee {
-    background: #F7F8FC;
-    padding: 20px;
-  }
 
-  .banner {
-      display: flex;
-      justify-content: center;
-      background-image: url(../../../assets/banner.png);
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: cover;
-      border-radius: 40px;
-      width: 1190px;
-      height: 450px;
-  }
-
-  .banner .addTrajet {
-      height: 35px;
+.clr{
+    color: #ff5900;
 }
-
-.addTrajet:hover {
-    background-color: #FFF;
-    color: #FA7436;
-}
-.banner button {
-    position: absolute;
-    margin-left: -43rem;
-    margin-top: 17.5rem;
-}
-
-
-
-
-
-
-
-/* resposivité */
-
+ 
 @media(max-width:700px) {
-    .banniere img {
-        height: 20rem;
-    }
     .sectionPourquoi {
         display: grid;
         grid-template-columns: 100%;
@@ -191,9 +154,6 @@ h4{
 }
 
 @media only screen and (min-width: 700px) and (max-width:1100px) {
-    .banniere img {
-        height: 20rem;
-    }
     .sectionPourquoi {
         display: grid;
         grid-template-columns: 100%;
@@ -213,3 +173,356 @@ h4{
         grid-template-columns: 1fr;
     }
 }
+
+
+ /* image publicité */
+ .publicitee {
+     background-color: #f5f5f5;
+ }
+
+ .banner {
+     display: flex;
+     justify-content: center;
+ }
+
+ .banner img {
+     padding: 3rem 0;
+     width: 85%;
+     height: 26rem;
+     margin: 0 auto;
+ }
+
+ .addTrajet {
+     background-color: #ff5900;
+     color: #fff;
+     padding: 10px 20px;
+     border: none;
+     border-radius: 10px;
+     font-weight: 600;
+     font-size: 16px;
+     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+ }
+
+ .publicitee button {
+     position: absolute;
+     margin-left: 18rem;
+     margin-top: -11rem !important;
+ }
+
+
+ @media screen and (max-width: 1400px) {
+    .publicitee button {
+         position: absolute;
+         margin-left: 15.5rem;
+         margin-top: -13.5rem;
+     }
+ }
+
+ @media screen and (max-width: 406px) {
+     .addTravel h3 {
+         font-size: 13px;
+     }
+ }
+
+
+ @media screen and (max-width: 1270px) {
+    .publicitee button {
+         position: absolute;
+         margin-left: 13.5rem;
+         margin-top: -13.5rem;
+     }
+ }
+
+ @media screen and (max-width: 1140px) {
+      .publicitee button  {
+         position: absolute;
+         margin-left: 11.5rem;
+         margin-top: -13.5rem;
+     }
+ }
+
+ @media screen and (max-width: 1024px) {
+      .publicitee button  {
+         position: absolute;
+         margin-left: 10rem;
+         margin-top: 6rem;
+     }
+
+     .addTrajet {
+         background-color: #ff5900;
+         color: #fff;
+         padding: 7px 15px;
+         border: none;
+         border-radius: 10px;
+         font-weight: 600;
+         font-size: 14.5px;
+         box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+     }
+
+     .banner img {
+         height: 24rem;
+     }
+
+ }
+
+ @media screen and (max-width: 912px) {
+      .publicitee button  {
+         position: absolute;
+         margin-left: 10rem;
+         margin-top: -9rem !important;
+     }
+
+     .addTrajet {
+         background-color: #ff5900;
+         color: #fff;
+         padding: 6px 14px;
+         border: none;
+         border-radius: 10px;
+         font-weight: 600;
+         font-size: 14px;
+         box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+     }
+
+     .banner img {
+         height: 20.5rem;
+     }
+
+ }
+
+ @media screen and (max-width: 910px) {
+      /* .publicitee button  {
+         position: absolute;
+         margin-left: 9.5rem;
+         margin-top: -11rem;
+     } */
+
+     .addTrajet {
+         background-color: #ff5900;
+         color: #fff;
+         padding: 6px 14px;
+         border: none;
+         border-radius: 10px;
+         font-weight: 600;
+         font-size: 14px;
+         box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+     }
+
+     .banner img {
+         height: 19rem;
+     }
+
+ }
+
+
+ @media screen and (max-width: 869px) {
+      .publicitee button  {
+         position: absolute;
+         margin-left: 10rem !important;
+        margin-top: -7rem !important;
+     }
+
+     .addTrajet {
+         background-color: #ff5900;
+         color: #fff;
+         padding: 5px 13px;
+         border: none;
+         border-radius: 10px;
+         font-weight: 400;
+         font-size: 12px;
+         box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+     }
+
+     .banner img {
+         height: 17.5rem;
+     }
+
+ }
+
+  @media screen and (max-width: 800px){
+    .publicitee button {
+            position: absolute;
+            margin-left: 6rem !important;
+            margin-top: -7rem !important;
+        }
+  }
+
+
+
+ @media screen and (max-width: 690px) {
+      .publicitee button  {
+         position: absolute;
+         margin-left: 6.5rem;
+         margin-top: -10rem;
+     }
+
+     .addTrajet {
+         background-color: #ff5900;
+         color: #fff;
+         padding: 4px 12px;
+         border: none;
+         border-radius: 10px;
+         font-weight: 400;
+         font-size: 11px;
+         box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+     }
+
+     .banner img {
+         height: 17rem;
+     }
+
+ }
+
+ @media screen and (max-width: 620px) {
+      .publicitee button  {
+         position: absolute;
+         margin-left: 6.3rem;
+         margin-top: -10rem;
+     }
+
+     .addTrajet {
+         background-color: #ff5900;
+         color: #fff;
+         padding: 4px 12px;
+         border: none;
+         border-radius: 10px;
+         font-weight: 400;
+         font-size: 11px;
+         box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+     }
+
+     .banner img {
+         height: 16rem;
+     }
+ }
+
+
+ @media screen and (max-width: 575px) {
+      .publicitee button  {
+         position: absolute;
+         margin-left: 6rem !important;
+         margin-top: -6rem !important;
+     }
+
+     .addTrajet {
+         background-color: #ff5900;
+         color: #fff;
+         padding: 4px 12px;
+         border: none;
+         border-radius: 10px;
+         font-weight: 400;
+         font-size: 11px;
+         box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+     }
+
+     .banner img {
+         height: 14.5rem;
+     }
+
+ }
+
+ @media screen and (max-width: 515px) {
+    .publicitee button {
+         position: absolute;
+         margin-left: 5rem !important;
+         margin-top: -6rem !important;
+         padding: 1px 5px !important;
+         font-size: 9px;
+     }
+
+     .addTrajet {
+         background-color: #ff5900;
+         color: #fff;
+         padding: 4px 12px;
+         border: none;
+         border-radius: 10px;
+         font-weight: 400;
+         font-size: 11px;
+         box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+     }
+
+     .banner img {
+         height: 13.2rem;
+     }
+
+ }
+
+
+ @media screen and (max-width: 447px) {
+.publicitee button {
+        position: absolute;
+        margin-left: 5rem !important;
+        margin-top: -5rem !important;
+        padding: 1px 5px !important;
+        font-size: 9px;
+    }
+
+     .addTrajet {
+         background-color: #ff5900;
+         color: #fff;
+         padding: 4px 8px;
+         border: none;
+         border-radius: 10px;
+         font-weight: 400;
+         font-size: 9px;
+         box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+     }
+
+     .banner img {
+         height: 12rem;
+     }
+
+ }
+
+
+ @media screen and (max-width: 419px) {
+.publicitee button {
+        position: absolute;
+        margin-left: 4rem !important;
+        margin-top: -6rem !important;
+        padding: 1px 5px !important;
+        font-size: 9px;
+    }
+
+     .addTrajet {
+         background-color: #ff5900;
+         color: #fff;
+         padding: 4px 8px;
+         border: none;
+         border-radius: 10px;
+         font-weight: 400;
+         font-size: 9px;
+         box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+     }
+
+     .banner img {
+         height: 14rem;
+         
+     }
+
+ }
+ @media screen and (max-width: 353px) {
+.publicitee button {
+        position: absolute;
+        margin-left: 3rem !important;
+        margin-top: -6rem !important;
+        padding: 1px 5px !important;
+        font-size: 9px;
+    }
+
+     .addTrajet {
+         background-color: #ff5900;
+         color: #fff;
+         padding: 4px 8px;
+         border: none;
+         border-radius: 10px;
+         font-weight: 400;
+         font-size: 9px;
+         box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+     }
+
+     .banner img {
+         height: 14rem;
+
+     }
+
+ }

@@ -12,6 +12,7 @@ export class FooterComponent {
 
   constructor(private ajoutNews: NewsletterService) { }
   
+  error: any;
   ajouterNews() {
     const addNews = {
       email:this.email,
@@ -20,7 +21,7 @@ export class FooterComponent {
     this.ajoutNews.postNewsletter(addNews).subscribe(
       (response: any) => {
         console.log('Réponse du service après ajout d\'User :', response);
-        this.alertMessage("success", "Good job!", response);
+        this.error = response.errorList;
         this.email = '';
       },
       (err) => {

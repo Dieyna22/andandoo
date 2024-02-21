@@ -8,17 +8,17 @@ body {
     margin: 50px auto;
     border-radius: none;
     border: none;
-    height: 75vh;
+    /* height: 95vh; */
     
 }
 
 .account-block {
     padding: 0;
-    background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_YwoPDmk3ha2chRGExRqJUqEyRnq25Y9WB1CZ8WsK1ljffOV0);
+    background-image: url(https://img.freepik.com/photos-gratuite/jolie-jeune-femme-aux-cheveux-boucles_273609-10592.jpg?size=626&ext=jpg&ga=GA1.2.1433801074.1708289509&semt=ais);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    height: 75vh;
+    height: 100%;
     width: 100%;
     position: relative;
     /* border-top-left-radius: 10px;
@@ -145,4 +145,7 @@ body {
 
 .radio{
     display: flex;
+}
+a{
+    font-size: 12px;
 }

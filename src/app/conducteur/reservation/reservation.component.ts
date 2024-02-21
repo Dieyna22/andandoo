@@ -60,6 +60,7 @@ export class ReservationComponent {
     this.accepted.reservationAccepted(paramReservation).subscribe(
       (reservation) => {
         console.log(reservation);
+        this.alertMessage("Response...", reservation.message);
       },
       (error) => { 
         console.log(error);

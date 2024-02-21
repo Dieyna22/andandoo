@@ -15,7 +15,7 @@ export class AvisService {
   }
 
   getAllAvis(): Observable<any> {
-    return this.http.get<any>(`${apiUrl}/show/avis/`);
+    return this.http.get<any>(`${apiUrl}/show/avis`);
   }
 
 

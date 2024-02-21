@@ -78,6 +78,7 @@ export class MesTrajetsComponent {
     this.listerTrajet.getMesTrajets().subscribe(
       (trajet: any) => {
         this.tabTrajet = trajet;
+        console.log(trajet);
         console.log(this.tabTrajet);
         this.tabTrajetFilter = this.tabTrajet;
         console.log(this.tabTrajetFilter)

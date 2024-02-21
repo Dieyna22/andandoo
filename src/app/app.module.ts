@@ -21,7 +21,7 @@ import { SidebarComponent } from './header-footer/sidebar/sidebar.component';
 import { ConfidentialiteComponent } from './politiques/confidentialite/confidentialite.component';
 import { UtilisationComponent } from './politiques/utilisation/utilisation.component';
 import { HomeComponent } from './home/home.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -82,7 +82,8 @@ import { ConducteurComponent } from './admin/conducteur/conducteur.component';
     MatIconModule,
     MatDividerModule,
     DataTablesModule,
-    HttpClientModule
+    HttpClientModule,
+    // ReactiveFormsModule
   ],
   providers: [
     AuthService,

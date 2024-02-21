@@ -224,6 +224,10 @@ h5 {
         display: flex;
         flex-direction: row;
     }
+    .btnSeach {
+        display: flex;
+        flex-direction: column;
+    }
 }
 
 @media only screen and (min-width: 700px) and (max-width:1100px) {
@@ -247,5 +251,9 @@ h5 {
     .infosTrajet {
         display: flex;
         flex-direction: row;
+    }
+    .btnSeach {
+        display: flex;
+        flex-direction: column;
     }
 }

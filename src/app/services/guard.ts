@@ -1,14 +1,36 @@
 import { inject } from "@angular/core";
 import { Router } from "@angular/router";
-import { AuthService } from "./auth.service";
 
-export const AuthentificationGuard = () => {
-    const auth = inject(AuthService);
+export const AdminGuard = () => {
     const router = inject(Router);
+    const auth = JSON.parse(localStorage.getItem("isAdmin") || "");
 
-    if (!auth.isAuthenticated) {
+    if (!auth) {
         router.navigateByUrl('/accueil')
-        return false
+        return false;
     }
-    return true
+
+    return true;
+}
+
+export const UsersGuard = () => {
+    const router = inject(Router);
+    const auth = JSON.parse(localStorage.getItem("isUsers") || "");
+    if (!auth) {
+        router.navigateByUrl('/accueil')
+        return false;
+    }
+
+    return true;
+}
+
+export const ChauffeurGuard = () => {
+    const router = inject(Router);
+    const auth = JSON.parse(localStorage.getItem("isChauffeur") || "");
+    if (!auth) {
+        router.navigateByUrl('/accueil')
+        return false;
+    }
+
+    return true;
 }

@@ -29,18 +29,18 @@ export class HomeComponent {
     Contenue:this.contenue,
   };
 
-  ajouterZone() {
+  error: any;
+  sendMessages() {
    let addSms = {
       NomComplet: this.nomComplet,
       Email: this.email,
       Contenue: this.contenue,
     };
-    alert('test ajout')
     this.sendMessage.postSms(addSms).subscribe(
       (response: any) => {
         console.log('Réponse du service après ajout d\'User :', response);
-        this.alertMessage("success", "Good...", response.message);
-        this.addSms = { NomComplet: '', Email: '', Contenue: '', };
+        // this.alertMessage("success", "Good...", response.message);
+        this.error = response.errorList;
         this.nomComplet = '';
         this.email = '';
         this.contenue='';

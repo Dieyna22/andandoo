@@ -86,10 +86,7 @@ export class AccueilAdminComponent implements OnInit {
       email: this.mail,
       contenue: this.contenue,
     };
-    // alert(this.mail);
-    // alert(this.contenue);
-    alert(sendRes.email);
-    alert(sendRes.contenue);
+  
     console.error(sendRes.email);
     this.send.sendResponse(sendRes).subscribe(
       (response) => {

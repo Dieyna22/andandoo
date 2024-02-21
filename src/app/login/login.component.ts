@@ -12,16 +12,19 @@ import { ZoneService } from '../services/zone.service';
 export class LoginComponent {
 
   // Nos attributs
-    //connexion
+  //connexion
   emailLogin: string = "";
   passwordLogin: string = "";
-    //inscription
+  isEmailDirty: boolean = false;
+  isPasswordDirty: boolean = false;
+  fieldDirty: { [key: string]: boolean } = {};
+  //inscription
   prenom: string = "";
   nom: string = "";
   email: string = "";
   password: string = "";
   telephone: string = "";
-  profil: any ;
+  profil: any;
   zone: string = "";
   conducteur: string = "";
   passager: string = "";
@@ -29,7 +32,8 @@ export class LoginComponent {
   licence: any;
   role: string = "";
   CAG: any;
-  resetEmail:string = "";
+  resetEmail: string = "";
+  selectedRole: string = '';
 
   activite: string = '';
   image: string = '';
@@ -45,10 +49,27 @@ export class LoginComponent {
   tabZone: any;
 
 
-  constructor(private route: Router, private auth: AuthService, private lieu: ZoneService , private authUser:AuthService, private logout:AuthService, private registerclient:AuthService, private registerConducteur:AuthService, private forget:AuthService) { }
+  constructor(private route: Router, private auth: AuthService, private lieu: ZoneService, private authUser: AuthService, private logout: AuthService, private registerclient: AuthService, private registerConducteur: AuthService, private forget: AuthService) { }
 
   ngOnInit() {
-    this.listeZone() 
+    this.listeZone()
+
+    if (!localStorage.getItem("isAdmin")) {
+      localStorage.setItem("isAdmin", JSON.stringify(false))
+    }
+
+    if (!localStorage.getItem("isUsers")) {
+      localStorage.setItem("isUsers", JSON.stringify(false))
+    }
+    
+    if (!localStorage.getItem("isChauffeur")) {
+      localStorage.setItem("isChauffeur", JSON.stringify(false))
+    }
+    
+    if (!localStorage.getItem("userOnline")) {
+      localStorage.setItem("userOnline", JSON.stringify(""))
+    }
+
   }
 
 
@@ -80,16 +101,17 @@ export class LoginComponent {
     this.currentStep = contentId;
   }
   // sweetAlert
-  alertMessage( title: any, text: any) {
+  alertMessage(title: any, text: any, timer:any) {
     Swal.fire({
       title: title,
-      text: text
+      text: text,
+      timer: timer,
     });
   }
 
   getFile(event: any) {
     console.warn(event.target.files[0]);
-    this.profil= event.target.files[0] as File;
+    this.profil = event.target.files[0] as File;
   }
 
   getFilePermmis(event: any) {
@@ -107,6 +129,32 @@ export class LoginComponent {
     this.CAG = event.target.files[0] as File;
   }
 
+
+  // validation automatique des champs
+
+  isEmailValid(): boolean {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(this.emailLogin);
+  }
+
+  isPasswordValid(): boolean {
+    // Vérification de la longueur du mot de passe et l'absence d'espaces
+    return this.passwordLogin.length >= 8 && !/\s/.test(this.passwordLogin);
+  }
+
+  setEmailDirty() {
+    this.isEmailDirty = true;
+  }
+
+  setPasswordDirty() {
+    this.isPasswordDirty = true;
+  }
+
+  isFormValid(): boolean {
+    return this.isEmailValid() && this.isPasswordValid();
+  }
+
+  tabError: any;
   // connexion 
   connexion() {
     let user = {
@@ -114,20 +162,25 @@ export class LoginComponent {
       "password": this.passwordLogin
     };
 
-    if (this.emailLogin === 'admin@gmail.com' && this.passwordLogin === 'admin123') {
+    if (this.email == '' && this.passwordLogin == '') {
+      this.alertMessage("Reponse...", 'champs vide',1000);
+    }
+    else if (this.emailLogin === 'admin@gmail.com' && this.passwordLogin === 'admin123') {
       // Connexion en tant qu'admin
       alert('Ok');
       this.auth.connexionAdmin(user).subscribe(
         (response) => {
           console.log(response);
           this.auth.isAuthenticated = true;
+          localStorage.setItem("isAdmin", JSON.stringify(true));
+          localStorage.setItem("isUsers", JSON.stringify(false));
+          localStorage.setItem("isChauffeur", JSON.stringify(false))
           localStorage.setItem('userOnline', JSON.stringify(response));
           this.route.navigate(['/admin']);
         },
         (err) => {
-          let message = err.error.error;
-          console.log(err);
-          this.alertMessage("Reponse...", message);
+          // let message = err.error;
+          this.alertMessage("Reponse...", err,1500);
         }
       );
     } else {
@@ -137,9 +190,19 @@ export class LoginComponent {
 
           this.auth.isAuthenticated = true;
 
-          localStorage.setItem('userOnline', JSON.stringify(response));
+          console.log(response.errorList);
+          this.tabError = response.errorList;
+
           if (response.original.data.statusCode == 200) {
-            this.alertMessage("Reponse...","Connexion Reussi");
+            localStorage.setItem("isAdmin", JSON.stringify(false));
+            localStorage.setItem("isChauffeur", JSON.stringify(false));
+            localStorage.setItem("isUsers", JSON.stringify(true));
+            if (response.original.data.utilisateur.role == "chauffeur") {
+              // localStorage.setItem("isUsers", JSON.stringify(false));
+              localStorage.setItem("isChauffeur", JSON.stringify(true));
+            }
+            localStorage.setItem('userOnline', JSON.stringify(response));
+            this.alertMessage("Reponse...", "Connexion Reussi",1500);
             this.route.navigate(['/accueilUtilisateur']);
           } else {
             console.log(response.original.data.statusCode);
@@ -148,11 +211,53 @@ export class LoginComponent {
         (err) => {
           let message = err.error.error;
           console.warn(message);
-          this.alertMessage("Reponse", message);
+          this.alertMessage("Reponse", message,1500);
         }
       );
     }
   }
+
+  // Validation des champs au saisi
+  isFieldDirty(fieldName: string): boolean {
+    return this.fieldDirty[fieldName] || false;
+  }
+
+  setFieldDirty(fieldName: string): void {
+    this.fieldDirty[fieldName] = true;
+  }
+
+  isFieldValid(fieldName: string): boolean {
+    switch (fieldName) {
+      case 'prenom':
+        return this.prenom.trim().length >= 2;
+      case 'nom':
+        return this.nom.trim().length >= 2;
+      case 'email':
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailPattern.test(this.email);
+      case 'password':
+        return this.password.length >= 8 && !/\s/.test(this.password);
+      case 'profil':
+        return this.zone.trim().length > 0;
+      case 'tel':
+        const validPrefixes = ['77', '78', '75', '76', '70'];
+        const isValidPrefix = validPrefixes.some((prefix) =>
+          this.telephone.trim().startsWith(prefix)
+        );
+        return /^\d{9}$/.test(this.telephone.trim()) && isValidPrefix;
+
+      default:
+        return true;
+    }
+  }
+
+  isFormValided(): boolean {
+    return Object.keys(this.fieldDirty).every((fieldName) =>
+      this.isFieldValid(fieldName)
+    );
+  }
+
+  // fin validation
 
   register() {
     this.role = 'client';
@@ -166,28 +271,20 @@ export class LoginComponent {
     formData.append("ImageProfile", this.profil);
     formData.append("role", this.role);
 
-    if (
-      this.nom == '' ||
-      this.prenom == '' ||
-      this.telephone == '' ||
-      this.email == '' ||
-      this.password == '' ||
-      this.zone == ''
-    ) {
-      this.alertMessage("Reponse...", "veuillez remplir tous les champs");
-    } else {
-      this.registerclient.inscription(formData).subscribe(
-        (reponse) => {
-          console.log(reponse);
-          this.viderChamp();
-          this.alertMessage("Reponse...","success");
 
-        },
-        (error) => { 
-          console.log(error);
-        }
-      )
-    }
+    this.registerclient.inscription(formData).subscribe(
+      (reponse) => {
+        console.log(reponse);
+        this.choixFormulaire = !this.choixFormulaire;
+        this.viderChamp();
+        this.tabError = reponse.errorList;
+        // this.alertMessage("Reponse...","success");
+      },
+      (error) => {
+        console.log(error);
+      }
+    )
+
   }
 
   inscriptionConducteur() {
@@ -213,35 +310,37 @@ export class LoginComponent {
       this.password == '' ||
       this.zone == '' ||
       this.permis == '' ||
-      this.licence==''
+      this.licence == ''
     ) {
-      console.log('veuillez remplir tous les champs');
+      this.alertMessage('Response...', 'veuillez remplir tous les champs',1500)
     } else {
       this.registerConducteur.inscription(formData).subscribe(
         (reponse) => {
           console.log(reponse);
+          this.alertMessage('Response...', reponse.message,1500)
           this.viderChamp();
+          this.choixFormulaire = !this.choixFormulaire;
         },
         (error) => {
-          console.log(error);
+          console.warn(error);
         }
       )
     }
   }
 
   //reset password
-  forgetPassword() { 
+  forgetPassword() {
     const reset = {
       "email": this.resetEmail
     }
     this.forget.forgetPass(reset).subscribe(
       (reponse) => {
         console.log(reponse.message);
-        this.alertMessage("response...", reponse.message);
+        this.alertMessage("response...", reponse.message,1500);
         this.resetEmail = '';
       },
-      (err) => { 
-        this.alertMessage("response...", err.message);
+      (err) => {
+        this.alertMessage("response...", err.message,1500);
       }
     )
   }
@@ -263,6 +362,52 @@ export class LoginComponent {
     this.passager = '';
     this.conducteur = '';
     this.telephone = '';
+    this.licence = '';
+    this.permis = '';
+    this.CAG='';
   }
 
+  suivant() {
+    const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,}$/;
+    const telephonePattern = /^(77|78|70|75)[0-9]{7}$/;
+    if (
+      this.nom == '' ||
+      this.prenom == '' ||
+      this.telephone == '' ||
+      this.email == '' ||
+      this.password == '' ||
+      this.zone == '' ||
+      this.permis == '' ||
+      this.licence == ''
+    ) {
+      Swal.fire({
+        title: "Ooops....!",
+        text: "veuillez remplir tous les champs",
+        icon: "error"
+      });
+    }
+    //  else if (!this.email.match(emailPattern)) {
+    //   Swal.fire({
+    //     title: "Atention....!",
+    //     text: "Veillez revoir votre email",
+    //     icon: "warning"
+    //   });
+    // } else if (!this.telephone.match(telephonePattern)) {
+    //   Swal.fire({
+    //     title: "Atention....!",
+    //     text: "Veillez revoir votre email",
+    //     icon: "warning"
+    //   });
+    // }
+    // else if (this.password.length < 8) {
+    //   Swal.fire({
+    //     title: "Atention....!",
+    //     text: "Le mot de passe doit contenir plus de huit caractéres",
+    //     icon: "warning"
+    //   });
+    // }
+    else {
+      this.showSteps = !this.showSteps;
+    }
+  }
 }

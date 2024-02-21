@@ -34,8 +34,9 @@
             <div>
                 <h3>Newsletter</h3>
                 <form action="" id="formInput">
-                    <input class="form-control input-newsletter" type="text" placeholder="Enter your mail" id="Email">
-                    <button class="btn btn-suscribe">Suscribe</button>
+                    <input class="form-control input-newsletter" type="text" placeholder="Enter your mail" id="Email" name="email" [(ngModel)]="email">
+                    <p *ngIf="error" style="color: red;">{{error.email}}</p>
+                    <button class="btn btnAjout mt-2" (click)="ajouterNews()">Suscribe</button>
                 </form>
             </div>
         </div>

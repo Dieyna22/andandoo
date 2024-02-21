@@ -5,10 +5,10 @@
 <div class="sectionSearch mb-5">
     <h3>Trouver en un clique le meilleur trajet pour vous</h3>
     <h5 class="mb-5">Quelle que soit votre destination, il y a un covoiturage pour vous y amener à moindre coût.</h5>
-    <div class="searching container ">
+    <!-- <div class="searching addTravel container ">
+
         <div class="add1">
             <div>
-                <!-- lieu de depart -->
                 <h3>Lieu de départ *</h3>
                 <div class="mb-3">
                     <input type="text" class="form-control" id="lieuDepart" name="depart" [(ngModel)]="depart">
@@ -16,13 +16,11 @@
                 <br>
             </div>
         
-            <!-- icone au milieu -->
             <div>
                 <br>
                 <i class="bi bi-geo-alt" style="color: #ff5900;"></i>
             </div>
         
-            <!-- lieu d'arriver -->
             <div>
                 <div>
                     <h3>Lieu d'arriver *</h3>
@@ -34,19 +32,16 @@
         </div>
         <div class="add1">
             <div>
-                <!-- lieu de depart -->
                 <h3>Date de départ *</h3>
                 <input type="date"  name="date" [(ngModel)]="date">
                 <br>
             </div>
         
-            <!-- icone au milieu -->
             <div>
                 <br>
                 <i class="bi bi-calendar2-week" style="color: #ff5900;"></i>
             </div>
         
-            <!-- lieu d'arriver -->
             <div>
                 <div>
                     <h3>Heure de départ</h3>
@@ -54,20 +49,83 @@
                 </div>
             </div>
         </div>
-        <!-- bloc de droite pour recherche -->
         <div class="search">
             <i class="bi bi-search" style="color: #fff; cursor: pointer;" (click)="onSearch()"></i>
+        </div>
+    </div> -->
+
+    <div class="">
+        <div class="addTravel" id="addTravel">
+            <!-- le bloc de gauche -->
+            <div class="add1">
+                <div>
+                    <!-- lieu de depart -->
+                    <br>
+                    <h3>Lieu de départ</h3>
+                    <div class="mb-3">
+                        <input type="text" class="form-control" id="lieuDepart" name="depart" [(ngModel)]="depart">
+                    </div>
+                    <br>
+                </div>
+
+                <!-- icone au milieu -->
+                <div class="position">
+                    <i class="bi bi-geo-alt" style="color: #ff5900;"></i>
+                </div>
+
+                <!-- lieu d'arriver -->
+                <div>
+                    <div>
+                        <h3>Lieu d'arriver</h3>
+                        <div class="mb-3">
+                            <input type="text" class="form-control" id="lieuDepart" name="arriver"
+                                [(ngModel)]="arriver">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ------------------------------------------------------------ -->
+            <!-- le bloc du milieu -->
+            <div class="add1" id="formInput">
+                <div>
+                    <div>
+                        <h3>Date de départ *</h3>
+                        <input type="date" name="date" [(ngModel)]="date">
+                        <br>
+                    </div>
+                </div>
+
+                <!-- icone au milieu -->
+                <div class="position">
+                    <i class="bi bi-calendar2-week" style="color: #ff5900;"></i>
+                </div>
+
+                <!-- lieu d'arriver -->
+                    <div>
+                        <div>
+                            <h3 class="taille">Heure de départ</h3>
+                            <input type="time" name="time" [(ngModel)]="time">
+                        </div>
+                    </div>
+                </div>
+
+            <!-- bloc de droite pour recherche -->
+            <div class="search">
+                <i class="bi bi-search" style="color: #fff; cursor: pointer;" (click)="onSearch()"></i>
+            </div>
+
         </div>
     </div>
 </div>
 
 <div class="cardTrajets mb-5 container">
     <ng-container *ngFor="let trajet of getItemsPage()">
-        <div class="trajet" *ngIf="trajet.ChauffeurId!=userConnect.id && trajet.Status=='enCours'">
+        <div class="trajet">
             <div class="chauffeur">
                 <img src="http://127.0.0.1:8000/images/profils/{{trajet.ImageProfile}}" alt=""
-                    class="rounded-circle text-center" style="height: 150px; width: 150px;">
-                <p class="text-center"> {{trajet.PrenomChauffeur}} {{trajet.NomChauffeur}}</p>
+                    class="rounded-circle mx-auto" style="height: 150px; width: 150px;">
+                <p class="text-center"> Chauffeur</p>
+                <span class="text-center"> {{trajet.PrenomChauffeur}} {{trajet.NomChauffeur}}</span>
             </div>
             <hr>
             <div class="infosTrajet">
@@ -80,9 +138,9 @@
                 </div>
                 <div class="date">
                     <p class=" mb-1 mt-1">
-                        {{trajet.DateDepart}}
+                        {{ formatDate(trajet.DateDepart) }}
                         <i class="bi bi-calendar4-week" style="color: #ff5900;"></i>
-                        {{trajet.HeureDepart}}
+                        {{ formatHeure(trajet.HeureDepart) }}
                     </p>
                 </div>
             </div>
@@ -92,14 +150,15 @@
                 <span class="droite"><i class="bi bi-people-fill"></i> {{trajet.NombrePlaceDisponible}} places
                     disponibles</span>
             </div>
-            <div class="autreDetails">
+            <div class="autreDetails"> 
                 <span class="mt-2">
-                    <i class="bi bi-arrow-right-circle-fill me-2"  title="Voir Profil" data-bs-toggle="modal" data-bs-target="#profilChauffeur" style="cursor: pointer; color: #ff5900;"
+                    <i class="bi bi-eye me-2" title="Voir Profil du chauffeur" data-bs-toggle="modal"
+                        data-bs-target="#profilChauffeur" style="cursor: pointer; color: #ff5900;"
                         (click)="detailClient(trajet.id)"></i>
-                        <i class="bi bi-chat-left-heart" title="Commentaire" style="cursor: pointer; color: #ff5900;" data-bs-toggle="modal"
-                                data-bs-target="#commentaire" (click)=" recupId(trajet)"></i>
+                    <i class="bi bi-chat-left" title="Commentaire" style="cursor: pointer; color: #ff5900;"
+                        data-bs-toggle="modal" data-bs-target="#commentaire" ></i>
                 </span>
-                    <button class="btn reserver" (click)="demandeRservation(trajet.id)">Reserver une place</button>
+                <button class="btn reserver" class="btn btnClose" [ngClass]="{'etat': demandeEnCours==1}" (click)=" recupId(trajet)" data-bs-toggle="modal" data-bs-target="#exampleModal">Reservation</button>
             </div>
         </div>
     </ng-container>
@@ -108,7 +167,7 @@
     </div>
 </div>
 <!-- Pagination  -->
-<div class="pagination mb-5"  *ngIf="getItemsPage().length">
+<div class="pagination mb-5" *ngIf="getItemsPage().length">
     <div class="d-flex justify-content-end mb-2">
         <button class="rounded-2 btnColor  mx-2" [disabled]="pageActuelle === 1"
             (click)="pageActuelle = pageActuelle - 1">
@@ -121,7 +180,7 @@
         </button>
         <button class="rounded-2 btnColor mx-2" [disabled]="pageActuelle === totalPages"
             (click)="pageActuelle = pageActuelle + 1">
-        <i class="bi bi-arrow-right-circle-fill"></i>
+            <i class="bi bi-arrow-right-circle-fill"></i>
         </button>
     </div>
 </div>
@@ -190,6 +249,29 @@
                     #closeAddExpenseModal>
                     Annuler
                 </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal nombre de place à reserver -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 titre" id="exampleModalLabel">Nombre de place </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            <div class="mb-3">
+                <label for="nbrplace" class="form-label">Nombre de place à reserver:</label>
+                <input type="number" class="form-control" id="nbrplace" value="1" name="nbrplace" [(ngModel)]="nbrplace">
+            </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btnAjout" (click)="demandeRservation()">Reserver</button>
+                <button type="button" class="btn btnClose" data-bs-dismiss="modal">Annuler</button>
             </div>
         </div>
     </div>

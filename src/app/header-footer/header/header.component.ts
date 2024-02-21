@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { param } from 'jquery';
 import { apiUrl } from 'src/app/services/apiUrl';
 import { VoitureService } from 'src/app/services/voiture.service';
 import Swal from 'sweetalert2';
@@ -78,23 +77,39 @@ export class HeaderComponent {
     this.listerVoiture()
   }
 
+  isValidFileType(fileInput: any): boolean {
+    // Ajoutez la logique pour vérifier le type de fichier ici
+    // Par exemple, vérifiez l'extension du fichier
+    const allowedExtensions = ['jpg', 'jpeg', 'png'];
+    const fileName = fileInput?.name || '';
+    const fileExtension = fileName.split('.').pop()?.toLowerCase() || '';
+    return allowedExtensions.includes(fileExtension);
+  }
+
+  isFormAddValid(): boolean {
+    return this.imageVoiture && this.isValidFileType(this.imageVoiture) &&
+      this.nbrPlaces !== null && this.isPositiveNumber(this.nbrPlaces) &&
+      // Ajoutez d'autres validations au besoin
+      true; 
+  }
+
+  error: any;
   addVoiture() {
     let formData = new FormData();
     formData.append("ImageVoitures", this.imageVoiture);
     formData.append("NbrPlaces", this.nbrPlaces);
     formData.append("Descriptions", this.description);
-    if (
-      this.imageVoiture == '' ||
-      this.nbrPlaces == '' ||
-      this.description == '' 
-    ) {
-      this.alertMessage("error", "Ooops...", "veuillez remplir tous les champs");
-    } else {
+    // if (
+    //   this.imageVoiture == '' ||
+    //   this.nbrPlaces == '' ||
+    //   this.description == '' 
+    // ) {
+    //   this.alertMessage("error", "Ooops...", "veuillez remplir tous les champs");
+    // } else {
       this.ajoutVoiture.postVoitures(formData).subscribe(
         (reponse) => {
-          let message = reponse.message
-          console.log(reponse.message);
-          this.alertMessage("success", "Good...", message);
+          console.log(reponse);
+          this.error = reponse.errorList;
           this.imageVoiture = '';
           this.nbrPlaces ='';
           this.description = '';
@@ -106,7 +121,7 @@ export class HeaderComponent {
 
         }
       )
-    }
+    // }
   }
 
   listerVoiture() {
@@ -130,6 +145,21 @@ export class HeaderComponent {
     this.inputPlace = paramCar.NbrPlaces; 
     this.inputDes = paramCar.Descriptions;
   }
+
+  isNumber(value: string): boolean {
+    // Ajoutez la logique pour vérifier si la valeur est un nombre
+    return !isNaN(Number(value));
+  }
+  isPositiveNumber(value: string): boolean {
+    // Ajoutez la logique pour vérifier si la valeur est un nombre positif
+    const numericValue = Number(value);
+    return !isNaN(numericValue) && numericValue > 0;
+  }
+  isFormValid(): boolean {
+    return this.isPositiveNumber(this.inputPlace)   
+  }
+
+
 
   // Methode pour modifier la voiture 
   MAJCar() {
@@ -155,10 +185,7 @@ export class HeaderComponent {
           formData.append("ImageVoitures", image);
           formData.append("NbrPlaces", places);
           formData.append("Descriptions", desc);
-          await this.http.post(urlUser, formData).toPromise();
           console.log(await this.http.post(urlUser, formData).toPromise());
-
-          this.alertMessage("success", "Bravo", "Modification effectuée avec succès");
         } catch (error) {
           console.log('erreurrrrrrrrrrrrrrrrr'),
           console.error("Erreur lors de la mise à jour :", error);
@@ -180,6 +207,9 @@ export class HeaderComponent {
     }).then((result) => {
       if (result.isConfirmed) {
         localStorage.removeItem('userOnline');
+        localStorage.setItem("isAdmin", JSON.stringify(false));
+        localStorage.setItem("isUsers", JSON.stringify(false));
+        localStorage.setItem("isChauffeur", JSON.stringify(false));
         this.route.navigate(['/accueil']);
         Swal.fire({
           title: "Déconnexion!",

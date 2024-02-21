@@ -6,7 +6,7 @@
 h3 {
     color: #FA7436;
     font-family: Poppins;
-    font-size: 20px;
+    font-size: 18px!important;
     text-align: center;
     font-weight: 800;
 }
@@ -34,33 +34,9 @@ h5 {
     width: 1080px;
     height: 154px;
 }
- .add1,
- .add2 {
-     background-color: #fff;
-     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
-     width: 38%;
-     height: 6rem;
-     border-radius: 8px;
- }
-.add1 {
-    display: flex;
-    gap: 2.5rem;
-    /* place-items: center; */
-    padding: 12px;
-    justify-content: center;
-}
-.search {
-    font-size: 2rem;
-    background-color: #ff5900;
-    height: 50px;
-    width: 50px;
-    padding: 4%;
-    border-radius: 50%;
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
+ 
+.position{
+    margin-top: 20px !important;
 }
 .cardTrajets{
     display: grid;
@@ -86,6 +62,11 @@ h5 {
     justify-content: center;
     align-items: center;
 }
+/* .chauffeur img{
+    display: flex;
+    justify-content: center!important;
+    align-items: center!important;
+} */
 .chauffeur p{
     color: #000;
     text-align: center;
@@ -146,7 +127,9 @@ h5 {
     color: #FA7436;
 }
 
-
+.etat{
+ display: none;
+}
 
 
 
@@ -172,6 +155,13 @@ h5 {
         display: flex;
         flex-direction: row;
     }
+    h3 {
+        font-size: 17px;
+    }
+    .taille {
+        font-size: 15px;
+    }
+        
 }
 
 @media only screen and (min-width: 700px) and (max-width:1100px) {
@@ -186,4 +176,65 @@ h5 {
         display: grid;
         grid-template-columns: 1fr;
     }
+    h3 {
+        font-size: 15px;
+    }
+    .taille{
+        font-size:15px ;
+    }
+}
+
+
+ .addTravel {
+     display: flex;
+     justify-content: center;
+     gap: 1.5rem;
+     flex-wrap: wrap;
+     font-family: Arial, Helvetica, sans-serif;
+     padding: 0 10px;
+ }
+
+ .add1,
+ .add2 {
+     background-color: #fff;
+     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+     width: 22rem;
+     height: 6rem;
+     border-radius: 8px;
+ }
+
+ .add1 {
+     display: flex;
+     gap: 2rem;
+     place-items: center;
+     padding: 12px;
+     justify-content: center;
+ }
+#formInput input{
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    padding: 5px 8px;
+    border-radius: 3px;
+}
+
+ /* icone localisation */
+ .add1 i {
+     font-size: 1.2rem;
+ }
+
+ select {
+     padding: 5px 9px;
+     border: none;
+ }
+
+ .search {
+    font-size: 2rem;
+    background-color: #ff5900;
+    height: 50px;
+    width: 50px;
+    padding: 4%;
+    border-radius: 50%;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

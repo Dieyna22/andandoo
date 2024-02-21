@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+  import { Component } from '@angular/core';
 import { AvisService } from 'src/app/services/avis.service';
 import { ReservationService } from 'src/app/services/reservation.service';
 import { TrajetService } from 'src/app/services/trajet.service';
@@ -22,7 +22,8 @@ export class ReserverTrajetComponent {
   depart: string = '';
   arriver: string = '';
   date: string = '';
-  time: string ='';
+  time: string = '';
+  nbrplace:string = '';
  
   // Attribut pour la pagination
   itemsParPage = 3; // Nombre d'articles par page
@@ -38,6 +39,7 @@ export class ReserverTrajetComponent {
     this.userConnect = this.dbUsers.original.data.utilisateur;
     console.log(this.userConnect);
   }
+
 
   // Pagination 
   // Méthode pour déterminer les articles à afficher sur la page actuelle
@@ -58,12 +60,18 @@ export class ReserverTrajetComponent {
     return Math.ceil(this.tabTrajetFilter.length / this.itemsParPage);
   }
 
+  showDate: any;
   listeTrajet() {
     this.listerTrajet.getAllTrajets().subscribe(
       (trajet: any) => {
         this.tabTrajet = trajet;
+        this.showDate = trajet.DateDepart;
+        console.log(this.showDate);
         console.log(this.tabTrajet);
-        this.tabTrajetFilter = this.tabTrajet;
+        this.tabTrajetFilter = this.tabTrajet.filter((trajet: any) => trajet.ChauffeurId != this.userConnect.id && trajet.Status == 'enCours');
+        console.log(this.tabTrajetFilter);
+
+        // trajet.ChauffeurId != userConnect.id && trajet.Status == 'enCours'
       },
       (err) => {
         console.log(err);
@@ -115,20 +123,24 @@ export class ReserverTrajetComponent {
     )
   }
 
+  demandeEnCours=0;
   // Demande de reservation
-  demandeRservation(paramReservation: any) {
-    alert(paramReservation);
+  demandeRservation() {
+    alert(this.id_trajet);
     const addReservation = {
-      trajet_id: paramReservation,
-      NombrePlaces:1,
+      trajet_id: this.id_trajet,
+      NombrePlaces:this.nbrplace,
     }
     this.reservation.postReservation(addReservation).subscribe(
       (reponse) => {
         console.log(reponse);
         this.alertMessage("Response...", reponse.message);
+        this.demandeEnCours = 1;
       },
       (error) => { 
         console.log(error);
+        this.alertMessage("Response...", error.error.message);
+        this.demandeEnCours = 0;
       }
     )
   }
@@ -149,5 +161,38 @@ export class ReserverTrajetComponent {
                       elt?.DateDepart.toLowerCase().includes(this.date.toLowerCase())
                     )
     );
+  }
+
+  formatDate(dateString: string): string {
+    const selectedDate = new Date(dateString);
+    const today = new Date();
+
+    // Vérifier si la date est passée
+    if (selectedDate < today) {
+      return 'Passée';
+    }
+
+    // Calcul de la différence en jours
+    const timeDifference = selectedDate.getTime() - today.getTime();
+    const daysDifference = timeDifference / (1000 * 3600 * 24);
+
+    // Affichage de la date relative
+    if (daysDifference === 0) {
+      return 'Aujourd\'hui';
+    } else if (daysDifference === 1) {
+      return 'Demain';
+    } else if (daysDifference === 2) {
+      const options = { weekday: 'long' as const, month: 'long' as const, day: 'numeric' as const };
+      const formattedDate = new Intl.DateTimeFormat('fr-FR', options).format(selectedDate);
+      return formattedDate;
+    } else {
+      const options = { weekday: 'long' as const, month: 'long' as const, day: 'numeric' as const };
+      const formattedDate = new Intl.DateTimeFormat('fr-FR', options).format(selectedDate);
+      return formattedDate;
+    }
+  }
+
+  formatHeure(heureString: string): string {
+    return heureString.slice(0, 5);
   }
 }

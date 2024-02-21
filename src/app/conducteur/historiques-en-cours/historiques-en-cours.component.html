@@ -18,7 +18,7 @@
 </div>
 <div class="history container mb-5">
     <div class="bntHistory mb-5">
-        <button class="btn nbrEnCours me-5 " [routerLink]="['/enCours']">Nombre de trajet encours</button>
+        <button class="btn nbrEnCours me-5 mb-3 " [routerLink]="['/enCours']">Nombre de trajet encours</button>
         <button class="btn nbrEffectuer  " [routerLink]="['/historique']">Nombre de trajet effectuer</button>
     </div>
     <h4>Listes des trajets encours</h4>
@@ -40,7 +40,7 @@
     <ng-container *ngFor="let trajet of getItemsPage()">
         <div class="trajet" *ngIf="trajet.Status=='enCours'">
                 <div class="chauffeur">
-                    <img src="http://127.0.0.1:8000/images/profils/{{trajet.ImageProfile}}" alt="" class="rounded-circle text-center"
+                    <img src="http://127.0.0.1:8000/images/profils/{{trajet.ImageProfile}}" alt="" class="rounded-circle mx-auto"
                         style="height: 150px; width: 150px;">
                     <p class="text-center"> {{trajet.PrenomChauffeur}} {{trajet.NomChauffeur}}</p>
                 </div>
