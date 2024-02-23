@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GestionUsersComponent } from './gestion-users.component';
+import { UtilisateurService } from 'src/app/services/utilisateur.service';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('GestionUsersComponent', () => {
   let component: GestionUsersComponent;
@@ -8,7 +10,8 @@ describe('GestionUsersComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [GestionUsersComponent]
+      declarations: [GestionUsersComponent, UtilisateurService],
+      imports: [HttpClientModule]
     });
     fixture = TestBed.createComponent(GestionUsersComponent);
     component = fixture.componentInstance;

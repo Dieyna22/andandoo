@@ -80,12 +80,12 @@ export class PublierTrajetComponent {
       // this.verifArriver = "Le lieu d'arriver est obligatoire.";
     }
     else if (!expressionReguliere.test(this.arriver)) {
-      this.verifDepart = "Le lieu d'arriver  ne  doit pas contenir de nombres.";
+      this.verifArriver = "Le lieu d'arriver  ne  doit pas contenir de nombres.";
     }
     else if (this.arriver.length < 4) {
       this.verifArriver = "Le lieu d'arriver ne doit pas etre inferieur a 4 caractères.";
     }
-    else if (this.depart == this.arriver) {
+    else if (this.depart.toLowerCase == this.arriver.toLowerCase) {
       this.verifArriver = "Le lieu d\'arrivée ne doit pas etre le même que le lieu de depart";
     }
     else {
@@ -106,20 +106,6 @@ export class PublierTrajetComponent {
       this.exactDate = true;
     }
   }
-
-
-  // Verification de l'heure
-  // verifHeureFonction() {
-  //   this.exactTime = false;
-  //   if (this.time == "") {
-  //     this.verifTime = "";
-  //     // this.verifTime = "L'heure de départ est obligatoire";
-  //   }
-  //   else {
-  //     this.verifTime = "";
-  //     this.exactTime = true;
-  //   }
-  // }
   
   verifHeureFonction() {
     const now = new Date();

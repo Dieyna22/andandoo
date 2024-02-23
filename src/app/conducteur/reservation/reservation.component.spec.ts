@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ReservationComponent } from './reservation.component';
+import { HttpClientModule } from '@angular/common/http';
+import { HeaderComponent } from '../../header-footer/header/header.component';
+import { FooterComponent } from '../../header-footer/footer/footer.component';
 
 describe('ReservationComponent', () => {
   let component: ReservationComponent;
@@ -8,7 +11,8 @@ describe('ReservationComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ReservationComponent]
+      declarations: [ReservationComponent, HeaderComponent, FooterComponent],
+      imports: [HttpClientModule]
     });
     fixture = TestBed.createComponent(ReservationComponent);
     component = fixture.componentInstance;
@@ -18,4 +22,5 @@ describe('ReservationComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  
 });

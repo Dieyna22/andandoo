@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ReserverTrajetComponent } from './reserver-trajet.component';
+import { HttpClientModule } from '@angular/common/http';
+import { ReservationService } from 'src/app/services/reservation.service';
+import { TrajetService } from 'src/app/services/trajet.service';
 
 describe('ReserverTrajetComponent', () => {
   let component: ReserverTrajetComponent;
@@ -8,7 +11,8 @@ describe('ReserverTrajetComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ReserverTrajetComponent]
+      declarations: [ReserverTrajetComponent, ReservationService, TrajetService],
+      imports: [HttpClientModule]
     });
     fixture = TestBed.createComponent(ReserverTrajetComponent);
     component = fixture.componentInstance;

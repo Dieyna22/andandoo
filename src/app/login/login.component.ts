@@ -47,6 +47,7 @@ export class LoginComponent {
  
 
   tabZone: any;
+  Router: any;
 
 
   constructor(private route: Router, private auth: AuthService, private lieu: ZoneService, private authUser: AuthService, private logout: AuthService, private registerclient: AuthService, private registerConducteur: AuthService, private forget: AuthService) { }
@@ -133,7 +134,7 @@ export class LoginComponent {
   // validation automatique des champs
 
   isEmailValid(): boolean {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailRegex = /^[A-Za-z]+[A-Za-z0-9._%+-]+@[A-Za-z][A-Za-z0-9.-]+.[A-Za-z]{2,}$/;
     return emailRegex.test(this.emailLogin);
   }
 
@@ -144,10 +145,16 @@ export class LoginComponent {
 
   setEmailDirty() {
     this.isEmailDirty = true;
+    if (this.emailLogin == '') {
+      this.isEmailDirty = false;
+    }
   }
 
   setPasswordDirty() {
     this.isPasswordDirty = true;
+    if (this.passwordLogin == '') { 
+      this.isPasswordDirty = false;
+    }
   }
 
   isFormValid(): boolean {
@@ -163,7 +170,7 @@ export class LoginComponent {
     };
 
     if (this.email == '' && this.passwordLogin == '') {
-      this.alertMessage("Reponse...", 'champs vide',1000);
+      this.alertMessage("Reponse...", 'veuillez remplir tous les champs ',1500);
     }
     else if (this.emailLogin === 'admin@gmail.com' && this.passwordLogin === 'admin123') {
       // Connexion en tant qu'admin
@@ -193,20 +200,20 @@ export class LoginComponent {
           console.log(response.errorList);
           this.tabError = response.errorList;
 
-          if (response.original.data.statusCode == 200) {
-            localStorage.setItem("isAdmin", JSON.stringify(false));
-            localStorage.setItem("isChauffeur", JSON.stringify(false));
-            localStorage.setItem("isUsers", JSON.stringify(true));
-            if (response.original.data.utilisateur.role == "chauffeur") {
-              // localStorage.setItem("isUsers", JSON.stringify(false));
-              localStorage.setItem("isChauffeur", JSON.stringify(true));
+            if (response.original.data.statusCode == 200) {
+              localStorage.setItem("isAdmin", JSON.stringify(false));
+              localStorage.setItem("isChauffeur", JSON.stringify(false));
+              localStorage.setItem("isUsers", JSON.stringify(true));
+              if (response.original.data.utilisateur.role == "chauffeur") {
+                // localStorage.setItem("isUsers", JSON.stringify(false));
+                localStorage.setItem("isChauffeur", JSON.stringify(true));
+              }
+              localStorage.setItem('userOnline', JSON.stringify(response));
+              this.alertMessage("Reponse...", "Connexion Reussi",1500);
+              this.route.navigate(['/accueilUtilisateur']);
+            } else {
+              console.log(response.original.data.statusCode);
             }
-            localStorage.setItem('userOnline', JSON.stringify(response));
-            this.alertMessage("Reponse...", "Connexion Reussi",1500);
-            this.route.navigate(['/accueilUtilisateur']);
-          } else {
-            console.log(response.original.data.statusCode);
-          }
         },
         (err) => {
           let message = err.error.error;

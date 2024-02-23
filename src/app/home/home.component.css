@@ -104,6 +104,10 @@ h3{
     gap: 3vh;
 }
 
+.childsection svg{
+    margin: 0 auto;
+}
+
 .childsection p{
     color: #222;
     font-family: popins;
@@ -116,6 +120,7 @@ h3{
 
 .childsection span{
     font-weight: 900;
+    text-align: justify;
 }
 
 .totalTemoinage{

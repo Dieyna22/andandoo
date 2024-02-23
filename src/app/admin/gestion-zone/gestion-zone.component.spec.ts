@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GestionZoneComponent } from './gestion-zone.component';
+import { ZoneService } from 'src/app/services/zone.service';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('GestionZoneComponent', () => {
   let component: GestionZoneComponent;
@@ -8,7 +10,8 @@ describe('GestionZoneComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [GestionZoneComponent]
+      declarations: [GestionZoneComponent, ZoneService],
+      imports: [HttpClientModule]
     });
     fixture = TestBed.createComponent(GestionZoneComponent);
     component = fixture.componentInstance;

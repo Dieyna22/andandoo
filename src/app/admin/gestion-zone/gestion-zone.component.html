@@ -15,10 +15,12 @@
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Ajouter</label>
                             <input type="text" name="auteur" class="form-control" id="exampleInputEmail1"
-                                aria-describedby="emailHelp" placeholder="zone" [(ngModel)]="addUser.NomZ">
+                                aria-describedby="emailHelp" placeholder="zone" [(ngModel)]="addUser.NomZ" (input)="this.verifNonZoneFonction()">
                                 <p *ngIf="error" style="color: red;">{{error.NomZ}}</p>
+                                <p class="text-danger" *ngIf="!exactNom">{{verifNom}}</p>
+                                <p class="text-success" *ngIf="exactNom"><i class="bi bi-check2-all"></i> OK!</p>
                         </div>
-                        <button class="btn ajouter" (click)="ajouterZone()">Ajouter</button>
+                        <button class="btn ajouter" (click)="ajouterZone()" [disabled]="!exactNom">Ajouter</button>
                     </div>
                     <div class="sta">
                         <h5 class="mb-4">Total zone</h5>
@@ -83,7 +85,9 @@
                 <form>
                     <div class="mb-3">
                         <label for="inputNom" class="form-label">Nom</label>
-                        <input type="text" class="form-control" id="inputNom" name="inputNom" [(ngModel)]="inputNom">
+                        <input type="text" class="form-control" id="inputNom" name="inputNom" [(ngModel)]="inputNom" (input)="this.verifNonZoneUpdateFonction()">
+                        <p class="text-danger" *ngIf="!exactNomUpdate">{{verifNomUpdate}}</p>
+                        <p class="text-success" *ngIf="exactNomUpdate"><i class="bi bi-check2-all"></i> OK!</p>
                     </div>
                 </form>
             </div>

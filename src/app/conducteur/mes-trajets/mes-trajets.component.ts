@@ -17,6 +17,7 @@ export class MesTrajetsComponent {
   dbUsers: any;
   userConnect: any;
   filterValue: string = "";
+  error: any;
 
 
   // attributs
@@ -26,7 +27,21 @@ export class MesTrajetsComponent {
   time: string = '';
   prix: string = '';
   description: string = '';
-  commentaire:string='';
+  commentaire: string = '';
+  
+  // Variables pour faire la vérifications
+  verifDepart: String = "";
+  verifArriver: String = "";
+  verifDate: String = "";
+  verifTime: String = "";
+  verifPrix: String = "";
+
+  // Variables si les champs sont exacts
+  exactDepart: boolean = false;
+  exactArriver: boolean = false;
+  exactDate: boolean = false;
+  exactTime: boolean = false;
+  exactPrix: boolean = false;
 
 
   // Déclaration des méthodes 
@@ -87,6 +102,106 @@ export class MesTrajetsComponent {
         console.log(err);
       }
     )
+  }
+
+  // Verification du lieu de depart
+  verifDepartFonction() {
+    this.exactDepart = false;
+    const expressionReguliere = /^[a-zA-Z]+$/;
+    if (this.depart == "") {
+      this.verifDepart = "";
+      // this.verifDepart = "Le lieu de départ est obligatoire.";
+    }
+    else if (!expressionReguliere.test(this.depart)) {
+      this.verifDepart = "Le lieu de départ ne  doit pas contenir de nombres.";
+    }
+    else if (this.depart.length < 4) {
+      this.verifDepart = "Le lieu de départ ne doit pas etre inferieur a 4 caractères.";
+    }
+    else {
+      this.verifDepart = "";
+      this.exactDepart = true;
+    }
+  }
+
+  // Verification du lieu d'arriver
+  verifArriverFonction() {
+    this.exactArriver = false;
+    const expressionReguliere = /^[a-zA-Z]+$/;
+    if (this.arriver == "") {
+      this.verifArriver = "";
+      // this.verifArriver = "Le lieu d'arriver est obligatoire.";
+    }
+    else if (!expressionReguliere.test(this.arriver)) {
+      this.verifArriver = "Le lieu d'arriver  ne  doit pas contenir de nombres.";
+    }
+    else if (this.arriver.length < 4) {
+      this.verifArriver = "Le lieu d'arriver ne doit pas etre inferieur a 4 caractères.";
+    }
+    else if (this.depart.toLowerCase == this.arriver.toLowerCase) {
+      this.verifArriver = "Le lieu d\'arrivée ne doit pas etre le même que le lieu de depart";
+    }
+    else {
+      this.verifArriver = "";
+      this.exactArriver = true;
+    }
+  }
+
+  // Verification de la date
+  verifDateFonction() {
+    this.exactDate = false;
+    if (this.date == "") {
+      this.verifDate = "";
+      // this.verifDate = "La date de départ est obligatoire";
+    }
+    else {
+      this.verifDate = "";
+      this.exactDate = true;
+    }
+  }
+
+  verifHeureFonction() {
+    const now = new Date();
+    const selectedDateTime = new Date(`${this.date}T${this.time}`);
+
+    // Ajoute une marge de 20 minutes à l'heure actuelle
+    now.setMinutes(now.getMinutes() + 20);
+
+    // Vérifiez si la date sélectionnée est aujourd'hui et si l'heure sélectionnée est antérieure à l'heure actuelle plus 20 minutes
+    if (selectedDateTime.toDateString() === now.toDateString() && selectedDateTime <= now) {
+      this.error = { HeureD: "Veuillez choisir une heure valide (au moins 20 minutes après l'heure actuelle)." };
+      this.exactTime = false;
+
+      // Réinitialise la valeur du champ de temps pour la rendre vide
+      this.time = '';
+    } else {
+      this.error = null;
+      this.exactTime = true;
+    }
+  }
+
+
+  // Verification du prix
+  verifPrixFonction() {
+    this.exactPrix = false;
+    if (this.prix == null) {
+      this.verifPrix = "";
+      // this.verifPrix= "Le prix est obligatoire.";
+    }
+    else if (this.prix < '100') {
+      this.verifPrix = "Le prix du trajet ne peut pas être inferieur a 100.";
+    }
+    else {
+      this.verifPrix = "";
+      this.exactPrix = true;
+    }
+  }
+
+  minDate(): string {
+    const currentDate = new Date();
+    // Formate la date au format ISO (YYYY-MM-DD) pour l'attribut min
+    const isoDate = currentDate.toISOString().split('T')[0];
+    return isoDate;
   }
 
 

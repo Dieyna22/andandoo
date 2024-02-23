@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 export class ReservationComponent {
   // Déclaration des variables 
   tabReservation: any[] = [];
+  tabReservationFinaliser: any[] = [];
   tabRservationFilters: any[] = [];
 
   // Attribut pour la pagination
@@ -24,7 +25,19 @@ export class ReservationComponent {
 
   ngOnInit(): void {
     this.listeRes();
+    this.listeResFinaliser();
     this.tabRservationFilters = this.tabReservation;
+  }
+
+  // Gestion bouton
+  boutonActif = 1;
+
+  // Initialiser le contenu actuel
+  currentContent: string = 'reservationEncours';
+
+  // Mettre à jour le contenu actuel
+  showComponant(contentId: string): void {
+    this.currentContent = contentId;
   }
 
   //filtre
@@ -33,8 +46,8 @@ export class ReservationComponent {
     alert(this.secteur)
     // Recherche se fait selon le depart ou l' arriver 
     this.tabRservationFilters = this.tabReservation.filter(
-      (elt: any) => (elt?.Nom.toLowerCase()?.includes(this.status.toLowerCase()) ||
-                    elt?.LieuArrivee.toLowerCase()?.includes(this.secteur.toLowerCase())
+      (elt: any) => (elt?.etatReservations.toLowerCase()?.includes(this.status.toLowerCase()) 
+                    // elt?.LieuArrivee.toLowerCase()?.includes(this.secteur.toLowerCase())
                     )
     );
   }
@@ -43,7 +56,19 @@ export class ReservationComponent {
     this.listeReservation.getReservation().subscribe(
       (reservation: any) => {
         console.log(reservation);
-        this.tabReservation = reservation;
+        this.tabReservation = reservation.filter((reservation: any) => reservation.etatReservations == 0);
+      },
+      (err) => {
+        console.log(err);
+      }
+    )
+  }
+
+  listeResFinaliser() {
+    this.listeReservation.getReservation().subscribe(
+      (reservation: any) => {
+        console.log(reservation);
+        this.tabReservationFinaliser = reservation.filter((reservation: any) => reservation.etatReservations == 1);
       },
       (err) => {
         console.log(err);
@@ -60,7 +85,9 @@ export class ReservationComponent {
     this.accepted.reservationAccepted(paramReservation).subscribe(
       (reservation) => {
         console.log(reservation);
-        this.alertMessage("Response...", reservation.message);
+        this.alertMessage("Response...", reservation.message,1500);
+        this.listeRes();
+        this.listeResFinaliser();
       },
       (error) => { 
         console.log(error);
@@ -83,11 +110,11 @@ export class ReservationComponent {
       if (result.isConfirmed) {
         this.deleteReservation.reservationAnnuler(reservationId).subscribe((resp: any) => {
           console.log(resp.error.message)
-          this.alertMessage( "Response...",resp.message);
+          this.alertMessage( "Response...",resp.message,1500);
           this.listeRes();
         },
           (err) => {
-            this.alertMessage("Response...", err.error.message);
+            this.alertMessage("Response...", err.error.message,1500);
           }
         );
       }
@@ -122,10 +149,37 @@ export class ReservationComponent {
   }
 
   // sweetAlert
-  alertMessage(title: any, text: any) {
+  alertMessage(title: any, text: any,timer:any) {
     Swal.fire({
       title: title,
-      text: text
+      text: text,
+      timer: timer
     });
   }
+
+  // Pagination 
+  // Méthode pour déterminer les articles à afficher sur la page actuelle
+  getItemsPageF(): any[] {
+    if (Array.isArray(this.tabReservationFinaliser)) {
+      const indexDebut = (this.pageActuelle - 1) * this.itemsParPage;
+      const indexFin = indexDebut + this.itemsParPage;
+      return this.tabReservationFinaliser.slice(indexDebut, indexFin);
+    } else {
+      // Gérer le cas où this.tabReservationFinaliser n'est pas un tableau
+      console.error("this.tabReservationFinaliser n'est pas un tableau.");
+      return []; // ou autre traitement approprié
+    }
+  }
+
+  // Méthode pour générer la liste des pages
+  get pagesF(): number[] {
+    const totalPages = Math.ceil(this.tabReservationFinaliser.length / this.itemsParPage);
+    return Array(totalPages).fill(0).map((_, index) => index + 1);
+  }
+
+  // Méthode pour obtenir le nombre total de pages
+  get totalPagesF(): number {
+    return Math.ceil(this.tabReservationFinaliser.length / this.itemsParPage);
+  }
+
 }

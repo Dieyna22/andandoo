@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { DataTablesModule } from 'angular-datatables';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -40,6 +39,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthService } from './services/auth.service';
 import { AuthInterceptor } from './interceptors/interceptor';
 import { ConducteurComponent } from './admin/conducteur/conducteur.component';
+import { VoituresComponent } from './admin/voitures/voitures.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +69,8 @@ import { ConducteurComponent } from './admin/conducteur/conducteur.component';
     FaqConducteurComponent,
     NavbarComponent,
     ProfilUsersComponent,
-    ConducteurComponent
+    ConducteurComponent,
+    VoituresComponent,
   ],
   imports: [
     BrowserModule,

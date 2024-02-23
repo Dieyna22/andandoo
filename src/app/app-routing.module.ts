@@ -21,6 +21,7 @@ import { FaqConducteurComponent } from './conducteur/faq-conducteur/faq-conducte
 import { ProfilUsersComponent } from './conducteur/profil-users/profil-users.component';
 import { AdminGuard, ChauffeurGuard, UsersGuard } from './services/guard';
 import { ConducteurComponent } from './admin/conducteur/conducteur.component';
+import { VoituresComponent } from './admin/voitures/voitures.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'accueil', pathMatch: 'full' },
@@ -43,7 +44,8 @@ const routes: Routes = [
   { path: 'faqP', component: FAQComponent, title: 'Faq Passager', canActivate: [UsersGuard] },
   { path: 'faqC', component: FaqConducteurComponent, title: 'Faq Conducteur', canActivate: [UsersGuard] },
   { path: 'profilUser', component: ProfilUsersComponent, title: 'Profil Utilisateur', canActivate: [UsersGuard] },
-  { path: 'conducteur', component: ConducteurComponent, title: 'Conducteur', canActivate: [UsersGuard] },
+  { path: 'conducteur', component: ConducteurComponent, title: 'Conducteur', canActivate: [AdminGuard] },
+  { path: 'voitures', component: VoituresComponent, title: 'voitures', canActivate: [AdminGuard] },
 
 ];
 

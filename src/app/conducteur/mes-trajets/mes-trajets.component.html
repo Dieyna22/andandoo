@@ -48,10 +48,14 @@
         </div>
         <div class="autreDetails">
             <span data-bs-toggle="modal" data-bs-target="#profilChauffeur" style="cursor: pointer;" (click)="detailClient(trajet.id)">Voir profil <i class="bi bi-arrow-right-circle-fill"></i></span>
-            <span class=" reserver" >
+            <span class=" reserver" *ngIf="trajet.Status=='enCours'">
                 <i class="bi bi-eye me-4" title="détails" data-bs-toggle="modal" data-bs-target="#detailTrajet" (click)="detailClient(trajet.id)"></i>
                 <i class="bi bi-pencil-square me-4" title="modifier" data-bs-toggle="modal" data-bs-target="#modifierTrajet" (click)="chargerInfosTrajets(trajet)"></i>
                 <i class="bi bi-trash" title="supprimer" (click)="supprimerTrajet(trajet.id)"></i>
+            </span>
+            <span class=" reserver" *ngIf="trajet.Status=='terminee'">
+                <button class="btn btnAjout" title="détails" data-bs-toggle="modal" data-bs-target="#detailTrajet"
+                    (click)="detailClient(trajet.id)">Détails</button>
             </span>
         </div>
     </div>
@@ -151,23 +155,33 @@
                 <form>
                     <div class="mb-3">
                         <label for="lieuDepart" class="form-label">Lieu de départ:</label>
-                        <input type="text" class="form-control" id="lieuDepart" name="depart" [(ngModel)]="depart">
+                        <input type="text" class="form-control" id="lieuDepart" name="depart" [(ngModel)]="depart" (input)="this.verifDepartFonction()">
+                        <p class="text-danger" *ngIf="!exactDepart">{{verifDepart}}</p>
+                        <p class="text-success" *ngIf="exactDepart"><i class="bi bi-check2-all"></i> OK!</p>
                     </div>
                     <div class="mb-3">
                         <label for="lieuDepart" class="form-label">Lieu d'arriver:</label>
-                        <input type="text" class="form-control" id="lieuDepart" name="arriver" [(ngModel)]="arriver">
+                        <input type="text" class="form-control" id="lieuDepart" name="arriver" [(ngModel)]="arriver" (input)="this.verifArriverFonction()">
+                        <p class="text-danger" *ngIf="!exactArriver">{{verifArriver}}</p>
+                        <p class="text-success" *ngIf="exactArriver"><i class="bi bi-check2-all"></i> OK!</p>
                     </div>
                     <div class="mb-3">
                         <label for="date" class="form-label">Date:</label>
-                        <input type="date" class="form-control" id="date" name="date" [(ngModel)]="date">
+                        <input type="date" class="form-control" id="date" name="date" [(ngModel)]="date" [min]="minDate()" (input)="this.verifDateFonction()">
+                        <p class="text-danger" *ngIf="!exactDate">{{verifDate}}</p>
+                        <p class="text-success" *ngIf="exactDate"><i class="bi bi-check2-all"></i> OK!</p>
                     </div>
                     <div class="mb-3">
                         <label for="time" class="form-label">Heure:</label>
-                        <input type="time" class="form-control" id="time" name="time" [(ngModel)]="time">
+                        <input type="time" class="form-control" id="time" name="time" [(ngModel)]="time" (input)="this.verifHeureFonction()">
+                        <p class="text-danger" *ngIf="!exactTime">{{verifTime}}</p>
+                        <p class="text-success" *ngIf="exactTime"><i class="bi bi-check2-all"></i> OK!</p>
                     </div>
                     <div class="mb-3">
                         <label for="prix" class="form-label">Prix:</label>
-                        <input type="number" class="form-control" id="prix" name="prix" [(ngModel)]="prix">
+                        <input type="number" class="form-control" id="prix" name="prix" [(ngModel)]="prix" (input)="this.verifPrixFonction()">
+                        <p class="text-danger" *ngIf="!exactPrix">{{verifPrix}}</p>
+                        <p class="text-success" *ngIf="exactPrix"><i class="bi bi-check2-all"></i> OK!</p>
                     </div>
                     <div class="mb-3">
                         <label for="nbrPlace" class="form-label">Description:</label>

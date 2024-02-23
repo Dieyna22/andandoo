@@ -17,10 +17,9 @@
                                 <h6 class="h5 mb-4 mt-4">Connexion</h6>
 
                                 <form (submit)="submitFunction($event)">
-
                                     <div class="mb-3">
                                         <label for="" class="form-label">Email:</label>
-                                        <input type="text" name="email" [(ngModel)]="emailLogin"
+                                        <input type="text" name="emailLogin" [(ngModel)]="emailLogin"
                                             [ngClass]="{'is-valid': isEmailValid(), 'is-invalid': !isEmailValid() && isEmailDirty}" class="form-control"
                                             id="email" (input)="setEmailDirty()">
                                         <div *ngIf="!isEmailValid() && isEmailDirty" class="invalid-feedback">Format d'email invalide</div>
@@ -44,25 +43,6 @@
                                     <button type="submit" class="btn btnClose" (click)="connexion()" [disabled]="!isFormValid()">
                                         Se connecter
                                     </button>
-                                    
-                                    <!-- <div class="form-group mb-3">
-                                        <label for="email">Email address</label>
-                                        <input type="email" class="form-control" id="email" name="email" [(ngModel)]="emailLogin" autocomplete="username">
-                                        <p *ngIf="tabError" style="color: red;">{{tabError.email}}</p>
-                                    </div>
-                                    <div class="form-group mb-2">
-                                        <label for="password">Password</label>
-                                        <input type="password" class="form-control" id="password" name="password" [(ngModel)]="passwordLogin"
-                                            autocomplete="current-password">
-                                            <p *ngIf="tabError" style="color: red;">{{tabError.password}}</p>
-                                            <a class="bg clr mt-4" data-bs-toggle="modal" data-bs-target="#exampleModal"> mot de passe oublié ?</a><br>
-                                        <p class="register " (click)="afficherFormulaire()">
-                                            <a class="bg">Vous n'avez-pas de compte? <span class="clr">Inscrivez-vous</span></a>
-                                        </p>
-                                    </div>
-
-                                    <button type="submit" class="btn btn-theme" (click)="connexion()">Se
-                                        connecter</button> -->
                                 </form>
                             </div>
                         </div>

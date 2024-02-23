@@ -77,7 +77,7 @@ export class HistoriquesEnCoursComponent {
       (trajet: any) => {
         this.tabTrajet = trajet;
         console.error(this.tabTrajet);
-        this.tabTrajetFilter = this.tabTrajet;
+        this.tabTrajetFilter = this.tabTrajet.filter((trajet: any) => trajet.Status == 'enCours');
         console.log(this.tabTrajetFilter)
       },
       (err) => {

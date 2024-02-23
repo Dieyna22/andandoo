@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AccueilAdminComponent } from './accueil-admin.component';
+import { MessageService } from 'src/app/services/message.service';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('AccueilAdminComponent', () => {
   let component: AccueilAdminComponent;
@@ -8,7 +10,8 @@ describe('AccueilAdminComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [AccueilAdminComponent]
+      declarations: [AccueilAdminComponent, MessageService],
+      imports: [HttpClientModule]
     });
     fixture = TestBed.createComponent(AccueilAdminComponent);
     component = fixture.componentInstance;

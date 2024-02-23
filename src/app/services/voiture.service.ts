@@ -15,6 +15,16 @@ export class VoitureService {
     return this.http.get<any>(`${apiUrl}/SeeMoreVoiture`);
   }
 
+  // lister des voitures
+  getVoituresDisponibles(): Observable<any> {
+    return this.http.get<any>(`${apiUrl}/listerVoiture/Disponible`);
+  }
+
+  // lister des voitures
+  getVoituresNonDisponibles(): Observable<any> {
+    return this.http.get<any>(`${apiUrl}/listerVoiture/Indisponible`);
+  }
+
   // Méthode pour ajouter une voiture
   postVoitures(car: any): Observable<any> {
     return this.http.post<any>(`${apiUrl}/AjouterVoiture`, car);

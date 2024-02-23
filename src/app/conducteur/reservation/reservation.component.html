@@ -18,42 +18,79 @@
 </div>
 <div class="sectionSelect mb-5">
     <h5 class="mb-5">Trouver toutes les demandes de reservations pour vos trajets</h5>
-    <div class="choice container">
-        <select class="form-select me-4 forum espace" aria-label="Default select example"  [(ngModel)]="status">
+    <!-- <div class="choice container">
+        <select class="form-select me-4 forum espace" aria-label="Default select example" [(ngModel)]="status">
             <option selected>Tout</option>
-            <option value="enCours">En cours</option>
-            <option value="terminee">Terminer</option>
+            <option value="0">Pas encore accepter</option>
+            <option value="1">Accepter</option>
         </select>
         <select class="form-select me-4 forum espace" aria-label="Default select example" [(ngModel)]="secteur">
-            <option selected>Trajets</option>
-            <option *ngFor="let reservation of getItemsPage()" value="{{reservation.LieuArrivee}}">{{reservation.LieuArrivee}}</option>
+            <option selected disabled>Trajets</option>
+            <option *ngFor="let reservation of tabReservation" value="{{reservation.LieuArrivee}}">{{reservation.LieuArrivee}}-{{reservation.LieuDepart}}</option>
         </select>
         <button class="btn  sms " (click)="onSearch()">Recherche</button>
+         <div class="bntHistory mb-5">
+        <button class="btn nbrEnCours me-5 mb-3 " [routerLink]="['/enCours']">Nombre de trajet encours</button>
+        <button class="btn nbrEffectuer  " [routerLink]="['/historique']">Nombre de trajet effectuer</button>
+    </div>
+    </div> -->
+    <div class="mb-5 positionbtn container mx-auto">
+        <button class="btn enCours me-5 mb-3" [ngClass]="{'btnReservation': boutonActif === 1}"
+                (click)="showComponant('reservationEncours')" (click)="boutonActif = 1">Reservation encours d'acceptation </button>
+        <button class="btn effectuer" [ngClass]="{'btnReservation': boutonActif === 2}"
+                (click)="showComponant('reservationFinaliser')" (click)="boutonActif = 2">Reservation Accepter</button>
     </div>
    
 </div>
 <div class="cardReservation mb-5 container">
-    <div class="card mb-3 mt-3 carteF" *ngFor="let reservation of getItemsPage()">
-        <div class="row g-0">
-            <div class="col-md-4 espaceImage">
-                <img src="http://127.0.0.1:8000/images/profils/{{reservation.Profile}}"
-                    class="img-fluid rounded-start" alt="...">
-            </div>
-            <div class="col-md-8">
-                <div class="card-body p-5">
-                    <p class="card-text">Prenom : {{reservation.Prenom}}</p>
-                    <p class="card-text">Nom : {{reservation.Nom}}</p>
-                    <p class="card-text">Heure : {{reservation.HeureD}}</p>
-                    <p class="card-text">Date :{{reservation.DateDepart}} </p>
-                    <p class="card-text">Trajet : {{reservation.LieuDepart}}- {{reservation.LieuArrivee}}</p>
-                    <p class="card-text mt-3 mb-3">
-                        <button class="btn reserver" (click)="supprimerReservation(reservation.idreservation)">Annuler</button>
-                        <button class="btn reserver me-2" (click)="reservationAccepte(reservation.idreservation)">Accepter</button>
-                    </p>
+    <ng-container id="reservationEncours"  *ngIf="currentContent === 'reservationEncours'">
+        <div class="card mb-3 mt-3 carteF" *ngFor="let reservation of getItemsPage()">
+            <div class="row g-0">
+                <div class="col-md-4 espaceImage">
+                    <img src="http://127.0.0.1:8000/images/profils/{{reservation.Profile}}"
+                        class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body p-5">
+                        <p class="card-text">Prenom : {{reservation.Prenom}}</p>
+                        <p class="card-text">Nom : {{reservation.Nom}}</p>
+                        <p class="card-text">Heure : {{reservation.HeureD}}</p>
+                        <p class="card-text">Date :{{reservation.DateDepart}} </p>
+                        <p class="card-text">Trajet : {{reservation.LieuDepart}}- {{reservation.LieuArrivee}}</p>
+                        <p class="card-text mt-3 mb-3">
+                            <button class="btn reserver" (click)="supprimerReservation(reservation.idreservation)">Annuler</button>
+                            <button class="btn reserver me-2" (click)="reservationAccepte(reservation.idreservation)">Accepter</button>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </ng-container>
+    <ng-container id="reservationFinaliser" *ngIf="currentContent === 'reservationFinaliser'">
+        <div class="card mb-3 mt-3 carteF" *ngFor="let reservation of getItemsPageF()">
+            <div class="row g-0">
+                <div class="col-md-4 espaceImage">
+                    <img src="http://127.0.0.1:8000/images/profils/{{reservation.Profile}}" class="img-fluid rounded-start"
+                        alt="...">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body p-5">
+                        <p class="card-text">Prenom : {{reservation.Prenom}}</p>
+                        <p class="card-text">Nom : {{reservation.Nom}}</p>
+                        <p class="card-text">Heure : {{reservation.HeureD}}</p>
+                        <p class="card-text">Date :{{reservation.DateDepart}} </p>
+                        <p class="card-text">Trajet : {{reservation.LieuDepart}}- {{reservation.LieuArrivee}}</p>
+                        <p class="card-text mt-3 mb-3">
+                            <button class="btn reserver"
+                                (click)="supprimerReservation(reservation.idreservation)">Annuler</button>
+                            <button class="btn reserver me-2"
+                                (click)="reservationAccepte(reservation.idreservation)">Accepter</button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
 </div>
 <!-- Pagination  -->
 <div class="pagination mb-5" *ngIf="getItemsPage().length">

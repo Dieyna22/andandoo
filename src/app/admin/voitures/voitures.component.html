@@ -1,0 +1,153 @@
+<div class="dashbord">
+    <div class="section sidebar">
+        <app-sidebar></app-sidebar>
+    </div>
+
+    <div class="section">
+        <!-- Le navbar  -->
+        <app-navbar></app-navbar>
+
+        <!-- Contenu dashbord  -->
+        <div class="container containerReseau mb-5">
+            <div class="mb-4">
+                <button class="btn btnClose ms-5 me-2" [ngClass]="{'btnchange': boutonActif === 1}"
+                    (click)="showComponant('disponibles')" (click)="boutonActif = 1">Disponibles</button>
+                <button class="btn btnClose" [ngClass]="{'btnchange': boutonActif === 2}"
+                    (click)="showComponant('indisponibles')" (click)="boutonActif = 2">Indisponibles</button>
+            </div>
+            <!-- listes des voitures disponibles -->
+            <div class="row px-5" id="disponibles" *ngIf="currentContent === 'disponibles'">
+                <!-- Liste des réseaux  -->
+                <div class="col-md-12 px-4">
+                    <div class="card px-4 py-2 pt-4 shadow-sm rounded-4">
+                        <!-- Recherhcer une ligne  -->
+                        <div class="row sectionEspace ligneReseauSearch mb-3">
+                            <div class="col-md-7">
+                                <h3 class="fw-bold">Listes des Voitures disponibles</h3>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="input-group">
+                                    <!-- <input type="text" name="search" class="form-control" [(ngModel)]="filterValue" (input)="onSearch()"> -->
+                                    <input type="text" name="search" class="form-control" [(ngModel)]="filterValue"
+                                        (input)="onSearch()" placeholder="Rechercher ......">
+                                    <button class="iconesearch input-group-text"><i class="bi bi-search"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Le tableau des réseaux -->
+                        <table class="table table-responsive mb-4">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Image </th>
+                                    <th scope="col">Non chauffeur</th>
+                                    <th scope="col">Nombre de places </th>
+                                    <th scope="col">Description </th>
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let car of getItemsPage()">
+                                <tr>
+                                    <td>
+                                        <img src="http://127.0.0.1:8000/images/voiture/{{car.ImageVoiture}}"
+                                            class="mb-2" alt="profil" style="width: 70px; height: 50px;">
+                                    </td>
+                                    <td>{{car.prenomchauffeur}} {{car.nomchauffeur}}</td>
+                                    <td>{{car.nombrePlace}}</td>
+                                    <td>{{car.description}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- Pagination  -->
+                        <div *ngIf="getItemsPage().length">
+                            <div class="d-flex justify-content-end mb-2">
+                                <button class="rounded-2 btnColor  mx-2" [disabled]="pageActuelle === 1"
+                                    (click)="pageActuelle = pageActuelle - 1">
+                                    <i class="bi bi-caret-left-fill fs-4"></i>
+                                </button>
+                                <button class=" mx-2 page" *ngFor="let page of pages" (click)="pageActuelle = page">
+                                    <span class="pageActuelle fs-5" *ngIf="page===pageActuelle">{{page}}</span>
+                                    <span *ngIf="page != pageActuelle">{{page}}</span>
+                                    <!-- {{ page }} -->
+                                </button>
+                                <button class="rounded-2 btnColor mx-2" [disabled]="pageActuelle === totalPages"
+                                    (click)="pageActuelle = pageActuelle + 1">
+                                    <i class="bi bi-caret-right-fill fs-4"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- listes des voitures indisponibles -->
+            <div class="row px-5" id="indisponibles" *ngIf="currentContent === 'indisponibles'">
+                <!-- Liste des réseaux  -->
+                <div class="col-md-12 px-4">
+                    <div class="card px-4 py-2 pt-4 shadow-sm rounded-4">
+                        <!-- Recherhcer une ligne  -->
+                        <div class="row sectionEspace ligneReseauSearch mb-3">
+                            <div class="col-md-7">
+                                <h3 class="fw-bold">Listes des Voitures indisponibles</h3>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="input-group">
+                                    <!-- <input type="text" name="search" class="form-control" [(ngModel)]="filterValue" (input)="onSearch()"> -->
+                                    <input type="text" name="search" class="form-control" [(ngModel)]="filterValue"
+                                        (input)="onSearchCarIndisponile()" placeholder="Rechercher ......">
+                                    <button class="iconesearch input-group-text"><i class="bi bi-search"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Le tableau des réseaux -->
+                        <table class="table table-responsive mb-4" *ngIf="getItemsPageIndispo().length!=0">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Image </th>
+                                    <th scope="col">Non chauffeur</th>
+                                    <th scope="col">Nombre de places </th>
+                                    <th scope="col">Description </th>
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let car of voitureIndisponible">
+                                <tr>
+                                    <td>
+                                        <img src="http://127.0.0.1:8000/images/voiture/{{car.ImageVoiture}}"
+                                            class="mb-2" alt="profil" style="width: 70px; height: 50px;">
+                                    </td>
+                                    <td>{{car.prenomchauffeur}} {{car.nomchauffeur}}</td>
+                                    <td>{{car.nombrePlace}}</td>
+                                    <td>{{car.description}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- si la l'un des listes est vides -->
+                        <div *ngIf="getItemsPageIndispo().length===0">
+                            <p class="text-danger">pas de voitures</p>
+                        </div>
+
+                        <!-- Pagination  -->
+                        <div *ngIf="getItemsPage().length">
+                            <div class="d-flex justify-content-end mb-2">
+                                <button class="rounded-2 btnColor  mx-2" [disabled]="pageActuelle === 1"
+                                    (click)="pageActuelle = pageActuelle - 1">
+                                    <i class="bi bi-caret-left-fill fs-4"></i>
+                                </button>
+                                <button class=" mx-2 page" *ngFor="let page of pages" (click)="pageActuelle = page">
+                                    <span class="pageActuelle fs-5" *ngIf="page===pageActuelle">{{page}}</span>
+                                    <span *ngIf="page != pageActuelle">{{page}}</span>
+                                    <!-- {{ page }} -->
+                                </button>
+                                <button class="rounded-2 btnColor mx-2" [disabled]="pageActuelle === totalPages"
+                                    (click)="pageActuelle = pageActuelle + 1">
+                                    <i class="bi bi-caret-right-fill fs-4"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

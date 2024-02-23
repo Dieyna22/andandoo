@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NavbarComponent } from './navbar.component';
+import { ZoneService } from '../../services/zone.service';
+import { UtilisateurService } from 'src/app/services/utilisateur.service';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
@@ -8,7 +11,8 @@ describe('NavbarComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [NavbarComponent]
+      declarations: [NavbarComponent, ZoneService, UtilisateurService],
+      imports: [HttpClientModule]
     });
     fixture = TestBed.createComponent(NavbarComponent);
     component = fixture.componentInstance;

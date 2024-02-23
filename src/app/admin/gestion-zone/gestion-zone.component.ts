@@ -17,6 +17,32 @@ export class GestionZoneComponent implements OnInit {
 
   inputNom: string = '';
 
+  // Variables pour faire la vérifications
+  verifNom: String = "";
+
+  // Variables si les champs sont exacts
+  exactNom: boolean = false;
+
+  // Verification du zone
+  verifNonZoneFonction() {
+    this.exactNom = false;
+    const expressionReguliere = /^[a-zA-Z]+$/;
+    if (this.addUser.NomZ == "") {
+      this.verifNom = "";
+      // this.verifNom = "Le lieu de départ est obligatoire.";
+    }
+    else if (!expressionReguliere.test(this.addUser.NomZ)) {
+      this.verifNom = "la zone doit pas contenir de nombres.";
+    }
+    else if (this.addUser.NomZ.length < 4) {
+      this.verifNom = "la zone ne doit pas etre inferieur a 4 caractères.";
+    }
+    else {
+      this.verifNom = "";
+      this.exactNom = true;
+    }
+  }
+
   // Attribut pour la pagination
   itemsParPage = 3; // Nombre d'articles par page
   pageActuelle = 1; // Page actuelle
@@ -77,6 +103,28 @@ export class GestionZoneComponent implements OnInit {
       }
     });
 
+  }
+
+  exactNomUpdate: boolean = false;
+  verifNomUpdate: string = '';
+  // Verification du zone
+  verifNonZoneUpdateFonction() {
+    this.exactNomUpdate = false;
+    const expressionReguliere = /^[a-zA-Z]+$/;
+    if (this.inputNom == "") {
+      this.verifNomUpdate = "";
+      // this.verifNom = "Le lieu de départ est obligatoire.";
+    }
+    else if (!expressionReguliere.test(this.inputNom)) {
+      this.verifNomUpdate = "la zone doit pas contenir de nombres.";
+    }
+    else if (this.inputNom.length < 4) {
+      this.verifNomUpdate = "la zone ne doit pas etre inferieur a 4 caractères.";
+    }
+    else {
+      this.verifNomUpdate = "";
+      this.exactNomUpdate = true;
+    }
   }
 
   currentZone: any;
