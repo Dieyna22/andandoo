@@ -3,8 +3,8 @@
     grid-template-columns: 1fr 2fr;
 }
 
-.imageProfilUser img {
-    margin-top: -0.2rem !important;
+.imageProfilUser img{
+    margin-top: -0.2rem!important;
 
 }
 
@@ -98,11 +98,16 @@ thead tr th {
     border: none;
 }
 
-.evenbtn{
+.evenbtn {
     display: flex;
 }
 
-.dropdown-item:hover{
+.dropdown-item:hover {
     background-color: #FA7436;
     color: #FFF;
+}
+.papiers{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 5px;
 }

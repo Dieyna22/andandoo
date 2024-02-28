@@ -50,6 +50,11 @@ export class AuthService {
     return this.http.post<any>(`${apiUrl}/forget-password`, pass);
   }
 
+  //refresh token
+  refreshToken(token: any): Observable<any> {
+    return this.http.post<any>(`${apiUrl}/refreshToken`, token);
+  }
+
   // deconnexionAutomatique() {
   //   setTimeout(() => {
   //     this.refreshToken(this.onSuccess, this.onError);

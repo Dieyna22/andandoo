@@ -58,14 +58,11 @@ export class PublierTrajetComponent {
     if (this.depart == "") {
       this.verifDepart = "";
       // this.verifDepart = "Le lieu de départ est obligatoire.";
-    }
-    else if (!expressionReguliere.test(this.depart)) {
+    }else if (!expressionReguliere.test(this.depart)) {
       this.verifDepart = "Le lieu de départ ne  doit pas contenir de nombres.";
-    }
-    else if (this.depart.length < 4) {
+    }else if (this.depart.length < 4) {
       this.verifDepart = "Le lieu de départ ne doit pas etre inferieur a 4 caractères.";
-    } 
-    else {
+    }else {
       this.verifDepart = "";
       this.exactDepart = true;
     }
@@ -78,17 +75,13 @@ export class PublierTrajetComponent {
     if (this.arriver == "") {
       this.verifArriver = "";
       // this.verifArriver = "Le lieu d'arriver est obligatoire.";
-    }
-    else if (!expressionReguliere.test(this.arriver)) {
+    }else if (!expressionReguliere.test(this.arriver)) {
       this.verifArriver = "Le lieu d'arriver  ne  doit pas contenir de nombres.";
-    }
-    else if (this.arriver.length < 4) {
+    }else if (this.arriver.length < 4) {
       this.verifArriver = "Le lieu d'arriver ne doit pas etre inferieur a 4 caractères.";
-    }
-    else if (this.depart.toLowerCase == this.arriver.toLowerCase) {
+    }else if (this.depart.toLowerCase() == this.arriver.toLowerCase()) {
       this.verifArriver = "Le lieu d\'arrivée ne doit pas etre le même que le lieu de depart";
-    }
-    else {
+    }else {
       this.verifArriver = "";
       this.exactArriver = true;
     }
@@ -170,10 +163,10 @@ export class PublierTrajetComponent {
           this.viderChamp();
           this.error = reponse.errorList;         
 
+          this.alertMessage("Response...", reponse.message);
         },
         (error) => {
           console.log(error);
-          this.alertMessage("Response...", error.message);
         }
       )
   //   }

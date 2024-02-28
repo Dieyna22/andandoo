@@ -16,7 +16,7 @@
                         <!-- Recherhcer une ligne  -->
                         <div class="row sectionEspace ligneReseauSearch mb-3">
                             <div class="col-md-7">
-                                <h3 class="fw-bold">Listes des clients</h3>
+                                <h3 class="fw-bold">Listes des conducteurs</h3>
                             </div>
                             <div class="col-md-5">
                                 <div class="input-group">
@@ -40,20 +40,23 @@
                                     <th scope="col">Action </th>
                                 </tr>
                             </thead>
-                            <tbody *ngFor="let client of getItemsPage()">
-                            <tr>
-                                <td>
-                                    <img src="http://127.0.0.1:8000/images/profils/{{client.Image}}"
-                                        class="rounded-circle mb-2" alt="profil" style="width: 40px; height: 40px;">
-                                </td>
-                                <td>{{client.Nom}}</td>
-                                <td>{{client.Prenom}}</td>
-                                <td>{{client.Email}}</td>
-                                <td>{{client.Telephone}}</td>
-                                <td>
-                                    <button class="btn btnAction" data-bs-toggle="modal" data-bs-target="#detailUser" titre="détail" (click)="detailClient(client.id)">Détails</button>
-                                </td>
-                            </tr>
+                            <tbody *ngFor="let conducteur of getItemsPage()">
+                                <tr>
+                                    <td>
+                                        <img src="http://127.0.0.1:8000/images/profils/{{conducteur.Image}}"
+                                            class="rounded-circle mb-2" alt="profil" style="width: 40px; height: 40px;">
+                                    </td>
+                                    <td>{{conducteur.Nom}}</td>
+                                    <td>{{conducteur.Prenom}}</td>
+                                    <td>{{conducteur.Email}}</td>
+                                    <td>{{conducteur.Telephone}}</td>
+                                    <td>
+                                        <button class="btn btnAction" data-bs-toggle="modal"
+                                            data-bs-target="#detailUser" titre="détail"
+                                            (click)="detailConducteur(conducteur.id)"
+                                           >Détails</button>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
 
@@ -91,24 +94,43 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fondText fs-5" id="exampleModalLabel">Détail Client</h1>
+                <h1 class="modal-title fondText fs-5" id="exampleModalLabel">Détail Conducteur</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body details">
-                <div class="imageProfilUser me-4 p-2">
-                    <img src="http://127.0.0.1:8000/images/profils/{{curentClient?.Image}}"
-                        class=" mt-4" alt="profil" style="width: 100%; height: 190px;">
+            <div class="modal-body ">
+                <div class="details mb-3">
+                    <div class="imageProfilUser me-4 " >
+                        <img src="http://127.0.0.1:8000/images/profils/{{currentConducteur?.Image}}"
+                            class="mt-4" alt="profil" style="width: 100%; height: 190px;">
+                    </div>
+                    <div class="infosUser">
+                        <p><span class="fondText">Nom Complet:</span> {{currentConducteur?.Prenom}}
+                            {{currentConducteur?.Nom}}</p>
+                        <p><span class="fondText">Adresse email:</span> {{currentConducteur?.Email}}</p>
+                        <p><span class="fondText">Téléphone:</span> {{currentConducteur?.Telephone}}</p>
+                        <p><span class="fondText">statut :</span> {{currentConducteur?.role}}</p>
+                        <p><span class="fondText">Zone :</span> {{currentConducteur?.Zone}}</p>
+                    </div>
                 </div>
-                <div class="infosUser">
-                    <p><span class="fondText">Nom Complet:</span> {{curentClient?.Prenom}} {{curentClient?.Nom}}</p>
-                    <p><span class="fondText">Adresse email:</span> {{curentClient?.Email}}</p>
-                    <p><span class="fondText">Téléphone:</span> {{curentClient?.Telephone}}</p>
-                    <p><span class="fondText">statut :</span> {{curentClient?.role}}</p>
-                    <p><span class="fondText">Zone :</span> {{curentClient?.Zone}}</p>
+                <h5 class="titre text-center">Papiers d'administrative</h5>
+                <div class="papiers">
+                    <div class="permis">
+                        <span>Permis</span>
+                        <img src="http://127.0.0.1:8000/images/permis/{{currentConducteur?.PermisConduire}}" alt="">
+                    </div>
+                    <div class="licence">
+                        <span>Licence</span>
+                        <img src="http://127.0.0.1:8000/images/licence/{{currentConducteur?.Licence}}" alt="">
+                    </div>
+                    <div class="CarteGrise">
+                        <span>Carte grise</span>
+                        <img src="http://127.0.0.1:8000/images/cartegrise/{{currentConducteur?.CarteGrise}}" alt="">
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btnClose" data-bs-dismiss="modal">Fermer</button>
+                <button type="button" class="btn btnAjout" data-bs-dismiss="modal" (click)="activerCompte(currentConducteur)">Activer</button>
+                <button type="button" class="btn btnClose" data-bs-dismiss="modal">Annuler</button>
             </div>
         </div>
     </div>

@@ -45,6 +45,11 @@ export class UtilisateurService {
     return this.http.post<any>(`${apiUrl}/Debloquer/${conducteurId}`, "");
   }
 
+  // activer le compte d'un conducteur 
+  activer(conducteurId: any): Observable<any> {
+    return this.http.post<any>(`${apiUrl}/activerChauffeur/${conducteurId}`, "");
+  }
+
   //modification du profil des utilisateurs
   updateUser(userId: any): Observable<any> {
     return this.http.post<any>(`${apiUrl}/Update/Profile/${userId}`, userId);

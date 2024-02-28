@@ -131,7 +131,7 @@ export class ConducteurComponent {
     this.conducteur.getAllConducteur().subscribe((Conducteurs: any) => {
       this.tabConducteurs = Conducteurs;
       console.log(this.tabConducteurs);
-      this.tabConducteurFilter = this.tabConducteurs;
+      this.tabConducteurFilter = this.tabConducteurs.filter((conducteur: any) => conducteur.etat == '1');
       console.log(this.tabConducteurFilter);
     })
   }

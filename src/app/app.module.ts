@@ -40,6 +40,7 @@ import { AuthService } from './services/auth.service';
 import { AuthInterceptor } from './interceptors/interceptor';
 import { ConducteurComponent } from './admin/conducteur/conducteur.component';
 import { VoituresComponent } from './admin/voitures/voitures.component';
+import { CompteComponent } from './admin/compte/compte.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import { VoituresComponent } from './admin/voitures/voitures.component';
     ProfilUsersComponent,
     ConducteurComponent,
     VoituresComponent,
+    CompteComponent,
   ],
   imports: [
     BrowserModule,

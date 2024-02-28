@@ -39,7 +39,7 @@
                 tabindex="0">
                 <form action="" class="p-3">
                     <div class="form-floating mb-3">
-                        <input type="file" class="form-control" id="file">
+                        <input type="file" class="form-control" id="file" name="profil" [(ngModel)]="profil" (change)="getFile($event)">
                         <label for="file">Image Profil</label>
                     </div>
                     <div class="form-floating mb-3">
@@ -56,11 +56,11 @@
                     </div>
                     <div *ngIf="isChauffeur">
                         <div class="form-floating mb-3">
-                            <input type="file" class="form-control" id="file" >
+                            <input type="file" class="form-control" id="file" name="permis" [(ngModel)]="permis" (change)="getFilePermmis($event)" >
                             <label for="file">Permis</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="file" class="form-control" id="file">
+                            <input type="file" class="form-control" id="file"  name="licence" [(ngModel)]="licence" (change)="getFileLicence($event)">
                             <label for="file">Licence</label>
                         </div>
                         <div class="form-floating mb-3">

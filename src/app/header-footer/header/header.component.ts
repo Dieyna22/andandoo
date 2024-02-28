@@ -24,6 +24,7 @@ export class HeaderComponent {
   nbrPlaces: string = '';
   disponible: string = '';
   description: string = '';
+  typeCar: any;
 
   inputCar: any;
   inputPlace: string = '';
@@ -50,7 +51,7 @@ export class HeaderComponent {
   }
 
   // Déclaration des méthodes 
-  constructor( private route:Router, private http: HttpClient, private ajoutVoiture:VoitureService, private listeVoiture:VoitureService) { }
+  constructor( private route:Router, private http: HttpClient, private ajoutVoiture:VoitureService, private listeVoiture:VoitureService ,private deleteVoiture:VoitureService) { }
 
   ngOnInit() {
     // Renvoie un tableau de valeurs ou un tableau vide 
@@ -96,9 +97,10 @@ export class HeaderComponent {
   error: any;
   addVoiture() {
     let formData = new FormData();
-    formData.append("ImageVoitures", this.imageVoiture);
-    formData.append("NbrPlaces", this.nbrPlaces);
-    formData.append("Descriptions", this.description);
+    formData.append("ImageVoitures", this.inputCar);
+    formData.append("NbrPlaces", this.inputPlace);
+    formData.append("Descriptions", this.inputDes);
+    formData.append("type", this.typeCar);
     // if (
     //   this.imageVoiture == '' ||
     //   this.nbrPlaces == '' ||
@@ -113,11 +115,11 @@ export class HeaderComponent {
           this.imageVoiture = '';
           this.nbrPlaces ='';
           this.description = '';
+          this.alertMessage("succes", "Ooops...", reponse.message);
         },
         (error) => { 
          let  message =error.error.message;
           console.warn(error);
-          this.alertMessage("error", "Ooops...", message);
 
         }
       )
@@ -185,6 +187,7 @@ export class HeaderComponent {
           formData.append("ImageVoitures", image);
           formData.append("NbrPlaces", places);
           formData.append("Descriptions", desc);
+          formData.append("type", this.typeCar);
           console.log(await this.http.post(urlUser, formData).toPromise());
         } catch (error) {
           console.log('erreurrrrrrrrrrrrrrrrr'),
@@ -194,6 +197,31 @@ export class HeaderComponent {
       }
     });
   }
+
+  supprimerCar() {
+    Swal.fire({
+      title: "Etes vous sur",
+      text: "voulez vous supprimer!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#FA7436",
+      cancelButtonColor: "#FA0436",
+      confirmButtonText: "OUI !!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.deleteVoiture.deleteVoitures().subscribe((resp: any) => {
+          console.log(resp)
+          this.alertMessage("success", "Bravo", resp);
+        },
+          (err) => {
+            this.alertMessage("error", "Bravo", err.error.message);
+          }
+        );
+      }
+    });
+
+  }
+
 
   logout() {
     Swal.fire({
@@ -211,11 +239,6 @@ export class HeaderComponent {
         localStorage.setItem("isUsers", JSON.stringify(false));
         localStorage.setItem("isChauffeur", JSON.stringify(false));
         this.route.navigate(['/accueil']);
-        Swal.fire({
-          title: "Déconnexion!",
-          text: "Vous vous etes déconnecté avec succés",
-          icon: "success"
-        });
       }
     });
 

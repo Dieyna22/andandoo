@@ -19,6 +19,10 @@ export class ProfilUsersComponent  {
   prenom: string = '';
   nom: string = '';
   tel: string = '';
+  profil: any;
+  permis: any;
+  licence: any;
+  CAG: any;
 
   constructor(private http: HttpClient, private updateService:UtilisateurService){}
 
@@ -37,8 +41,27 @@ export class ProfilUsersComponent  {
     }
   }
 
+  getFile(event: any) {
+    console.warn(event.target.files[0]);
+    this.profil = event.target.files[0] as File;
+  }
+
+  getFilePermmis(event: any) {
+    console.warn(event.target.files[0]);
+    this.permis = event.target.files[0] as File;
+  }
+
+  getFileLicence(event: any) {
+    console.warn(event.target.files[0]);
+    this.licence = event.target.files[0] as File;
+  }
+
+  getFileCAG(event: any) {
+    console.warn(event.target.files[0]);
+    this.CAG = event.target.files[0] as File;
+  }
+
   //Méthode pour charger les informations du trajets à modifier
- 
   chargerInfosUsers() {
     this.prenom = this.userConnect.Prenom;
     this.nom = this.userConnect.Nom;
@@ -47,11 +70,19 @@ export class ProfilUsersComponent  {
   }
 
   updateProfil() {
-    const profil = {
-      'Prenom': this.prenom,
-      'Telephone': this.tel,
-      'Nom': this.nom,
-    }
+    let formData = new FormData();
+    formData.append("Nom", this.nom);
+    formData.append("Prenom", this.prenom);
+    formData.append("Telephone", this.tel);
+    formData.append("ImageProfile", this.profil);
+    formData.append("PermisConduire", this.permis);
+    formData.append("Licence", this.licence);
+    formData.append("CarteGrise", this.CAG);
+    // const profil = {
+    //   'Prenom': this.prenom,
+    //   'Telephone': this.tel,
+    //   'Nom': this.nom,
+    // }
     Swal.fire({
       title: "Etes vous sur",
       text: "voulez vous modifier!",
@@ -64,8 +95,8 @@ export class ProfilUsersComponent  {
       if (result.isConfirmed) {
         const urlUser = `${apiUrl}/Update/Profile/${this.userConnect.id}`;
         alert(urlUser);
-        await this.http.post(urlUser, profil).toPromise();
-        console.log(this.http.post(urlUser, profil).toPromise());
+        await this.http.post(urlUser, formData).toPromise();
+        console.log(this.http.post(urlUser, formData).toPromise());
 
         this.alertMessage("success", "Bravo", "Modification effectuée avec succès");
       }

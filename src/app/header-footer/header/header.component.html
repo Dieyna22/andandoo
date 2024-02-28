@@ -89,6 +89,15 @@
                         places.</small>
                     <small class="text-danger" *ngIf="!isPositiveNumber(inputPlace)">Veuillez saisir un nombre de places valide.</small>
                 </div>
+
+                <div class="mb-3">
+                    <label for="inputPlace" class="form-label">Type:</label>
+                <select class="form-select" aria-label="Default select example" [(ngModel)]="typeCar">
+                    <option selected disabled>Est-elle luxieuse ou Moyen?</option>
+                    <option value="luxe">Luxieuse</option>
+                    <option value="moyen">Moyen</option>
+                </select>
+                </div>
                     
                     <div class="form-floating">
                         <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"
@@ -122,9 +131,10 @@
                     <p> Nombre de place: {{userConnectCar.NbrPlaces}}</p>
                     <p> Déscription: {{userConnectCar.Descriptions}}</p>
                 </div>
+                <button class="btn btnAjout" data-bs-toggle="modal" data-bs-target="#modifierVoiture" (click)="chargerInfosVoiture(userConnectCar)">Modifier</button>
+                <button type="button" class="btn btnClose" (click)="supprimerCar()">Supprimer</button>
             </div>
             <div class="modal-footer">
-                <button class="btn btnAjout" data-bs-toggle="modal" data-bs-target="#modifierVoiture" (click)="chargerInfosVoiture(userConnectCar)">Modifier</button>
                 <button type="button" class="btn btnClose" data-bs-dismiss="modal">Fermer</button>
             </div>
         </div>
@@ -154,6 +164,15 @@
                         <small class="text-danger" *ngIf="!isNumber(inputPlace)">Veuillez saisir un nombre valide pour le nombre de
                             places.</small>
                             <small class="text-danger" *ngIf="!isPositiveNumber(inputPlace)">Veuillez saisir un nombre de places valide.</small>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="inputPlace" class="form-label">Type:</label>
+                        <select class="form-select" aria-label="Default select example" [(ngModel)]="typeCar">
+                            <option selected disabled>Est-elle luxieuse ou Moyen?</option>
+                            <option value="luxe">Luxieuse</option>
+                            <option value="moyen">Moyen</option>
+                        </select>
                     </div>
                     
                     <div class="form-floating">

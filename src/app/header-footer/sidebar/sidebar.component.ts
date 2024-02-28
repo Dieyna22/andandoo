@@ -38,11 +38,6 @@ export class SidebarComponent  {
             console.log(response);
             this.route.navigate(['/accueil']);
           })
-        Swal.fire({
-          title: "Déconnexion!",
-          text: "Vous vous etes déconnecté avec succés",
-          icon: "success"
-        });
       }
     });
    

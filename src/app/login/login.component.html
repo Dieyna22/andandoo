@@ -27,9 +27,9 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="" class="lab form-label">Mot de passe:</label>
-                                        <input type="password" name="password" [(ngModel)]="passwordLogin"
+                                        <input type="password"  id="passwordInput" name="password" [(ngModel)]="passwordLogin"
                                             [ngClass]="{'is-valid': isPasswordValid(), 'is-invalid': !isPasswordValid() && isPasswordDirty}"
-                                            class="form-control" id="password" (input)="setPasswordDirty()">
+                                            class="form-control" id="password" (input)="setPasswordDirty()" (input)="showPassword()">
                                         <div *ngIf="!isPasswordValid() && isPasswordDirty" class="invalid-feedback">
                                             Le mot de passe doit être superieur ou egal à 8.
                                         </div>

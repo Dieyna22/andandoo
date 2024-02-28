@@ -22,6 +22,7 @@ import { ProfilUsersComponent } from './conducteur/profil-users/profil-users.com
 import { AdminGuard, ChauffeurGuard, UsersGuard } from './services/guard';
 import { ConducteurComponent } from './admin/conducteur/conducteur.component';
 import { VoituresComponent } from './admin/voitures/voitures.component';
+import { CompteComponent } from './admin/compte/compte.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'accueil', pathMatch: 'full' },
@@ -46,6 +47,7 @@ const routes: Routes = [
   { path: 'profilUser', component: ProfilUsersComponent, title: 'Profil Utilisateur', canActivate: [UsersGuard] },
   { path: 'conducteur', component: ConducteurComponent, title: 'Conducteur', canActivate: [AdminGuard] },
   { path: 'voitures', component: VoituresComponent, title: 'voitures', canActivate: [AdminGuard] },
+  { path: 'compte', component: CompteComponent, title: 'compte', canActivate: [AdminGuard] },
 
 ];
 

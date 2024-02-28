@@ -2,12 +2,9 @@
     display: grid;
     grid-template-columns: 1fr 2fr;
 }
-.imageProfilUser{
-    border: thin solid #f6f6f6;
-    border-radius: 9px;
-    padding: 2px;
-    /* text-align: center; */
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+.imageProfilUser img {
+    margin-top: -0.2rem !important;
+
 }
 .btnClose{
     background-color: #FFFFFF;

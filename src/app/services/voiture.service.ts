@@ -30,9 +30,14 @@ export class VoitureService {
     return this.http.post<any>(`${apiUrl}/AjouterVoiture`, car);
   }
 
-  // Méthode pour ajouter une voiture
+  // Méthode pour modifier une voiture
   updateVoitures(carId:any): Observable<any> {
     return this.http.post<any>(`${apiUrl}/ModifierVoiture/${carId}`, "");
+  }
+
+  // Méthode pour supprimer une voiture
+ deleteVoitures(): Observable<any> {
+   return this.http.delete<any>(`${apiUrl}/supprimener/voiture`);
   }
 
 }

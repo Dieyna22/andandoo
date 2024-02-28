@@ -38,8 +38,8 @@ export class HomeComponent {
     };
     this.sendMessage.postSms(addSms).subscribe(
       (response: any) => {
-        console.log('Réponse du service après ajout d\'User :', response);
-        // this.alertMessage("success", "Good...", response.message);
+        // console.log('Réponse du service après ajout d\'User :', response);
+        this.alertMessage("success", "Good...", response.message, 1000);
         this.error = response.errorList;
         this.nomComplet = '';
         this.email = '';
@@ -55,7 +55,7 @@ export class HomeComponent {
     this.getAvisService.getAllAvis().subscribe(
       (avis: any) => {
         this.tabAvis = avis;
-        console.error(this.tabAvis);
+        // console.error(this.tabAvis);
       },
       (err) => {
         console.warn(err);
@@ -122,7 +122,7 @@ return starArray;
   }
 
   // sweetAlert
-  alertMessage(icon: any, title: any, text: any) {
+  alertMessage(icon: any, title: any, text: any,timer: any) {
     Swal.fire({
       icon: icon,
       title: title,

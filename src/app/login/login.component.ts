@@ -50,7 +50,7 @@ export class LoginComponent {
   Router: any;
 
 
-  constructor(private route: Router, private auth: AuthService, private lieu: ZoneService, private authUser: AuthService, private logout: AuthService, private registerclient: AuthService, private registerConducteur: AuthService, private forget: AuthService) { }
+  constructor(private route: Router, private auth: AuthService, private lieu: ZoneService, private authUser: AuthService, private logout: AuthService, private registerclient: AuthService, private registerConducteur: AuthService, private forget: AuthService,private token:AuthService) { }
 
   ngOnInit() {
     this.listeZone()
@@ -69,6 +69,11 @@ export class LoginComponent {
     
     if (!localStorage.getItem("userOnline")) {
       localStorage.setItem("userOnline", JSON.stringify(""))
+    }
+    const userOnlineStr = localStorage.getItem('userOnline');
+    const userOnline = JSON.parse('userOnlineStr');
+    if (userOnline && userOnline.original.data.access_token !== undefined && userOnline.original.data.access_token !== null) {
+      const token = userOnline.original.data.access_token;
     }
 
   }
@@ -172,7 +177,7 @@ export class LoginComponent {
     if (this.email == '' && this.passwordLogin == '') {
       this.alertMessage("Reponse...", 'veuillez remplir tous les champs ',1500);
     }
-    else if (this.emailLogin === 'admin@gmail.com' && this.passwordLogin === 'admin123') {
+    else if (this.emailLogin === 'admin@gmail.com' && this.passwordLogin === 'Admin123@') {
       // Connexion en tant qu'admin
       alert('Ok');
       this.auth.connexionAdmin(user).subscribe(
@@ -308,7 +313,7 @@ export class LoginComponent {
     formData.append("PermisConduire", this.permis);
     formData.append("Licence", this.licence);
     formData.append("CarteGrise", this.CAG);
-
+  
     if (
       this.nom == '' ||
       this.prenom == '' ||
@@ -330,6 +335,7 @@ export class LoginComponent {
         },
         (error) => {
           console.warn(error);
+          this.alertMessage('Response...', error.error.message, 1500)
         }
       )
     }
@@ -352,6 +358,26 @@ export class LoginComponent {
     )
   }
 
+ 
+
+  //méthode pour refresh token
+  tokenRefresh() {
+    const token = {
+      "access_token": this.token
+    }
+    this.token.refreshToken(token).subscribe(
+      (reponse) => {
+        console.log(reponse.message);
+        this.alertMessage("response...", reponse.message, 1500);
+        this.resetEmail = '';
+      },
+      (err) => {
+        this.alertMessage("response...", err.message, 1500);
+      }
+    )
+  }
+
+  //listes des zones
   listeZone() {
     this.lieu.getAllZones().subscribe((zones: any) => {
       this.tabZone = zones;
@@ -415,6 +441,17 @@ export class LoginComponent {
     // }
     else {
       this.showSteps = !this.showSteps;
+    }
+  }
+
+
+  showHidePassword: any;
+  showPassword() {
+    this.showHidePassword = document.getElementById('passwordInput');
+    if (this.showHidePassword.type == 'text') {
+      this.showHidePassword.type = 'password';
+    } else {
+      this.showHidePassword.type = 'text';
     }
   }
 }

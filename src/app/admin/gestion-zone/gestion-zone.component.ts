@@ -97,7 +97,7 @@ export class GestionZoneComponent implements OnInit {
       if (result.isConfirmed) {
         this.deleteZone.deleteZone(zoneId).subscribe((resp: any) => {
           console.log(resp)
-          this.alertMessage("success", "Bravo", "Suppression effectuer avec succée");
+          this.alertMessage("success", "Bravo", resp);
           this.listeZone();
         });
       }
@@ -153,11 +153,9 @@ export class GestionZoneComponent implements OnInit {
           alert(urlUser);
           const putData = {
             id: this.currentZone.id,
-            nom: nom,
+            NomZ: nom,
           }
           await this.http.post(urlUser, putData).toPromise();
-
-          this.alertMessage("success", "Bravo", "Modification effectuée avec succès");
           this.listeZone();
         } catch (error) {
           console.error("Erreur lors de la mise à jour :", error);
