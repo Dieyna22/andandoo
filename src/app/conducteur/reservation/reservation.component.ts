@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ReservationService } from 'src/app/services/reservation.service';
 import Swal from 'sweetalert2';
+import { Loading, Notify } from 'notiflix';
 
 @Component({
   selector: 'app-reservation',
@@ -24,9 +25,13 @@ export class ReservationComponent {
   constructor(private listeReservation: ReservationService, private accepted: ReservationService, private deleteReservation: ReservationService) { }
 
   ngOnInit(): void {
+    Loading.pulse('Loading...', {
+      backgroundColor: 'rgba(0,0,0,0.8)',
+    });
     this.listeRes();
     this.listeResFinaliser();
     this.tabRservationFilters = this.tabReservation;
+    Loading.remove();
   }
 
   // Gestion bouton
@@ -78,13 +83,15 @@ export class ReservationComponent {
 
   // Accepeter reservation
   reservationAccepte(paramReservation: any) {
-    alert(paramReservation);
-    const addResponse = {
-      idreservation: paramReservation,
-    }
+    Loading.pulse('Loading...', {
+      backgroundColor: 'rgba(0,0,0,0.8)',
+    });
+    // const addResponse = {
+    //   idreservation: paramReservation,
+    // }
     this.accepted.reservationAccepted(paramReservation).subscribe(
       (reservation) => {
-
+        Loading.remove();
         this.alertMessage("Response...", reservation.message,1500);
         this.listeRes();
         this.listeResFinaliser();

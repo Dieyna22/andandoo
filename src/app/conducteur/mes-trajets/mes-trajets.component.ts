@@ -49,15 +49,18 @@ export class MesTrajetsComponent {
   constructor(private http: HttpClient, private listerTrajet: TrajetService, private updateTrajet: TrajetService, private deleteTrajet:TrajetService, private sendAvisService: AvisService) { }
 
   ngOnInit(): void {
+    Loading.pulse('Loading...', {
+      backgroundColor: 'rgba(0,0,0,0.8)',
+    });
     this.listeTrajet();
-
+    Loading.remove();
 
     this.dbUsers = JSON.parse(localStorage.getItem("userOnline") || "[]");
 
     this.userConnect = this.dbUsers.original.data.utilisateur;
- 
   }
 
+  
 
   // Methode de recherche automatique pour professeur
   onSearch() {

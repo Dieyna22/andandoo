@@ -1,6 +1,6 @@
 <app-header></app-header><br><br>
 <div class="banniere mb-5">
-    <img src="../../assets/containter.png" alt="">
+    <img src="../../../assets/b11 .png" alt="">
 </div>
 <div class="sectionBtnSearch mb-5">
     <h3 class="mb-5">Faite le suivi de vos trajet en toute simplicité</h3>
@@ -65,6 +65,24 @@
                 </div>
             </div>
         </div>
+        <!-- Pagination  -->
+        <div class="pagination mb-5" *ngIf="getItemsPage().length">
+            <div class="d-flex justify-content-end mb-2">
+                <button class="rounded-2 btnColor  mx-2" [disabled]="pageActuelle === 1"
+                    (click)="pageActuelle = pageActuelle - 1">
+                    <i class="bi bi-arrow-left-circle-fill me-2"></i>
+                </button>
+                <button class=" mx-2 page" *ngFor="let page of pages" (click)="pageActuelle = page">
+                    <span class="pageActuelle fs-5" *ngIf="page===pageActuelle">{{page}}</span>
+                    <span *ngIf="page != pageActuelle">{{page}}</span>
+                    <!-- {{ page }} -->
+                </button>
+                <button class="rounded-2 btnColor mx-2" [disabled]="pageActuelle === totalPages"
+                    (click)="pageActuelle = pageActuelle + 1">
+                    <i class="bi bi-arrow-right-circle-fill"></i>
+                </button>
+            </div>
+        </div>
     </ng-container>
     <ng-container id="reservationFinaliser" *ngIf="currentContent === 'reservationFinaliser'">
         <div class="card mb-3 mt-3 carteF" *ngFor="let reservation of getItemsPageF()">
@@ -84,24 +102,24 @@
                 </div>
             </div>
         </div>
+        <div class="pagination mb-5" *ngIf="getItemsPageF().length">
+            <div class="d-flex justify-content-end mb-2">
+                <button class="rounded-2 btnColor  mx-2" [disabled]="pageActuelle === 1"
+                    (click)="pageActuelle = pageActuelle - 1">
+                    <i class="bi bi-arrow-left-circle-fill me-2"></i>
+                </button>
+                <button class=" mx-2 page" *ngFor="let page of pages" (click)="pageActuelle = page">
+                    <span class="pageActuelle fs-5" *ngIf="page===pageActuelle">{{page}}</span>
+                    <span *ngIf="page != pageActuelle">{{page}}</span>
+                    <!-- {{ page }} -->
+                </button>
+                <button class="rounded-2 btnColor mx-2" [disabled]="pageActuelle === totalPages"
+                    (click)="pageActuelle = pageActuelle + 1">
+                    <i class="bi bi-arrow-right-circle-fill"></i>
+                </button>
+            </div>
+        </div>
     </ng-container>
 </div>
-<!-- Pagination  -->
-<div class="pagination mb-5" *ngIf="getItemsPage().length">
-    <div class="d-flex justify-content-end mb-2">
-        <button class="rounded-2 btnColor  mx-2" [disabled]="pageActuelle === 1"
-            (click)="pageActuelle = pageActuelle - 1">
-            <i class="bi bi-arrow-left-circle-fill me-2"></i>
-        </button>
-        <button class=" mx-2 page" *ngFor="let page of pages" (click)="pageActuelle = page">
-            <span class="pageActuelle fs-5" *ngIf="page===pageActuelle">{{page}}</span>
-            <span *ngIf="page != pageActuelle">{{page}}</span>
-            <!-- {{ page }} -->
-        </button>
-        <button class="rounded-2 btnColor mx-2" [disabled]="pageActuelle === totalPages"
-            (click)="pageActuelle = pageActuelle + 1">
-            <i class="bi bi-arrow-right-circle-fill"></i>
-        </button>
-    </div>
-</div>
+
 <app-footer></app-footer>

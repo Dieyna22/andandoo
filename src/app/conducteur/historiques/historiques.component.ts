@@ -4,6 +4,7 @@ import { apiUrl } from 'src/app/services/apiUrl';
 import { AvisService } from 'src/app/services/avis.service';
 import { TrajetService } from 'src/app/services/trajet.service';
 import { HttpClient } from '@angular/common/http';
+import { Loading, Notify } from 'notiflix';
 
 @Component({
   selector: 'app-historiques',
@@ -32,12 +33,15 @@ export class HistoriquesComponent {
   constructor(private http: HttpClient, private listerTrajet: TrajetService, private updateTrajet: TrajetService, private deleteTrajet: TrajetService, private sendAvisService: AvisService) { }
 
   ngOnInit(): void {
+    Loading.pulse('Loading...', {
+      backgroundColor: 'rgba(0,0,0,0.8)',
+    });
     this.listeTrajet();
+    Loading.remove();
 
     this.dbUsers = JSON.parse(localStorage.getItem("userOnline") || "[]");
 
     this.userConnect = this.dbUsers.original.data.utilisateur;
-
   }
 
 

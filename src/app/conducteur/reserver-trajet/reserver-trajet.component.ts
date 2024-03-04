@@ -38,10 +38,14 @@ export class ReserverTrajetComponent {
   constructor(private listerTrajet: TrajetService, private deleteTrajet: TrajetService, private sendAvisService: AvisService, private reservation:ReservationService) { }
  
   ngOnInit(): void {
+    Loading.pulse('Loading...', {
+      backgroundColor: 'rgba(0,0,0,0.8)',
+    });
     this.listeTrajet();
     this.listeAllTrajet();
     this.dbUsers = JSON.parse(localStorage.getItem("userOnline") || "[]");
     this.userConnect = this.dbUsers.data.utilisateur;
+    Loading.remove();
   }
 
 
@@ -70,7 +74,8 @@ export class ReserverTrajetComponent {
       (trajet: any) => {
         this.tabTrajet = trajet;
         this.showDate = trajet.DateDepart;
-        this.tabTrajetFilter = this.tabTrajet.filter((trajet: any) => trajet.ChauffeurId != this.userConnect.id && trajet.Status == 'enCours');
+        console.log(trajet);
+        this.tabTrajetFilter = this.tabTrajet.filter((trajet: any) => trajet.ChauffeurId != this.userConnect.id && trajet.Status == 'enCours' && trajet.NombrePlaceDisponible >= 0);
       },
       (err) => {
         Notify.failure(err);
@@ -83,7 +88,7 @@ export class ReserverTrajetComponent {
       (trajet: any) => {
         this.tabAllTrajet = trajet;
         this.showDate = trajet.DateDepart;
-        this.tabAllTrajetFilter = this.tabAllTrajet.filter((trajet: any) => trajet.Status == 'enCours');
+        this.tabAllTrajetFilter = this.tabAllTrajet.filter((trajet: any) => trajet.Status == 'enCours' && trajet.NombrePlaceDisponible >= 0);
       },
       (err) => {
         Notify.failure(err);
@@ -118,8 +123,8 @@ export class ReserverTrajetComponent {
   }
 
   id_trajet: any;
-  recupId(paramTrajet:any) {
-    this.id_trajet = paramTrajet.id;
+  recupId(paramTrajet: any) {
+    this.id_trajet = paramTrajet;
   }
 
   envoyerAvis() {
@@ -129,10 +134,15 @@ export class ReserverTrajetComponent {
     };
     this.sendAvisService.sendAvis(avis,this.id_trajet).subscribe(
       (reponse) => {
-        Notify.success(reponse);
+        console.log(reponse);
+        Notify.success('envoyer avec succee');
+        this.commentaire = '';
+        this.note = '';
       },
       (err) => {
         Notify.failure(err);
+        this.commentaire = '';
+        this.note = '';
       }
     )
   }
@@ -161,6 +171,7 @@ export class ReserverTrajetComponent {
           error.error.message,
           'Okay',
         );
+        this.nbrplace = '';
         this.demandeEnCours = 0;
       }
     )
