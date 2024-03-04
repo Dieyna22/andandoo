@@ -30,12 +30,12 @@ export class SidebarComponent  {
       if (result.isConfirmed) {
         this.logoutService.déconnexionAdmin(admin).subscribe(
           (response) => {
-            console.log(response);
+        
             localStorage.removeItem('userOnline');
             localStorage.setItem("isAdmin", JSON.stringify(false));
             localStorage.setItem("isUsers", JSON.stringify(false));
             localStorage.setItem("isChauffeur", JSON.stringify(false));
-            console.log(response);
+
             this.route.navigate(['/accueil']);
           })
       }

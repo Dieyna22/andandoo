@@ -118,7 +118,7 @@
     </div>
 </div>
 
-<div class="cardTrajets mb-5 container">
+<div class="cardTrajets mb-5 container" *ngIf="this.userConnect.role=='chauffeur'">
     <ng-container *ngFor="let trajet of getItemsPage()">
         <div class="trajet">
             <div class="chauffeur">
@@ -158,7 +158,7 @@
                     <i class="bi bi-chat-left" title="Commentaire" style="cursor: pointer; color: #ff5900;"
                         data-bs-toggle="modal" data-bs-target="#commentaire" ></i>
                 </span>
-                <button class="btn reserver" class="btn btnClose" [ngClass]="{'etat': demandeEnCours==1}" (click)=" recupId(trajet)" data-bs-toggle="modal" data-bs-target="#exampleModal">Reservation</button>
+                <button class="btn reserver" class="btn btnClose" (click)=" recupId(trajet)" data-bs-toggle="modal" data-bs-target="#exampleModal">Reservation</button>
             </div>
         </div>
     </ng-container>
@@ -168,6 +168,75 @@
 </div>
 <!-- Pagination  -->
 <div class="pagination mb-5" *ngIf="getItemsPage().length">
+    <div class="d-flex justify-content-end mb-2">
+        <button class="rounded-2 btnColor  mx-2" [disabled]="pageActuelle === 1"
+            (click)="pageActuelle = pageActuelle - 1">
+            <i class="bi bi-arrow-left-circle-fill me-2"></i>
+        </button>
+        <button class=" mx-2 page" *ngFor="let page of pages" (click)="pageActuelle = page">
+            <span class="pageActuelle fs-5" *ngIf="page===pageActuelle">{{page}}</span>
+            <span *ngIf="page != pageActuelle">{{page}}</span>
+            <!-- {{ page }} -->
+        </button>
+        <button class="rounded-2 btnColor mx-2" [disabled]="pageActuelle === totalPages"
+            (click)="pageActuelle = pageActuelle + 1">
+            <i class="bi bi-arrow-right-circle-fill"></i>
+        </button>
+    </div>
+</div>
+
+<div class="cardTrajets mb-5 container"  *ngIf="this.userConnect.role=='client'">
+    <ng-container *ngFor="let trajet of getItemsAllPage()">
+        <div class="trajet">
+            <div class="chauffeur">
+                <img src="http://127.0.0.1:8000/images/profils/{{trajet.ImageProfile}}" alt=""
+                    class="rounded-circle mx-auto" style="height: 150px; width: 150px;">
+                <p class="text-center"> Chauffeur</p>
+                <span class="text-center"> {{trajet.PrenomChauffeur}} {{trajet.NomChauffeur}}</span>
+            </div>
+            <hr>
+            <div class="infosTrajet">
+                <div class="lieu">
+                    <p class=" mb-1 mt-1">
+                        {{trajet.LieuDepart}}
+                        <i class="bi bi-car-front-fill" style="color: #ff5900;"></i>
+                        {{trajet.LieuArrivee}}
+                    </p>
+                </div>
+                <div class="date">
+                    <p class=" mb-1 mt-1">
+                        {{ formatDate(trajet.DateDepart) }}
+                        <i class="bi bi-calendar4-week" style="color: #ff5900;"></i>
+                        {{ formatHeure(trajet.HeureDepart) }}
+                    </p>
+                </div>
+            </div>
+            <hr>
+            <div class="details mb-3">
+                <span class="gauche">{{trajet.Prix}} FCA</span>
+                <span class="droite"><i class="bi bi-people-fill"></i> {{trajet.NombrePlaceDisponible}} places
+                    disponibles</span>
+            </div>
+            <div class="autreDetails">
+                <span class="mt-2">
+                    <i class="bi bi-eye me-2" title="Voir Profil du chauffeur" data-bs-toggle="modal"
+                        data-bs-target="#profilChauffeur" style="cursor: pointer; color: #ff5900;"
+                        (click)="detailClient(trajet.id)"></i>
+                    <i class="bi bi-chat-left" title="Commentaire" style="cursor: pointer; color: #ff5900;"
+                        data-bs-toggle="modal" data-bs-target="#commentaire"></i>
+                </span>
+                <button class="btn reserver" class="btn btnClose" 
+                    (click)=" recupId(trajet)" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal">Reservation</button>
+            </div>
+        </div>
+    </ng-container>
+    <!-- <div *ngIf="tabAllTrajetFilter.length === 0">
+        <h3 class="titre text-center">Aucun trajet trouvé avec les critères sélectionnés.</h3>
+    </div> -->
+</div>
+<!-- Pagination  -->
+<div class="pagination mb-5" *ngIf="getItemsAllPage().length">
     <div class="d-flex justify-content-end mb-2">
         <button class="rounded-2 btnColor  mx-2" [disabled]="pageActuelle === 1"
             (click)="pageActuelle = pageActuelle - 1">
@@ -270,7 +339,7 @@
             </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btnAjout" (click)="demandeRservation()">Reserver</button>
+                <button type="button" class="btn btnAjout" (click)="demandeRservation()" data-bs-dismiss="modal">Reserver</button>
                 <button type="button" class="btn btnClose" data-bs-dismiss="modal">Annuler</button>
             </div>
         </div>

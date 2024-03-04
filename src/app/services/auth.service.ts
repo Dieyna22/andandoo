@@ -55,6 +55,11 @@ export class AuthService {
     return this.http.post<any>(`${apiUrl}/refreshToken`, token);
   }
 
+  //envoie code de validation pour le client
+  CodeValidation(user: any): Observable<any> {
+    return this.http.get<any>(`${apiUrl}/whatsapp/${user}`);
+  }
+
   // deconnexionAutomatique() {
   //   setTimeout(() => {
   //     this.refreshToken(this.onSuccess, this.onError);

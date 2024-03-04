@@ -3,6 +3,8 @@ import { AvisService } from 'src/app/services/avis.service';
 import { ReservationService } from 'src/app/services/reservation.service';
 import { TrajetService } from 'src/app/services/trajet.service';
 import Swal from 'sweetalert2';
+import { Loading, Notify } from 'notiflix';
+import { Report } from 'notiflix/build/notiflix-report-aio';
 
 @Component({
   selector: 'app-reserver-trajet',
@@ -13,6 +15,9 @@ export class ReserverTrajetComponent {
   // Déclaration des variables 
   tabTrajet: any[] = [];
   tabTrajetFilter: any[] = [];
+
+  tabAllTrajet: any[] = [];
+  tabAllTrajetFilter: any[] = [];
 
   dbUsers: any;
   userConnect: any;
@@ -34,10 +39,9 @@ export class ReserverTrajetComponent {
  
   ngOnInit(): void {
     this.listeTrajet();
+    this.listeAllTrajet();
     this.dbUsers = JSON.parse(localStorage.getItem("userOnline") || "[]");
-    console.log(this.dbUsers.original);
-    this.userConnect = this.dbUsers.original.data.utilisateur;
-    console.log(this.userConnect);
+    this.userConnect = this.dbUsers.data.utilisateur;
   }
 
 
@@ -66,15 +70,23 @@ export class ReserverTrajetComponent {
       (trajet: any) => {
         this.tabTrajet = trajet;
         this.showDate = trajet.DateDepart;
-        console.log(this.showDate);
-        console.log(this.tabTrajet);
         this.tabTrajetFilter = this.tabTrajet.filter((trajet: any) => trajet.ChauffeurId != this.userConnect.id && trajet.Status == 'enCours');
-        console.log(this.tabTrajetFilter);
-
-        // trajet.ChauffeurId != userConnect.id && trajet.Status == 'enCours'
       },
       (err) => {
-        console.log(err);
+        Notify.failure(err);
+      }
+    )
+  }
+
+  listeAllTrajet() {
+    this.listerTrajet.getAllTrajets().subscribe(
+      (trajet: any) => {
+        this.tabAllTrajet = trajet;
+        this.showDate = trajet.DateDepart;
+        this.tabAllTrajetFilter = this.tabAllTrajet.filter((trajet: any) => trajet.Status == 'enCours');
+      },
+      (err) => {
+        Notify.failure(err);
       }
     )
   }
@@ -83,7 +95,10 @@ export class ReserverTrajetComponent {
   trajetSelected: any;
   detailClient(paramTrajet: any) {
     this.trajetSelected = this.tabTrajetFilter.find((item: any) => item.id == paramTrajet)
-    console.log(this.trajetSelected);
+  }
+
+  detailTrajet(paramTrajet: any) {
+    this.trajetSelected = this.tabAllTrajetFilter.find((item: any) => item.id == paramTrajet)
   }
 
   note: any;
@@ -105,7 +120,6 @@ export class ReserverTrajetComponent {
   id_trajet: any;
   recupId(paramTrajet:any) {
     this.id_trajet = paramTrajet.id;
-    console.log(this.id_trajet);
   }
 
   envoyerAvis() {
@@ -115,10 +129,10 @@ export class ReserverTrajetComponent {
     };
     this.sendAvisService.sendAvis(avis,this.id_trajet).subscribe(
       (reponse) => {
-        console.log(reponse);
+        Notify.success(reponse);
       },
       (err) => {
-        console.log(err);
+        Notify.failure(err);
       }
     )
   }
@@ -126,20 +140,27 @@ export class ReserverTrajetComponent {
   demandeEnCours=0;
   // Demande de reservation
   demandeRservation() {
-    alert(this.id_trajet);
     const addReservation = {
       trajet_id: this.id_trajet,
       NombrePlaces:this.nbrplace,
     }
     this.reservation.postReservation(addReservation).subscribe(
       (reponse) => {
-        console.log(reponse);
-        this.alertMessage("Response...", reponse.message);
+        Report.success(
+          'Notiflix Success',
+          reponse.message,
+          'Okay',
+
+        );
         this.demandeEnCours = 1;
+        this.nbrplace = '';
       },
       (error) => { 
-        console.log(error);
-        this.alertMessage("Response...", error.error.message);
+        Report.failure(
+          'Notiflix failure',
+          error.error.message,
+          'Okay',
+        );
         this.demandeEnCours = 0;
       }
     )
@@ -194,5 +215,24 @@ export class ReserverTrajetComponent {
 
   formatHeure(heureString: string): string {
     return heureString.slice(0, 5);
+  }
+
+  // Pagination 
+  // Méthode pour déterminer les articles à afficher sur la page actuelle
+  getItemsAllPage(): any[] {
+    const indexDebut = (this.pageActuelle - 1) * this.itemsParPage;
+    const indexFin = indexDebut + this.itemsParPage;
+    return this.tabAllTrajetFilter.slice(indexDebut, indexFin);
+  }
+
+  // Méthode pour générer la liste des pages
+  get pagesAll(): number[] {
+    const totalPages = Math.ceil(this.tabAllTrajetFilter.length / this.itemsParPage);
+    return Array(totalPages).fill(0).map((_, index) => index + 1);
+  }
+
+  // Méthode pour obtenir le nombre total de pages
+  get totalPagesAll(): number {
+    return Math.ceil(this.tabAllTrajetFilter.length / this.itemsParPage);
   }
 }

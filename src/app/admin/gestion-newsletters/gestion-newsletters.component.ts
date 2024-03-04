@@ -27,12 +27,10 @@ export class GestionNewslettersComponent implements OnInit {
     this.listeNews.getAllNewsletter().subscribe(
       (news: any) => {
         this.tabNews = news;
-        console.warn(this.tabNews);
         this.tabNewsFilter = this.tabNews;
-        console.log(this.tabNewsFilter)
       },
       (err) => {
-        console.log(err);
+        
       }
     )
   }

@@ -12,7 +12,7 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="p-5 mt-5">
-                               
+
                                 <!-- <img src="../../assets/logo.png" class="mb-3" alt="logo"> -->
                                 <h6 class="h5 mb-4 mt-4">Connexion</h6>
 
@@ -20,27 +20,44 @@
                                     <div class="mb-3">
                                         <label for="" class="form-label">Email:</label>
                                         <input type="text" name="emailLogin" [(ngModel)]="emailLogin"
-                                            [ngClass]="{'is-valid': isEmailValid(), 'is-invalid': !isEmailValid() && isEmailDirty}" class="form-control"
-                                            id="email" (input)="setEmailDirty()">
-                                        <div *ngIf="!isEmailValid() && isEmailDirty" class="invalid-feedback">Format d'email invalide</div>
+                                            [ngClass]="{'is-valid': isEmailValid(), 'is-invalid': !isEmailValid() && isEmailDirty}"
+                                            class="form-control" id="email" (input)="setEmailDirty()">
+                                        <div *ngIf="!isEmailValid() && isEmailDirty" class="invalid-feedback">Format
+                                            d'email invalide</div>
                                         <p *ngIf="tabError" style="color: red;">{{tabError.email}}</p>
                                     </div>
                                     <div class="mb-3">
                                         <label for="" class="lab form-label">Mot de passe:</label>
-                                        <input type="password"  id="passwordInput" name="password" [(ngModel)]="passwordLogin"
-                                            [ngClass]="{'is-valid': isPasswordValid(), 'is-invalid': !isPasswordValid() && isPasswordDirty}"
-                                            class="form-control" id="password" (input)="setPasswordDirty()" (input)="showPassword()">
+                                        <div class="input-group">
+                                            <input type="{{showPassword ? 'text' : 'password'}}" id="passwordInput"
+                                                name="password" [(ngModel)]="passwordLogin"
+                                                [ngClass]="{'is-valid': isPasswordValid(), 'is-invalid': !isPasswordValid() && isPasswordDirty}"
+                                                class="form-control" id="password" (input)="setPasswordDirty()">
+                                            <button class="btn btn-outline-secondary" type="button"
+                                                (click)="togglePasswordVisibility()">
+                                                <ng-container *ngIf="showPassword; else hideIcon">
+                                                    <i class="bi bi-eye"></i>
+                                                </ng-container>
+                                                <ng-template #hideIcon>
+                                                    <i class="bi bi-eye-slash"></i>
+                                                </ng-template>
+                                            </button>
+                                        </div>
                                         <div *ngIf="!isPasswordValid() && isPasswordDirty" class="invalid-feedback">
-                                            Le mot de passe doit être superieur ou egal à 8.
+                                            Le mot de passe doit être supérieur ou égal à 8 caractères.
                                         </div>
                                         <p *ngIf="tabError" style="color: red;">{{tabError.password}}</p>
-                                        <a class="bg clr mt-4" data-bs-toggle="modal" data-bs-target="#exampleModal"> mot de passe oublié ?</a><br>
-                                        <p class="register " (click)="afficherFormulaire()">
-                                            <a class="bg">Vous n'avez-pas de compte? <span class="clr">Inscrivez-vous</span></a>
+                                        <a class="bg clr mt-4" data-bs-toggle="modal" data-bs-target="#exampleModal">Mot
+                                            de passe oublié ?</a><br>
+                                        <p class="register" (click)="afficherFormulaire()">
+                                            <a class="bg">Vous n'avez-pas de compte? <span
+                                                    class="clr">Inscrivez-vous</span></a>
                                         </p>
                                     </div>
-                                    
-                                    <button type="submit" class="btn btnClose" (click)="connexion()" [disabled]="!isFormValid()">
+
+
+                                    <button type="submit" class="btn btnClose" (click)="connexion()"
+                                        [disabled]="!isFormValid()">
                                         Se connecter
                                     </button>
                                 </form>
@@ -64,46 +81,76 @@
                                 <form (submit)="submitFunction($event)">
                                     <div class="row">
                                         <div class="mb-2 col-lg-6">
-                                            <label for="prenom" class="form-label">Prénom: <span class="clr">*</span></label>
+                                            <label for="prenom" class="form-label">Prénom: <span
+                                                    class="clr">*</span></label>
                                             <input type="text" class="form-control" id="prenom" name=prenom
-                                                [(ngModel)]="prenom" [ngClass]="{'is-valid': isFieldValid('prenom'), 'is-invalid': !isFieldValid('prenom') && isFieldDirty('prenom')}"
-              (input)="setFieldDirty('prenom')">
-                                        <div *ngIf="!isFieldValid('prenom') && isFieldDirty('prenom')" class="invalid-feedback">Veuillez saisir un  prénom d'au moins 2 lettres.</div>
-                                                <p *ngIf="tabError" style="color: red; font-size: 9px;">{{tabError.Prenom}}</p>
+                                                [(ngModel)]="prenom"
+                                                [ngClass]="{'is-valid': isFieldValid('prenom'), 'is-invalid': !isFieldValid('prenom') && isFieldDirty('prenom')}"
+                                                (input)="setFieldDirty('prenom')">
+                                            <div *ngIf="!isFieldValid('prenom') && isFieldDirty('prenom')"
+                                                class="invalid-feedback">Veuillez saisir un prénom d'au moins 2 lettres.
+                                            </div>
+                                            <p *ngIf="tabError" style="color: red; font-size: 9px;">{{tabError.Prenom}}
+                                            </p>
                                         </div>
                                         <div class="mb-2 col-lg-6">
                                             <label for="nom" class="form-label">Nom: <span class="clr">*</span></label>
                                             <input type="text" class="form-control" id="nom" name="nom"
-                                                [(ngModel)]="nom"  [ngClass]="{'is-valid': isFieldValid('nom'), 'is-invalid': !isFieldValid('nom') && isFieldDirty('nom')}"
-              (input)="setFieldDirty('nom')">
-                                                <div *ngIf="!isFieldValid('nom') && isFieldDirty('nom')" class="invalid-feedback">Veuillez saisir un nom d'au moins 2 lettres.</div>
-                                                <p *ngIf="tabError" style="color: red; font-size: 9px;">{{tabError.Nom}}</p>
+                                                [(ngModel)]="nom"
+                                                [ngClass]="{'is-valid': isFieldValid('nom'), 'is-invalid': !isFieldValid('nom') && isFieldDirty('nom')}"
+                                                (input)="setFieldDirty('nom')">
+                                            <div *ngIf="!isFieldValid('nom') && isFieldDirty('nom')"
+                                                class="invalid-feedback">Veuillez saisir un nom d'au moins 2 lettres.
+                                            </div>
+                                            <p *ngIf="tabError" style="color: red; font-size: 9px;">{{tabError.Nom}}</p>
                                         </div>
                                         <div class="mb-2 col-lg-6">
-                                            <label for="example" class="form-label">Email address: <span class="clr">*</span></label>
+                                            <label for="example" class="form-label">Email address: <span
+                                                    class="clr">*</span></label>
                                             <input type="email" class="form-control" id="example" name="email"
-                                                [(ngModel)]="email"  [ngClass]="{'is-valid': isFieldValid('email'), 'is-invalid': !isFieldValid('email') && isFieldDirty('email')}"
-          (input)="setFieldDirty('email')">
-        <div *ngIf="!isFieldValid('email') && isFieldDirty('email')" class="invalid-feedback">Veuillez saisir une adresse e-mail valide.</div>
-                                                <p *ngIf="tabError" style="color: red; font-size: 9px;">{{tabError.Email}}</p>
+                                                [(ngModel)]="email"
+                                                [ngClass]="{'is-valid': isFieldValid('email'), 'is-invalid': !isFieldValid('email') && isFieldDirty('email')}"
+                                                (input)="setFieldDirty('email')">
+                                            <div *ngIf="!isFieldValid('email') && isFieldDirty('email')"
+                                                class="invalid-feedback">Veuillez saisir une adresse e-mail valide.
+                                            </div>
+                                            <p *ngIf="tabError" style="color: red; font-size: 9px;">{{tabError.Email}}
+                                            </p>
                                         </div>
                                         <div class="mb-2 col-lg-6">
-                                            <label for="password" class="form-label">Mot de passe: <span class="clr">*</span></label>
-                                            <input type="password" class="form-control" id="password" name="password"
-                                                [(ngModel)]="password" [ngClass]="{'is-valid': isFieldValid('password'), 'is-invalid': !isFieldValid('password') && isFieldDirty('password')}"
-          (input)="setFieldDirty('password')">
-        <div *ngIf="!isFieldValid('password') && isFieldDirty('password')" class="invalid-feedback">Le mot de passe doit
-            contenir au moins 6 caractères sans espaces.</div>
-                                                <p *ngIf="tabError" style="color: red; font-size: 9px;">{{tabError.password}}</p>
+                                            <label for="password" class="form-label">Mot de passe: <span
+                                                    class="clr">*</span></label>
+                                                    <div class="input-group">
+                                                        <input type="{{showPassword ? 'text' : 'password'}}" class="form-control" id="password" name="password" [(ngModel)]="password"
+                                                            [ngClass]="{'is-valid': isFieldValid('password'), 'is-invalid': !isFieldValid('password') && isFieldDirty('password')}"
+                                                            (input)="setFieldDirty('password')">
+                                                        <button class="btn btn-outline-secondary" type="button" (click)="togglePasswordVisibility()">
+                                                            <ng-container *ngIf="showPassword; else hideIcon">
+                                                                <i class="bi bi-eye"></i>
+                                                            </ng-container>
+                                                            <ng-template #hideIcon>
+                                                                <i class="bi bi-eye-slash"></i>
+                                                            </ng-template>
+                                                        </button>
+                                                    </div>
+                                            <div *ngIf="!isFieldValid('password') && isFieldDirty('password')"
+                                                class="invalid-feedback">Le mot de passe doit
+                                                contenir au moins 6 caractères sans espaces.</div>
+                                            <p *ngIf="tabError" style="color: red; font-size: 9px;">
+                                                {{tabError.password}}</p>
                                         </div>
                                         <div class="mb-2 col-lg-6">
-                                            <label for="telephone" class="form-label">Téléphone: <span class="clr">*</span></label>
+                                            <label for="telephone" class="form-label">Téléphone: <span
+                                                    class="clr">*</span></label>
                                             <input type="text" class="form-control" id="telephone" name="telephone"
-                                                [(ngModel)]="telephone"  [ngClass]="{'is-valid': isFieldValid('tel'), 'is-invalid': !isFieldValid('tel') && isFieldDirty('tel')}"
-              (input)="setFieldDirty('tel')" pattern="[0-9]{9}">
-            <div *ngIf="!isFieldValid('tel') && isFieldDirty('tel')" class="invalid-feedback">Veuillez saisir un numéro de téléphone
-                valide.</div>
-                                                <p *ngIf="tabError" style="color: red; font-size: 9px;">{{tabError.Telephone}}</p>
+                                                [(ngModel)]="telephone"
+                                                [ngClass]="{'is-valid': isFieldValid('tel'), 'is-invalid': !isFieldValid('tel') && isFieldDirty('tel')}"
+                                                (input)="setFieldDirty('tel')" pattern="[0-9]{9}">
+                                            <div *ngIf="!isFieldValid('tel') && isFieldDirty('tel')"
+                                                class="invalid-feedback">Veuillez saisir un numéro de téléphone
+                                                valide.</div>
+                                            <p *ngIf="tabError" style="color: red; font-size: 9px;">
+                                                {{tabError.Telephone}}</p>
                                         </div>
                                         <div class="mb-2 col-lg-6">
                                             <label for="profil" class="form-label">Image:</label>
@@ -111,67 +158,83 @@
                                                 [(ngModel)]="profil" (change)="getFile($event)">
                                         </div>
                                         <div class="mb-2 col-lg-6">
-                                            <label for="zone" class="form-label">Zone: <span class="clr">*</span></label>
-                                            <select class="form-select" aria-label="Default select example" name="zone" [(ngModel)]="zone"  [ngClass]="{'is-valid': isFieldValid('profil'), 'is-invalid': !isFieldValid('profil') && isFieldDirty('profil')}"
-          (change)="setFieldDirty('profil')">
-                                                <option selected disabled >Choisisez une zone</option>
-                                                <option *ngFor="let zone of tabZone" [value]="zone.id">{{zone.nom}}</option>
+                                            <label for="zone" class="form-label">Zone: <span
+                                                    class="clr">*</span></label>
+                                            <select class="form-select" aria-label="Default select example" name="zone"
+                                                [(ngModel)]="zone"
+                                                [ngClass]="{'is-valid': isFieldValid('profil'), 'is-invalid': !isFieldValid('profil') && isFieldDirty('profil')}"
+                                                (change)="setFieldDirty('profil')">
+                                                <option selected disabled>Choisisez une zone</option>
+                                                <option *ngFor="let zone of tabZone" [value]="zone.id">{{zone.nom}}
+                                                </option>
                                             </select>
-                                            <div *ngIf="!isFieldValid('profil') && isFieldDirty('profil')" class="invalid-feedback">Veuillez sélectionner une
+                                            <div *ngIf="!isFieldValid('profil') && isFieldDirty('profil')"
+                                                class="invalid-feedback">Veuillez sélectionner une
                                                 zone.
                                             </div>
-                                            <p *ngIf="tabError" style="color: red; font-size: 9px;">{{tabError.zone_id}}</p>
+                                            <p *ngIf="tabError" style="color: red; font-size: 9px;">{{tabError.zone_id}}
+                                            </p>
                                         </div>
                                         <div class="mb-1 col-lg-6 choix">
-                                            <label for="exampleFormControlInput1"
-                                                class="form-label">Statut:</label>
-                                                <div class="radio">
-                                                    <div class="form-check me-2">
-                                                        <input class="form-check-input" type="radio" name="role" id="flexRadioDefault1"
-                                                            (click)="showComponant('chauffeur')" [(ngModel)]="selectedRole" [value]="'chauffeur'">
-                                                        <label class="form-check-label" for="flexRadioDefault1" style="color: black;">
-                                                            Conducteur
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="role" id="flexRadioDefault2"
-                                                            (click)="showComponant('client')" [(ngModel)]="selectedRole" [value]="'client'">
-                                                        <label class="form-check-label" for="flexRadioDefault2" style="color: black;">
-                                                            Passager
-                                                        </label>
-                                                    </div>
+                                            <label for="exampleFormControlInput1" class="form-label">Statut:</label>
+                                            <div class="radio">
+                                                <div class="form-check me-2">
+                                                    <input class="form-check-input" type="radio" name="role"
+                                                        id="flexRadioDefault1" (click)="showComponant('chauffeur')"
+                                                        [(ngModel)]="selectedRole" [value]="'chauffeur'">
+                                                    <label class="form-check-label" for="flexRadioDefault1"
+                                                        style="color: black;">
+                                                        Conducteur
+                                                    </label>
                                                 </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="role"
+                                                        id="flexRadioDefault2" (click)="showComponant('client')"
+                                                        [(ngModel)]="selectedRole" [value]="'client'">
+                                                    <label class="form-check-label" for="flexRadioDefault2"
+                                                        style="color: black;">
+                                                        Passager
+                                                    </label>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <button class="btn btn-theme" (click)="register()"
-                                        id="client" *ngIf="currentContent === 'client'" [disabled]="! isFormValided() || !isFieldValid('prenom') || !isFieldValid('nom') || !isFieldValid('email') || !isFieldValid('password') || !isFieldValid('profil') || !isFieldValid('tel')">S'inscrire</button>
-                                    <button class="btn btn-theme"  (click)="suivant() "  id="chauffeur"
-                                        *ngIf="currentContent === 'chauffeur'" [disabled]="! isFormValided() || !isFieldValid('prenom') || !isFieldValid('nom') || !isFieldValid('email') || !isFieldValid('password') || !isFieldValid('profil') || !isFieldValid('tel')">Suivant</button>
+                                    <button class="btn btn-theme" (click)="register()" id="client"
+                                        *ngIf="currentContent === 'client'"
+                                        [disabled]="! isFormValided() || !isFieldValid('prenom') || !isFieldValid('nom') || !isFieldValid('email') || !isFieldValid('password') || !isFieldValid('profil') || !isFieldValid('tel')">S'inscrire</button>
+                                    <button class="btn btn-theme" (click)="suivant() " id="chauffeur"
+                                        *ngIf="currentContent === 'chauffeur'"
+                                        [disabled]="! isFormValided() || !isFieldValid('prenom') || !isFieldValid('nom') || !isFieldValid('email') || !isFieldValid('password') || !isFieldValid('profil') || !isFieldValid('tel')">Suivant</button>
                                 </form>
                             </div>
                         </div>
                         <div class="col-lg-6" *ngIf="!showSteps">
                             <div class="p-5">
                                 <form (submit)="submitFunction($event)">
-                                    <div class="row mt-5" >
+                                    <div class="row mt-5">
                                         <div class="mb-3">
-                                            <label for="permis" class="form-label">Permis de conduire: <span class="clr">*</span></label>
-                                            <input type="file" class="form-control" id="permis" name="permis" [(ngModel)]="permis" (change)="getFilePermmis($event)">
+                                            <label for="permis" class="form-label">Permis de conduire: <span
+                                                    class="clr">*</span></label>
+                                            <input type="file" class="form-control" id="permis" name="permis"
+                                                [(ngModel)]="permis" (change)="getFilePermmis($event)">
                                         </div>
-                                       
+
                                         <div class="mb-3">
-                                            <label for="licence" class="form-label">Licence de transport: <span class="clr">*</span></label>
-                                            <input type="file" class="form-control" id="licence" name="licence" [(ngModel)]="licence" (change)="getFileLicence($event)">
+                                            <label for="licence" class="form-label">Licence de transport: <span
+                                                    class="clr">*</span></label>
+                                            <input type="file" class="form-control" id="licence" name="licence"
+                                                [(ngModel)]="licence" (change)="getFileLicence($event)">
                                         </div>
 
                                         <div class="mb-5">
-                                            <label for="CAG" class="form-label">Carte à grise: <span class="clr">*</span></label>
-                                            <input type="file" class="form-control" id="CAG" name="CAG" [(ngModel)]="CAG"
-                                                (change)="getFileCAG($event)">
+                                            <label for="CAG" class="form-label">Carte à grise: <span
+                                                    class="clr">*</span></label>
+                                            <input type="file" class="form-control" id="CAG" name="CAG"
+                                                [(ngModel)]="CAG" (change)="getFileCAG($event)">
                                         </div>
                                     </div>
-                                    <button class="btn btn-theme mt-2 mb-3"
-                                        (click)="inscriptionConducteur()" [disabled]="! isFormValided() || !isFieldValid('prenom') || !isFieldValid('nom') || !isFieldValid('email') || !isFieldValid('password') || !isFieldValid('profil') || !isFieldValid('tel')">S'inscrire</button>
+                                    <button class="btn btn-theme mt-2 mb-3" (click)="inscriptionConducteur()"
+                                        [disabled]="! isFormValided() || !isFieldValid('prenom') || !isFieldValid('nom') || !isFieldValid('email') || !isFieldValid('password') || !isFieldValid('profil') || !isFieldValid('tel')">S'inscrire</button>
                                 </form>
                             </div>
                         </div>
@@ -192,14 +255,15 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5 titre" id="exampleModalLabel">Email de reinitialison  mot de passe</h1>
+                <h1 class="modal-title fs-5 titre" id="exampleModalLabel">Email de reinitialison mot de passe</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-            <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="resetEmail" [(ngModel)]="resetEmail">
-            </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                        name="resetEmail" [(ngModel)]="resetEmail">
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btnAjout" (click)="forgetPassword()">Envoyer</button>

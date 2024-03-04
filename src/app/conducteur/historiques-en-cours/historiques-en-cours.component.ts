@@ -35,9 +35,9 @@ export class HistoriquesEnCoursComponent {
     this.listeTrajet();
 
     this.dbUsers = JSON.parse(localStorage.getItem("userOnline") || "[]");
-    console.log(this.dbUsers.original);
+
     this.userConnect = this.dbUsers.original.data.utilisateur;
-    console.log(this.userConnect);
+
   }
 
 
@@ -76,12 +76,12 @@ export class HistoriquesEnCoursComponent {
     this.listerTrajet.getMesTrajets().subscribe(
       (trajet: any) => {
         this.tabTrajet = trajet;
-        console.error(this.tabTrajet);
+
         this.tabTrajetFilter = this.tabTrajet.filter((trajet: any) => trajet.Status == 'enCours');
-        console.log(this.tabTrajetFilter)
+ 
       },
       (err) => {
-        console.log(err);
+
       }
     )
   }
@@ -96,7 +96,7 @@ export class HistoriquesEnCoursComponent {
     this.time = paramTrajet.HeureDepart;
     this.prix = paramTrajet.Prix;
     this.description = paramTrajet.Description;
-    console.log(paramTrajet);
+
   }
 
   // Methode pour modifier un trajet 
@@ -120,7 +120,6 @@ export class HistoriquesEnCoursComponent {
       if (result.isConfirmed) {
         try {
           const urlUser = `${apiUrl}/UpdateTrajet/${this.currentTrajet.id}`;
-          alert(urlUser);
           const putData = {
             id: this.currentTrajet.id,
             LieuDepart: lDepart,
@@ -131,12 +130,12 @@ export class HistoriquesEnCoursComponent {
             DescriptionTrajet: desc,
           }
           await this.http.post(urlUser, putData).toPromise();
-          console.log(this.http.post(urlUser, putData).toPromise());
+
 
           this.alertMessage("success", "Bravo", "Modification effectuée avec succès");
           this.listeTrajet();
         } catch (error) {
-          console.error("Erreur lors de la mise à jour :", error);
+
           this.alertMessage("error", "Erreur", "Une erreur est survenue lors de la modification");
         }
       }
@@ -156,7 +155,7 @@ export class HistoriquesEnCoursComponent {
     }).then((result) => {
       if (result.isConfirmed) {
         this.deleteTrajet.deleteTrajet(trajetId).subscribe((resp: any) => {
-          console.log(resp)
+
           this.alertMessage("success", "Bravo", "Suppression effectuer avec succée");
           this.listeTrajet();
         });
@@ -169,7 +168,7 @@ export class HistoriquesEnCoursComponent {
   trajetSelected: any;
   detailClient(paramTrajet: any) {
     this.trajetSelected = this.tabTrajetFilter.find((item: any) => item.id == paramTrajet)
-    console.log(this.trajetSelected);
+
   }
 
   note: any;

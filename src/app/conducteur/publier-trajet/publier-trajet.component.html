@@ -151,7 +151,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btnAjout" (click)="addTrajet()" [disabled]="!exactDepart || !exactArriver || !exactDate || !exactTime || !exactPrix ">Ajouter</button>
+                <button type="button" class="btn btnAjout" data-bs-dismiss="modal" (click)="addTrajet()" [disabled]="!exactDepart || !exactArriver || !exactDate || !exactTime || !exactPrix ">Ajouter</button>
                 <button type="button" class="btn btnClose" data-bs-dismiss="modal">Fermer</button>
             </div>
         </div>

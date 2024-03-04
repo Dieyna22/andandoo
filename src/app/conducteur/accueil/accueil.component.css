@@ -139,7 +139,6 @@ span {
 
 
 /* resposivité */
-
 @media(max-width:700px) {
     .banniere img {
         height: 20rem;

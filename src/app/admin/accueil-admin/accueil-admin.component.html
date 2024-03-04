@@ -29,29 +29,31 @@
                         </div>
 
                         <!-- Le tableau des réseaux -->
-                        <table class="table table-responsive mb-4">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Nom Complet</th>
-                                    <th scope="col">Email</th>
-                                    <th scope="col">Message</th>
-                                    <th scope="col">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody *ngFor="let message of getItemsPage()">
-                                <tr>
-                                    <td>{{message.nomComplet}}</td>
-                                    <td>{{message.email}}</td>
-                                    <td>{{message.contenue}}</td>
-                                    <td>
-                                        <button class="btnAction px-2 py-1 rounded-2 me-4" title="réponse"
-                                            data-bs-toggle="modal" data-bs-target="#sendSms" (click)="chargerInfos(message)">
-                                            Réponse 
-                                        </button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="table-responsive">
+                            <table class="table mb-4">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Nom Complet</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Message</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngFor="let message of getItemsPage()">
+                                    <tr>
+                                        <td>{{message.nomComplet}}</td>
+                                        <td>{{message.email}}</td>
+                                        <td>{{message.contenue}}</td>
+                                        <td>
+                                            <button class="btnAction px-2 py-1 rounded-2 me-4" title="réponse"
+                                                data-bs-toggle="modal" data-bs-target="#sendSms" (click)="chargerInfos(message)">
+                                                Réponse 
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
 
                         <!-- Pagination  -->
                         <div *ngIf="getItemsPage().length">

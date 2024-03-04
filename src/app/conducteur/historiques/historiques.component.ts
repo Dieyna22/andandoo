@@ -35,9 +35,9 @@ export class HistoriquesComponent {
     this.listeTrajet();
 
     this.dbUsers = JSON.parse(localStorage.getItem("userOnline") || "[]");
-    console.log(this.dbUsers.original);
+
     this.userConnect = this.dbUsers.original.data.utilisateur;
-    console.log(this.userConnect);
+
   }
 
 
@@ -76,12 +76,12 @@ export class HistoriquesComponent {
     this.listerTrajet.getMesTrajets().subscribe(
       (trajet: any) => {
         this.tabTrajet = trajet;
-        console.error(this.tabTrajet);
+
         this.tabTrajetFilter = this.tabTrajet.filter((trajet: any) => trajet.Status == 'terminee');
-        console.log(this.tabTrajetFilter)
+
       },
       (err) => {
-        console.log(err);
+
       }
     )
   }
@@ -99,7 +99,7 @@ export class HistoriquesComponent {
     }).then((result) => {
       if (result.isConfirmed) {
         this.deleteTrajet.deleteTrajet(trajetId).subscribe((resp: any) => {
-          console.log(resp)
+  
           this.alertMessage("success", "Bravo", "Suppression effectuer avec succée");
           this.listeTrajet();
         });
@@ -112,7 +112,7 @@ export class HistoriquesComponent {
   trajetSelected: any;
   detailClient(paramTrajet: any) {
     this.trajetSelected = this.tabTrajetFilter.find((item: any) => item.id == paramTrajet)
-    console.log(this.trajetSelected);
+
   }
 
   // sweetAlert

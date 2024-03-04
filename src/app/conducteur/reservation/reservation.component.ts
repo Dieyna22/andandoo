@@ -55,11 +55,11 @@ export class ReservationComponent {
   listeRes() {
     this.listeReservation.getReservation().subscribe(
       (reservation: any) => {
-        console.log(reservation);
+
         this.tabReservation = reservation.filter((reservation: any) => reservation.etatReservations == 0);
       },
       (err) => {
-        console.log(err);
+
       }
     )
   }
@@ -67,11 +67,11 @@ export class ReservationComponent {
   listeResFinaliser() {
     this.listeReservation.getReservation().subscribe(
       (reservation: any) => {
-        console.log(reservation);
+   
         this.tabReservationFinaliser = reservation.filter((reservation: any) => reservation.etatReservations == 1);
       },
       (err) => {
-        console.log(err);
+
       }
     )
   }
@@ -84,13 +84,13 @@ export class ReservationComponent {
     }
     this.accepted.reservationAccepted(paramReservation).subscribe(
       (reservation) => {
-        console.log(reservation);
+
         this.alertMessage("Response...", reservation.message,1500);
         this.listeRes();
         this.listeResFinaliser();
       },
       (error) => { 
-        console.log(error);
+
       }
     )
     
@@ -109,7 +109,7 @@ export class ReservationComponent {
     }).then((result) => {
       if (result.isConfirmed) {
         this.deleteReservation.reservationAnnuler(reservationId).subscribe((resp: any) => {
-          console.log(resp.error.message)
+
           this.alertMessage( "Response...",resp.message,1500);
           this.listeRes();
         },
@@ -132,7 +132,7 @@ export class ReservationComponent {
       return this.tabReservation.slice(indexDebut, indexFin);
     } else {
       // Gérer le cas où this.tabReservation n'est pas un tableau
-      console.error("this.tabReservation n'est pas un tableau.");
+    
       return []; // ou autre traitement approprié
     }
   }
@@ -166,7 +166,7 @@ export class ReservationComponent {
       return this.tabReservationFinaliser.slice(indexDebut, indexFin);
     } else {
       // Gérer le cas où this.tabReservationFinaliser n'est pas un tableau
-      console.error("this.tabReservationFinaliser n'est pas un tableau.");
+    
       return []; // ou autre traitement approprié
     }
   }

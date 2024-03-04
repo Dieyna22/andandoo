@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { UtilisateurService } from 'src/app/services/utilisateur.service';
 import Swal from 'sweetalert2';
+import { Loading, Notify } from 'notiflix';
+
 
 @Component({
   selector: 'app-compte',
@@ -35,7 +37,7 @@ export class CompteComponent {
   currentConducteur: any;
   detailConducteur(paramConducteur: any) {
     this.currentConducteur = this.tabConducteurFilter.find((item: any) => item.id == paramConducteur)
-    console.log(this.currentConducteur);
+   
   }
 
   // Methode de recherche automatique pour professeur
@@ -49,15 +51,12 @@ export class CompteComponent {
   listerConducteur() {
     this.conducteur.getAllConducteur().subscribe((Conducteurs: any) => {
       this.tabConducteurs = Conducteurs;
-      console.log(this.tabConducteurs);
       this.tabConducteurFilter = this.tabConducteurs.filter((conducteur: any) => conducteur.etat == '0');
-      console.log(this.tabConducteurFilter);
     })
   }
 
   // Methode activer Conducteur
   activerCompte(paramConducteur: any) {
-    alert(paramConducteur.id)
     Swal.fire({
       title: "Etes-vous sur???",
       text: "voulez-vous desactiver",
@@ -68,14 +67,20 @@ export class CompteComponent {
       confirmButtonText: "Oui !"
     }).then((result) => {
       if (result.isConfirmed) {
+        Loading.pulse('Loading...', {
+          backgroundColor: 'rgba(0,0,0,0.8)',
+        });
         this.activer.activer(paramConducteur.id).subscribe(
           (response: any) => {
-            console.log(response);
-            this.alertMessage("success", "Bravo", "Conducteur activer avec succès");
+            Notify.success('Conducteur activer avec succès');
+            Loading.remove();
+            this.listerConducteur();
+            // this.alertMessage("success", "Bravo", "Conducteur activer avec succès");
           },
           (error) => {
-            console.error(error);
-            this.alertMessage("error", "Erreur", "Une erreur est survenue lors du blocage");
+            Notify.failure('Une erreur est survenue lors du blocage');
+            Loading.remove();
+            // this.alertMessage("error", "Erreur", "");
           }
         );
       }

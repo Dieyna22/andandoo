@@ -19,22 +19,18 @@ export class NavbarComponent implements OnInit  {
   ngOnInit() {
     this.lieu.getAllZones().subscribe((zones: any) => {
       this.tabZone = zones;
-      console.log(this.tabZone);
     })
 
     this.client.getAllClients().subscribe((clients: any) => {
       this.tabClients = clients;
-      console.log(this.tabClients);
     })
 
     this.conducteur.getAllConducteur().subscribe((Conducteurs: any) => {
       this.tabConducteurs = Conducteurs;
-      console.log(this.tabConducteurs);
     })
 
     this.conducteur.getAllUsers().subscribe((utilisateurs: any) => {
       this.tabUsers = utilisateurs;
-      console.log(this.tabUsers);
     })
 
   }

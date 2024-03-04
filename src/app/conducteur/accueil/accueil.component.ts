@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ZoneService } from '../../services/zone.service';
 import { UtilisateurService } from 'src/app/services/utilisateur.service';
 
+
 @Component({
   selector: 'app-accueil',
   templateUrl: './accueil.component.html',
@@ -17,13 +18,13 @@ export class AccueilComponent {
   ngOnInit() {
     this.lieu.getAllZones().subscribe((zones: any) => {
       this.tabZone = zones;
-      console.log(this.tabZone);
     })
 
     this.users.statUser().subscribe((users: any) => {
       this.tabAllUser = users;
-      console.log(this.tabAllUser);
     })
 
+   
+  
   }
 }

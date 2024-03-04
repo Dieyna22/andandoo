@@ -27,7 +27,6 @@ export class GestionUsersComponent implements OnInit  {
   ngOnInit(): void {
     this.client.getAllClients().subscribe((clients: any) => {
       this.tabClients = clients;
-      console.log(this.tabClients);
       this.tabClientFilter = this.tabClients;
     })
   }
@@ -36,7 +35,6 @@ export class GestionUsersComponent implements OnInit  {
   curentClient: any;
   detailClient(paramClient: any) {
     this.curentClient = this.tabClientFilter.find((item: any) => item.id == paramClient)
-    console.log(this.curentClient);
   }
 
   // Methode de recherche automatique pour professeur

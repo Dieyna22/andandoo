@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { TrajetService } from 'src/app/services/trajet.service';
 import Swal from 'sweetalert2';
+import { Loading, Notify } from 'notiflix';
 
 @Component({
   selector: 'app-publier-trajet',
@@ -140,6 +141,11 @@ export class PublierTrajetComponent {
 
   error: any;
   addTrajet() {
+    Loading.pulse('Loading...', {
+      backgroundColor: 'rgba(0,0,0,0.8)',
+    });
+    
+
     let addTrajet = {
       LieuDepart: this.depart,
       LieuArrivee: this.arriver,
@@ -159,14 +165,10 @@ export class PublierTrajetComponent {
     // } else {
       this.ajoutTrajet.postTrajet(addTrajet).subscribe(
         (reponse) => {
-          console.log(reponse);
           this.viderChamp();
-          this.error = reponse.errorList;         
-
-          this.alertMessage("Response...", reponse.message);
-        },
-        (error) => {
-          console.log(error);
+          this.error = reponse.errorList;    
+          Notify.success(reponse.message);
+          Loading.remove();
         }
       )
   //   }

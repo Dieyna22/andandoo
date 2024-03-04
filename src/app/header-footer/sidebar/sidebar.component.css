@@ -6,7 +6,15 @@
     top: 0;
     left: 0;
     width: 16.7%;
+}
+.containerLink {
+    height: 75%;
+    overflow: scroll;
+}
 
+/* Pour les navigateurs chrome et edge  */
+.containerLink::-webkit-scrollbar {
+    display: none;
 }
 
 .sidebar img,

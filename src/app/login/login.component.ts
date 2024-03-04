@@ -1,8 +1,9 @@
- import { Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { AuthService } from '../services/auth.service';
 import { ZoneService } from '../services/zone.service';
+import { Loading, Notify } from 'notiflix';
 
 @Component({
   selector: 'app-login',
@@ -44,13 +45,13 @@ export class LoginComponent {
   users: any;
   showSteps: boolean = true;
   choixFormulaire: boolean = true;
- 
+
 
   tabZone: any;
   Router: any;
 
 
-  constructor(private route: Router, private auth: AuthService, private lieu: ZoneService, private authUser: AuthService, private logout: AuthService, private registerclient: AuthService, private registerConducteur: AuthService, private forget: AuthService,private token:AuthService) { }
+  constructor(private route: Router, private auth: AuthService, private lieu: ZoneService, private authUser: AuthService, private logout: AuthService, private registerclient: AuthService, private registerConducteur: AuthService, private forget: AuthService, private validationService: AuthService) { }
 
   ngOnInit() {
     this.listeZone()
@@ -62,20 +63,14 @@ export class LoginComponent {
     if (!localStorage.getItem("isUsers")) {
       localStorage.setItem("isUsers", JSON.stringify(false))
     }
-    
+
     if (!localStorage.getItem("isChauffeur")) {
       localStorage.setItem("isChauffeur", JSON.stringify(false))
     }
-    
+
     if (!localStorage.getItem("userOnline")) {
       localStorage.setItem("userOnline", JSON.stringify(""))
     }
-    const userOnlineStr = localStorage.getItem('userOnline');
-    const userOnline = JSON.parse('userOnlineStr');
-    if (userOnline && userOnline.original.data.access_token !== undefined && userOnline.original.data.access_token !== null) {
-      const token = userOnline.original.data.access_token;
-    }
-
   }
 
 
@@ -107,7 +102,7 @@ export class LoginComponent {
     this.currentStep = contentId;
   }
   // sweetAlert
-  alertMessage(title: any, text: any, timer:any) {
+  alertMessage(title: any, text: any, timer: any) {
     Swal.fire({
       title: title,
       text: text,
@@ -116,22 +111,18 @@ export class LoginComponent {
   }
 
   getFile(event: any) {
-    console.warn(event.target.files[0]);
     this.profil = event.target.files[0] as File;
   }
 
   getFilePermmis(event: any) {
-    console.warn(event.target.files[0]);
     this.permis = event.target.files[0] as File;
   }
 
   getFileLicence(event: any) {
-    console.warn(event.target.files[0]);
     this.licence = event.target.files[0] as File;
   }
 
   getFileCAG(event: any) {
-    console.warn(event.target.files[0]);
     this.CAG = event.target.files[0] as File;
   }
 
@@ -157,7 +148,7 @@ export class LoginComponent {
 
   setPasswordDirty() {
     this.isPasswordDirty = true;
-    if (this.passwordLogin == '') { 
+    if (this.passwordLogin == '') {
       this.isPasswordDirty = false;
     }
   }
@@ -169,61 +160,61 @@ export class LoginComponent {
   tabError: any;
   // connexion 
   connexion() {
+    Loading.pulse('Loading...', {
+      backgroundColor: 'rgba(0,0,0,0.8)',
+    });
     let user = {
       "email": this.emailLogin,
       "password": this.passwordLogin
     };
 
     if (this.email == '' && this.passwordLogin == '') {
-      this.alertMessage("Reponse...", 'veuillez remplir tous les champs ',1500);
+      this.alertMessage("Reponse...", 'veuillez remplir tous les champs ', 1500);
     }
     else if (this.emailLogin === 'admin@gmail.com' && this.passwordLogin === 'Admin123@') {
       // Connexion en tant qu'admin
-      alert('Ok');
       this.auth.connexionAdmin(user).subscribe(
         (response) => {
-          console.log(response);
+          Notify.success('connexion reussie');
           this.auth.isAuthenticated = true;
           localStorage.setItem("isAdmin", JSON.stringify(true));
           localStorage.setItem("isUsers", JSON.stringify(false));
           localStorage.setItem("isChauffeur", JSON.stringify(false))
           localStorage.setItem('userOnline', JSON.stringify(response));
           this.route.navigate(['/admin']);
+          Loading.remove();
         },
         (err) => {
           // let message = err.error;
-          this.alertMessage("Reponse...", err,1500);
+          this.alertMessage("Reponse...", err, 1500);
         }
       );
     } else {
       // Connexion en tant qu'utilisateur normal
       this.authUser.connexionUtilisateur(user).subscribe(
         (response) => {
-
           this.auth.isAuthenticated = true;
-
-          console.log(response.errorList);
           this.tabError = response.errorList;
 
-            if (response.original.data.statusCode == 200) {
-              localStorage.setItem("isAdmin", JSON.stringify(false));
-              localStorage.setItem("isChauffeur", JSON.stringify(false));
-              localStorage.setItem("isUsers", JSON.stringify(true));
-              if (response.original.data.utilisateur.role == "chauffeur") {
-                // localStorage.setItem("isUsers", JSON.stringify(false));
-                localStorage.setItem("isChauffeur", JSON.stringify(true));
-              }
-              localStorage.setItem('userOnline', JSON.stringify(response));
-              this.alertMessage("Reponse...", "Connexion Reussi",1500);
-              this.route.navigate(['/accueilUtilisateur']);
-            } else {
-              console.log(response.original.data.statusCode);
+          if (response.data.statusCode == 200) {
+            Notify.success('connexion reussie');
+            localStorage.setItem("isAdmin", JSON.stringify(false));
+            localStorage.setItem("isChauffeur", JSON.stringify(false));
+            localStorage.setItem("isUsers", JSON.stringify(true));
+            if (response.data.utilisateur.role == "chauffeur") {
+              localStorage.setItem("isChauffeur", JSON.stringify(true));
             }
+            localStorage.setItem('userOnline', JSON.stringify(response));
+            this.route.navigate(['/accueilUtilisateur']);
+            Loading.remove();
+          } else {
+            Loading.remove();
+          }
         },
         (err) => {
           let message = err.error.error;
-          console.warn(message);
-          this.alertMessage("Reponse", message,1500);
+          Notify.failure(message);
+          Loading.remove();
         }
       );
     }
@@ -270,7 +261,8 @@ export class LoginComponent {
   }
 
   // fin validation
-
+  recup: any;
+  recupId: any;
   register() {
     this.role = 'client';
     let formData = new FormData();
@@ -286,17 +278,29 @@ export class LoginComponent {
 
     this.registerclient.inscription(formData).subscribe(
       (reponse) => {
-        console.log(reponse);
-        this.choixFormulaire = !this.choixFormulaire;
+        this.recup = reponse.user;
+        this.recupId = this.recup.id;
+        this.envoieValidation();
+        // this.choixFormulaire = !this.choixFormulaire;
         this.viderChamp();
         this.tabError = reponse.errorList;
         // this.alertMessage("Reponse...","success");
       },
       (error) => {
-        console.log(error);
+
       }
     )
 
+  }
+
+  //methode d'envoie code de validation
+  envoieValidation() {
+    this.validationService.CodeValidation(this.recupId).subscribe(
+      (response) => {
+      },
+      (error) => {
+      }
+    )
   }
 
   inscriptionConducteur() {
@@ -313,7 +317,7 @@ export class LoginComponent {
     formData.append("PermisConduire", this.permis);
     formData.append("Licence", this.licence);
     formData.append("CarteGrise", this.CAG);
-  
+
     if (
       this.nom == '' ||
       this.prenom == '' ||
@@ -324,17 +328,15 @@ export class LoginComponent {
       this.permis == '' ||
       this.licence == ''
     ) {
-      this.alertMessage('Response...', 'veuillez remplir tous les champs',1500)
+      this.alertMessage('Response...', 'veuillez remplir tous les champs', 1500)
     } else {
       this.registerConducteur.inscription(formData).subscribe(
         (reponse) => {
-          console.log(reponse);
-          this.alertMessage('Response...', reponse.message,1500)
+          this.alertMessage('Response...', reponse.message, 1500)
           this.viderChamp();
           this.choixFormulaire = !this.choixFormulaire;
         },
         (error) => {
-          console.warn(error);
           this.alertMessage('Response...', error.error.message, 1500)
         }
       )
@@ -348,26 +350,6 @@ export class LoginComponent {
     }
     this.forget.forgetPass(reset).subscribe(
       (reponse) => {
-        console.log(reponse.message);
-        this.alertMessage("response...", reponse.message,1500);
-        this.resetEmail = '';
-      },
-      (err) => {
-        this.alertMessage("response...", err.message,1500);
-      }
-    )
-  }
-
- 
-
-  //méthode pour refresh token
-  tokenRefresh() {
-    const token = {
-      "access_token": this.token
-    }
-    this.token.refreshToken(token).subscribe(
-      (reponse) => {
-        console.log(reponse.message);
         this.alertMessage("response...", reponse.message, 1500);
         this.resetEmail = '';
       },
@@ -377,11 +359,14 @@ export class LoginComponent {
     )
   }
 
+
+
+
+
   //listes des zones
   listeZone() {
     this.lieu.getAllZones().subscribe((zones: any) => {
       this.tabZone = zones;
-      console.log(this.tabZone);
     })
   }
 
@@ -397,7 +382,7 @@ export class LoginComponent {
     this.telephone = '';
     this.licence = '';
     this.permis = '';
-    this.CAG='';
+    this.CAG = '';
   }
 
   suivant() {
@@ -444,14 +429,11 @@ export class LoginComponent {
     }
   }
 
+  showPassword: boolean = false;
 
-  showHidePassword: any;
-  showPassword() {
-    this.showHidePassword = document.getElementById('passwordInput');
-    if (this.showHidePassword.type == 'text') {
-      this.showHidePassword.type = 'password';
-    } else {
-      this.showHidePassword.type = 'text';
-    }
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
   }
+
+
 }

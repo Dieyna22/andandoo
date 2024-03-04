@@ -79,13 +79,7 @@
                         <p class="card-text">Nom : {{reservation.Nom}}</p>
                         <p class="card-text">Heure : {{reservation.HeureD}}</p>
                         <p class="card-text">Date :{{reservation.DateDepart}} </p>
-                        <p class="card-text">Trajet : {{reservation.LieuDepart}}- {{reservation.LieuArrivee}}</p>
-                        <p class="card-text mt-3 mb-3">
-                            <button class="btn reserver"
-                                (click)="supprimerReservation(reservation.idreservation)">Annuler</button>
-                            <button class="btn reserver me-2"
-                                (click)="reservationAccepte(reservation.idreservation)">Accepter</button>
-                        </p>
+                        <p class="card-text">Trajet : {{reservation.LieuDepart}} - {{reservation.LieuArrivee}}</p>
                     </div>
                 </div>
             </div>

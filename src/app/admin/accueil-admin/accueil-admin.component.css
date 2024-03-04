@@ -6,16 +6,11 @@
 
 
 .containerReseau .card {
-    border: none;
     border-radius: 0;
     min-height: 50vh;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
 
-.containerReseau .cardAjout {
-    border-top-left-radius: 4vh;
-    border-bottom-right-radius: 4vh;
-}
 
 /* Recherche réseaux  */
 .ligneReseauSearch input {
@@ -54,9 +49,6 @@ thead tr th {
     color: #FA7436;
 }
 
-.require {
-    color: var(--base1);
-}
 
 /* pagination  */
 .pageActuelle {

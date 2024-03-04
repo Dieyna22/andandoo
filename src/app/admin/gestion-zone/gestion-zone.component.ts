@@ -63,21 +63,16 @@ export class GestionZoneComponent implements OnInit {
     this.zone.getAllZones().subscribe(
       (zones: any) => {
         this.tabZone = zones;
-        console.log(this.tabZone);
         this.tabZoneFilter = this.tabZone;
-        console.log(this.tabZoneFilter)
       },
       (err) => {
-        console.log(err);
       }
     )
   }
 
   error: any;
   ajouterZone() {
-    // alert('test ajout')
     this.ajoutService.postZone(this.addUser).subscribe((response: any) => {
-      console.log('Réponse du service après ajout d\'User :', response);
       this.error = response.errorList;
       this.addUser = { NomZ: '' };
       this.listeZone();
@@ -96,7 +91,6 @@ export class GestionZoneComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.deleteZone.deleteZone(zoneId).subscribe((resp: any) => {
-          console.log(resp)
           this.alertMessage("success", "Bravo", resp);
           this.listeZone();
         });
@@ -150,7 +144,6 @@ export class GestionZoneComponent implements OnInit {
       if (result.isConfirmed) {
         try {
           const urlUser = `${apiUrl}/updatezone/${this.currentZone.id}`;
-          alert(urlUser);
           const putData = {
             id: this.currentZone.id,
             NomZ: nom,
@@ -158,7 +151,6 @@ export class GestionZoneComponent implements OnInit {
           await this.http.post(urlUser, putData).toPromise();
           this.listeZone();
         } catch (error) {
-          console.error("Erreur lors de la mise à jour :", error);
           this.alertMessage("error", "Erreur", "Une erreur est survenue lors de la modification");
         }
       }

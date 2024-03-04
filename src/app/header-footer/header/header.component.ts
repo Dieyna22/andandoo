@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { apiUrl } from 'src/app/services/apiUrl';
+import { UtilisateurService } from 'src/app/services/utilisateur.service';
 import { VoitureService } from 'src/app/services/voiture.service';
 import Swal from 'sweetalert2';
 
@@ -28,7 +29,7 @@ export class HeaderComponent {
 
   inputCar: any;
   inputPlace: string = '';
-  inputDes: string='';
+  inputDes: string = '';
 
 
   // sweetAlert
@@ -41,41 +42,33 @@ export class HeaderComponent {
   }
 
   getFile(event: any) {
-    console.warn(event.target.files[0]);
     this.imageVoiture = event.target.files[0] as File;
   }
 
   getFileUpdate(event: any) {
-    console.warn(event.target.files[0]);
     this.inputCar = event.target.files[0] as File;
   }
 
   // Déclaration des méthodes 
-  constructor( private route:Router, private http: HttpClient, private ajoutVoiture:VoitureService, private listeVoiture:VoitureService ,private deleteVoiture:VoitureService) { }
+  constructor(private route: Router, private http: HttpClient, private ajoutVoiture: VoitureService, private listeVoiture: VoitureService, private deleteVoiture: VoitureService, private profilService: UtilisateurService) { }
 
   ngOnInit() {
     // Renvoie un tableau de valeurs ou un tableau vide 
     this.dbUsers = JSON.parse(localStorage.getItem("userOnline") || "[]");
-    this.role = this.dbUsers.original.data.utilisateur.role;
-    console.log(this.role);
+    this.role = this.dbUsers.data.utilisateur.role;
 
-
-    if (this.dbUsers.original.data.utilisateur.role == "chauffeur") {
+    if (this.role == "chauffeur") {
       this.isChauffeur = true;
       this.isClient = false;
-    } else if (this.dbUsers.original.data.utilisateur.role == "client") { 
+    } else if (this.dbUsers.data.utilisateur.role == "client") {
       this.isChauffeur = false;
       this.isClient = true;
     }
 
-    console.log(this.dbUsers.original);
-    this.userConnect = this.dbUsers.original.data.utilisateur;
-    console.log(this.userConnect);
+    this.tabNotifications = this.dbUsers.data.notification
 
-    this.tabNotifications = this.dbUsers.original.data.notification
-    console.warn(this.tabNotifications);
-
-    this.listerVoiture()
+    this.listerVoiture();
+    this.infos();
   }
 
   isValidFileType(fileInput: any): boolean {
@@ -91,7 +84,7 @@ export class HeaderComponent {
     return this.imageVoiture && this.isValidFileType(this.imageVoiture) &&
       this.nbrPlaces !== null && this.isPositiveNumber(this.nbrPlaces) &&
       // Ajoutez d'autres validations au besoin
-      true; 
+      true;
   }
 
   error: any;
@@ -108,33 +101,27 @@ export class HeaderComponent {
     // ) {
     //   this.alertMessage("error", "Ooops...", "veuillez remplir tous les champs");
     // } else {
-      this.ajoutVoiture.postVoitures(formData).subscribe(
-        (reponse) => {
-          console.log(reponse);
-          this.error = reponse.errorList;
-          this.imageVoiture = '';
-          this.nbrPlaces ='';
-          this.description = '';
-          this.alertMessage("succes", "Ooops...", reponse.message);
-        },
-        (error) => { 
-         let  message =error.error.message;
-          console.warn(error);
-
-        }
-      )
+    this.ajoutVoiture.postVoitures(formData).subscribe(
+      (reponse) => {
+        this.error = reponse.errorList;
+        this.imageVoiture = '';
+        this.nbrPlaces = '';
+        this.description = '';
+        this.alertMessage("succes", "Ooops...", reponse.message);
+      },
+      (error) => {
+        let message = error.error.message;
+      }
+    )
     // }
   }
 
   listerVoiture() {
     this.listeVoiture.getAllVoitures().subscribe((car: any) => {
       this.voitureUser = car;
-      console.log(this.voitureUser.data.ImageVoitures);
       this.userConnectCar = this.voitureUser.data;
-      console.log(this.userConnectCar.ImageVoitures);
     },
       (err) => {
-        console.log(err);
       }
     )
   }
@@ -144,7 +131,7 @@ export class HeaderComponent {
   chargerInfosVoiture(paramCar: any) {
     this.currentCar = paramCar = this.userConnectCar;
     this.inputCar = paramCar.ImageVoitures;
-    this.inputPlace = paramCar.NbrPlaces; 
+    this.inputPlace = paramCar.NbrPlaces;
     this.inputDes = paramCar.Descriptions;
   }
 
@@ -158,7 +145,7 @@ export class HeaderComponent {
     return !isNaN(numericValue) && numericValue > 0;
   }
   isFormValid(): boolean {
-    return this.isPositiveNumber(this.inputPlace)   
+    return this.isPositiveNumber(this.inputPlace)
   }
 
 
@@ -188,10 +175,7 @@ export class HeaderComponent {
           formData.append("NbrPlaces", places);
           formData.append("Descriptions", desc);
           formData.append("type", this.typeCar);
-          console.log(await this.http.post(urlUser, formData).toPromise());
         } catch (error) {
-          console.log('erreurrrrrrrrrrrrrrrrr'),
-          console.error("Erreur lors de la mise à jour :", error);
           this.alertMessage("error", "Erreur", "Une erreur est survenue lors de la modification");
         }
       }
@@ -210,7 +194,6 @@ export class HeaderComponent {
     }).then((result) => {
       if (result.isConfirmed) {
         this.deleteVoiture.deleteVoitures().subscribe((resp: any) => {
-          console.log(resp)
           this.alertMessage("success", "Bravo", resp);
         },
           (err) => {
@@ -220,6 +203,15 @@ export class HeaderComponent {
       }
     });
 
+  }
+
+  //liste les informations de l'utilisateur qui se c'est connecter
+  infos() {
+    this.profilService.profilUser().subscribe(
+      (reponse) => {
+        this.userConnect = reponse;
+      }
+    )
   }
 
 

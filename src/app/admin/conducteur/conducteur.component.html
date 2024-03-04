@@ -29,34 +29,36 @@
                         </div>
 
                         <!-- Le tableau des réseaux -->
-                        <table class="table table-responsive mb-4">
-                            <thead>
+                        <div class="table-responsive">
+                            <table class="table  mb-4">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Profil </th>
+                                        <th scope="col">Nom </th>
+                                        <th scope="col">Prénom </th>
+                                        <th scope="col">Adresse Email </th>
+                                        <th scope="col">Téléphone </th>
+                                        <th scope="col">Action </th>
+                                    </tr>
+                                </thead>
+                                 <tbody *ngFor="let conducteur of getItemsPage()">
                                 <tr>
-                                    <th scope="col">Profil </th>
-                                    <th scope="col">Nom </th>
-                                    <th scope="col">Prénom </th>
-                                    <th scope="col">Adresse Email </th>
-                                    <th scope="col">Téléphone </th>
-                                    <th scope="col">Action </th>
+                                    <td>
+                                        <img src="http://127.0.0.1:8000/images/profils/{{conducteur.Image}}"
+                                            class="rounded-circle mb-2" alt="profil" style="width: 40px; height: 40px;">
+                                    </td>
+                                    <td>{{conducteur.Nom}}</td>
+                                    <td>{{conducteur.Prenom}}</td>
+                                    <td>{{conducteur.Email}}</td>
+                                    <td>{{conducteur.Telephone}}</td>
+                                    <td>
+                                        <button class="btn btnAction" data-bs-toggle="modal" data-bs-target="#detailUser" titre="détail" (click)="detailConducteur(conducteur.id)" *ngIf="conducteur.BlockerTemporairement==0">Détails</button>
+                                        <button class="btn btnAction" *ngIf="conducteur.BlockerTemporairement==1" (click)="activer(conducteur)">Débloquer</button>
+                                    </td>
                                 </tr>
-                            </thead>
-                             <tbody *ngFor="let conducteur of getItemsPage()">
-                            <tr>
-                                <td>
-                                    <img src="http://127.0.0.1:8000/images/profils/{{conducteur.Image}}"
-                                        class="rounded-circle mb-2" alt="profil" style="width: 40px; height: 40px;">
-                                </td>
-                                <td>{{conducteur.Nom}}</td>
-                                <td>{{conducteur.Prenom}}</td>
-                                <td>{{conducteur.Email}}</td>
-                                <td>{{conducteur.Telephone}}</td>
-                                <td>
-                                    <button class="btn btnAction" data-bs-toggle="modal" data-bs-target="#detailUser" titre="détail" (click)="detailConducteur(conducteur.id)" *ngIf="conducteur.BlockerTemporairement==0">Détails</button>
-                                    <button class="btn btnAction" *ngIf="conducteur.BlockerTemporairement==1" (click)="activer(conducteur)">Débloquer</button>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
 
                         <!-- Pagination  -->
                         <div *ngIf="getItemsPage().length">

@@ -21,8 +21,8 @@ export class AuthInterceptor implements HttpInterceptor {
     // Assurez-vous que userOnlineStr n'est pas nul et n'est pas une chaîne vide
     if (userOnlineStr && userOnlineStr.trim() !== '') {
       const userOnline = JSON.parse(userOnlineStr);
-      if (userOnline && userOnline.original.data.access_token !== undefined && userOnline.original.data.access_token !== null) {
-        const token = userOnline.original.data.access_token;
+      if (userOnline && userOnline.data.access_token !== undefined && userOnline.data.access_token !== null) {
+        const token = userOnline.data.access_token;
 
         // Utilisez une condition appropriée pour vérifier si le token est défini
         if (token === undefined || token === null) {

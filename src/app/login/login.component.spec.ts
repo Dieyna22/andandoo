@@ -3,7 +3,6 @@ import { LoginComponent } from './login.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { of } from 'rxjs';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
 
 
 describe('LoginComponent', () => {

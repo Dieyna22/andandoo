@@ -35,8 +35,7 @@ export class ConducteurComponent {
   // detail du formateur cliqué
   currentConducteur: any;
   detailConducteur(paramConducteur: any) {
-    this.currentConducteur = this.tabConducteurFilter.find((item: any) => item.id == paramConducteur)
-    console.log(this.currentConducteur);
+    this.currentConducteur = this.tabConducteurFilter.find((item: any) => item.id == paramConducteur);
   }
 
   // Methode desactiver Conducteur
@@ -53,12 +52,10 @@ export class ConducteurComponent {
       if (result.isConfirmed) {
         this.temporaire.temporaireblock(paramConducteur.id).subscribe(
           (response: any) => {
-            console.log(response);
             this.alertMessage("success", "Bravo", "Conducteur bloquer avec succès");
             this.listerConducteur();
           },
           (error) => {
-            console.error("Erreur lors de la mise à jour :", error);
             this.alertMessage("error", "Erreur", "Une erreur est survenue lors du blocage");
           }
         );
@@ -80,12 +77,10 @@ export class ConducteurComponent {
       if (result.isConfirmed) {
         this.definitive.definiveblock(paramConducteur.id).subscribe(
           (response: any) => {
-            console.log(response);
             this.alertMessage("success", "Bravo", "Conducteur bloquer avec succès");
             this.listerConducteur();
           },
           (error) => {
-            console.error("Erreur lors de la mise à jour :", error);
             this.alertMessage("error", "Erreur", "Une erreur est survenue lors du blocage");
           }
         );
@@ -107,11 +102,9 @@ export class ConducteurComponent {
       if (result.isConfirmed) {
         this.debloquer.debloquer(paramConducteur.id).subscribe(
           (response: any) => {
-            console.log(response);
             this.alertMessage("success", "Bravo", "Conducteur activer avec succès");
           },
           (error) => {
-            console.error(error);
             this.alertMessage("error", "Erreur", "Une erreur est survenue lors du blocage");
           }
         );
@@ -130,9 +123,7 @@ export class ConducteurComponent {
   listerConducteur() {
     this.conducteur.getAllConducteur().subscribe((Conducteurs: any) => {
       this.tabConducteurs = Conducteurs;
-      console.log(this.tabConducteurs);
       this.tabConducteurFilter = this.tabConducteurs.filter((conducteur: any) => conducteur.etat == '1');
-      console.log(this.tabConducteurFilter);
     })
   }
 
@@ -150,17 +141,13 @@ export class ConducteurComponent {
       email: this.mail,
       contenue: this.message,
     };
-    alert(sendSMS.email);
-    alert(sendSMS.contenue);
     this.send.sendMessage(sendSMS).subscribe(
       (response) => {
-        console.warn(response);
         this.alertMessage("success", "Bravo", response.message);
         this.mail = '';
         this.message = '';
       },
       (err) => {
-        console.log(err);
       }
     )
   }

@@ -51,7 +51,12 @@ export class UtilisateurService {
   }
 
   //modification du profil des utilisateurs
-  updateUser(userId: any): Observable<any> {
-    return this.http.post<any>(`${apiUrl}/Update/Profile/${userId}`, userId);
+  updateUser(userId: any, user:any): Observable<any> {
+    return this.http.post<any>(`${apiUrl}/Update/Profile/${userId}`, user);
+  }
+
+  //les informations de l'utilisateur qui est connecter
+  profilUser(): Observable<any> {
+    return this.http.post<any>(`${apiUrl}/utilisateur`,"");
   }
 }

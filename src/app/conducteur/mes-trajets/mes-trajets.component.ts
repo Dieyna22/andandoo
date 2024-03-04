@@ -4,6 +4,7 @@ import { apiUrl } from 'src/app/services/apiUrl';
 import { AvisService } from 'src/app/services/avis.service';
 import { TrajetService } from 'src/app/services/trajet.service';
 import Swal from 'sweetalert2';
+import { Loading, Notify } from 'notiflix';
 
 @Component({
   selector: 'app-mes-trajets',
@@ -52,9 +53,9 @@ export class MesTrajetsComponent {
 
 
     this.dbUsers = JSON.parse(localStorage.getItem("userOnline") || "[]");
-    console.error(this.dbUsers.original);
+
     this.userConnect = this.dbUsers.original.data.utilisateur;
-    console.error(this.userConnect.id);
+ 
   }
 
 
@@ -93,13 +94,7 @@ export class MesTrajetsComponent {
     this.listerTrajet.getMesTrajets().subscribe(
       (trajet: any) => {
         this.tabTrajet = trajet;
-        console.log(trajet);
-        console.log(this.tabTrajet);
         this.tabTrajetFilter = this.tabTrajet;
-        console.log(this.tabTrajetFilter)
-      },
-      (err) => {
-        console.log(err);
       }
     )
   }
@@ -216,7 +211,6 @@ export class MesTrajetsComponent {
     this.time = paramTrajet.HeureDepart;
     this.prix = paramTrajet.Prix;
     this.description = paramTrajet.Description;
-    console.log(paramTrajet);
   }
 
   // Methode pour modifier un trajet 
@@ -239,8 +233,10 @@ export class MesTrajetsComponent {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
+          Loading.pulse('Loading...', {
+            backgroundColor: 'rgba(0,0,0,0.8)',
+          });
           const urlUser = `${apiUrl}/UpdateTrajet/${this.currentTrajet.id}`;
-          alert(urlUser);
           const putData = {
             id: this.currentTrajet.id,
             LieuDepart: lDepart,
@@ -251,13 +247,14 @@ export class MesTrajetsComponent {
             DescriptionTrajet: desc,
           }
           await this.http.post(urlUser, putData).toPromise();
-          console.log(this.http.post(urlUser, putData).toPromise());
-
-          this.alertMessage("success", "Bravo", "Modification effectuée avec succès");
+          Notify.success('Modification effectuée avec succès');
+          Loading.remove();
+          // this.alertMessage("success", "Bravo", "Modification effectuée avec succès");
           this.listeTrajet();
         } catch (error) {
-          console.error("Erreur lors de la mise à jour :", error);
-          this.alertMessage("error", "Erreur", "Une erreur est survenue lors de la modification");
+          Notify.failure("Une erreur est survenue lors de la modification");
+          Loading.remove();
+          // this.alertMessage("error", "Erreur", "Une erreur est survenue lors de la modification");
         }
       }
     });
@@ -275,10 +272,14 @@ export class MesTrajetsComponent {
       confirmButtonText: "OUI !!"
     }).then((result) => {
       if (result.isConfirmed) {
+        Loading.pulse('Loading...', {
+          backgroundColor: 'rgba(0,0,0,0.8)',
+        });
         this.deleteTrajet.deleteTrajet(trajetId).subscribe((resp: any) => {
-          console.log(resp)
-          this.alertMessage("success", "Bravo", "Suppression effectuer avec succée");
+          Notify.success('Suppression effectuer avec succée');
+          // this.alertMessage("success", "Bravo", "Suppression effectuer avec succée");
           this.listeTrajet();
+          Loading.remove();
         });
       }
     });
@@ -289,7 +290,7 @@ export class MesTrajetsComponent {
   trajetSelected: any;
   detailClient(paramTrajet: any) {
     this.trajetSelected = this.tabTrajetFilter.find((item: any) => item.id == paramTrajet)
-    console.log(this.trajetSelected);
+
   }
 
   note : any;
