@@ -178,7 +178,7 @@
         <div *ngFor="let chauffeur of tabAvis">
             <div class="cardTemoinage" *ngIf="chauffeur.Avis && chauffeur.Avis.length > 0">
                 <div class="profilTemoinage">
-                    <img src="http://127.0.0.1:8000/images/profils/{{chauffeur.PhotoProfile}}" class="mb-1">
+                    <img src="http://127.0.0.1:8000/images/profils/{{chauffeur.PhotoProfile}}" class="mb-1" style="width: 60px; height: 60px;">
                     <span>{{ chauffeur.PrenomChauffeur }} {{ chauffeur.NomChauffeur }}</span>
                     <div class="moyenne-notation">
                         <span *ngFor="let star of generateStarArray(calculateAverageRating(chauffeur.Avis))"
